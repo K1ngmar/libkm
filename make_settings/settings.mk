@@ -3,13 +3,17 @@ SETTINGS_MK = 1
 
 NAME	= libkm
 
-CFLAGS	= -Wall -Wextra -Werror -pedantic -std=c98
+CFLAGS	= -Wall -Wextra -Werror -pedantic
 IFLAGS	= -I$(IDIR)
 LFLAGS	= 
 
 SDIR	= src
 ODIR	= obj
 IDIR	= includes
+
+TEST	= tests
+TESTS	= $(wildcard $(TEST)/*.c)
+TESTBIN = $(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(TESTS))
 
 ifdef DEBUG
 	CFLAGS += -D DEBUG

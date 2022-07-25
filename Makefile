@@ -17,17 +17,26 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.cpp
 	@echo "$(COLOR_LBLUE)Compiling...	$(COLOR_BLUE)$<$(COLOR_RESET)"
 	@$(CC) -c -o $@ $< $(CFLAGS) $(IFLAGS)
 
+# testing
+
+$(TEST)/bin/%: $(TEST)/%.c
+	$(CC) $(CFLAGS) $< $(OBJ) -o $@ -lcriterion
+
+test: $(TEST)/bin $(TESTBIN)
+	for test in $(TESTBIN) ; do ./$$test ; done
+
 # Clean up
 .PHONY: clean fclean re
 
 clean:
 	@printf "$(COLOR_RED)"
-	$(RM) -rf $(ODIR)
+	$(RM) -r $(ODIR)
 	@printf "$(COLOR_RESET)"
 
 fclean: clean
 	@printf "$(COLOR_RED)"
 	$(RM) $(NAME)
+	$(RM) $(TEST)/bin/*
 	@printf "$(COLOR_RESET)"
 
 re: fclean
