@@ -20,10 +20,10 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.cpp
 # testing
 
 $(TEST)/bin/%: $(TEST)/%.c
-	$(CC) $(CFLAGS) $< $(OBJ) -o $@ -lcriterion
+	$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
 test: $(TEST)/bin $(TESTBIN)
-	for test in $(TESTBIN) ; do ./$$test ; done
+	@for test in $(TESTBIN) ; do ./$$test ; done
 
 # Clean up
 .PHONY: clean fclean re
