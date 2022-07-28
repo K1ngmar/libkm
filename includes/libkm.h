@@ -14,6 +14,8 @@
 #ifndef LIBKM_H
 # define LIBKM_H
 
+# include <ctype.h>
+
 //////////
 // libc //
 //////////
@@ -28,6 +30,26 @@
 	int	km_isascii(int c);
 	int	km_isprint(int c);
 
+	/*
+	** string.c
+	*/
 
+	size_t	km_strlen(const char* str);
+	size_t	km_strlcpy(char* restrict dst, const char* restrict src, size_t dstsize);
+	size_t	km_strlcat(char* restrict dst, const char* restrict src, size_t dstsize);
+
+	/*
+	** mem.c
+	*/
+	void*	km_memcpy(void *restrict dst, const void *restrict src, size_t n);
+
+/////////
+// sys //
+/////////
+
+	/*
+	** cache_line_size.c
+	*/
+	size_t	get_cache_line_size(void);
 
 #endif
