@@ -47,6 +47,7 @@
 
 			/*
 			** This statement will result in 0 if no null byte is found
+			** Note: this will missfire if a byte has a value > 128
 			*/
 			if (((longword - LO_MAGIC) & HI_MAGIC) != 0)
 			{
@@ -112,5 +113,5 @@
 */
 size_t km_strnlen(const char* str, size_t max_size) {
 	size_t i = km_strlen(str);
-	return (i > max_size) ? i : max_size;
+	return (i < max_size) ? i : max_size;
 }
