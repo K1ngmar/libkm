@@ -31,10 +31,14 @@
 	int	km_isprint(int c);
 
 	/*
+	** strlen.c
+	*/
+	size_t	km_strlen(const char* str);
+	size_t	km_strnlen(const char* str, size_t max_size);
+
+	/*
 	** string.c
 	*/
-
-	size_t	km_strlen(const char* str);
 	size_t	km_strlcpy(char* restrict dst, const char* restrict src, size_t dstsize);
 	size_t	km_strlcat(char* restrict dst, const char* restrict src, size_t dstsize);
 

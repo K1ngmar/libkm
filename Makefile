@@ -22,7 +22,7 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.cpp
 $(TEST)/bin/%: $(TEST)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
-test: $(TEST)/bin $(TESTBIN)
+test: fclean $(TEST)/bin $(TESTBIN)
 	@for test in $(TESTBIN) ; do ./$$test ; done
 
 # Clean up
@@ -36,7 +36,7 @@ clean:
 fclean: clean
 	@printf "$(COLOR_RED)"
 	$(RM) $(NAME)
-	$(RM) $(TEST)/bin/*
+	$(RM) -r $(TEST)/bin/*
 	@printf "$(COLOR_RESET)"
 
 re: fclean
@@ -46,10 +46,10 @@ re: fclean
 .PHONY: debug fsanitize
 
 debug:
-	@$(MAKE) re DEBUG=1
+	@$(MAKE) test DEBUG=1
 
 leaks:
-	@$(MAKE) re LEAKS=1
+	@$(MAKE) test LEAKS=1
 
 fsanitize:
-	@$(MAKE) re FSANITIZE=1
+	@$(MAKE) test FSANITIZE=1

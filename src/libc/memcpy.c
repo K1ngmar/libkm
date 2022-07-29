@@ -11,9 +11,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <inttypes.h>
 #include <ctype.h>
-#include <stdio.h>
 
 /*
 ** Generally it is 64 bytes

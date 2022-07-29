@@ -3,9 +3,10 @@ SETTINGS_MK = 1
 
 NAME	= libkm
 
+CC		= clang
+
 CFLAGS	= -Wall -Wextra -Werror -pedantic
 IFLAGS	= -I$(IDIR)
-LFLAGS	= 
 
 SDIR	= src
 ODIR	= obj
@@ -16,7 +17,7 @@ TESTS	= $(wildcard $(TEST)/*.c)
 TESTBIN = $(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(TESTS))
 
 ifdef DEBUG
-	CFLAGS += -D DEBUG
+	CFLAGS += -g -D DEBUG
 endif
 
 ifdef LEAKS
@@ -25,7 +26,7 @@ endif
 
 ifdef FSANITIZE
 	CFLAGS += -D FSANITIZE
-	LFLAGS = -fsanitize=address
+	CFLAGS += -g -fsanitize=address
 endif
 
 include ./make_settings/src.mk
