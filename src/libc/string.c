@@ -50,3 +50,11 @@ size_t	km_strlcat(char* restrict dst, const char* restrict src, size_t dstsize)
 	}
 	return (dst_len + src_len);
 }
+
+int	km_toupper(int c) {
+	return (c - (32 * (c >= 'a' && c <= 'z')));
+}
+
+int	km_tolower(int c) {
+	return (c + (32 * (c >= 'A' && c <= 'Z')));
+}

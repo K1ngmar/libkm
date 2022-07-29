@@ -97,3 +97,13 @@ Test(string_test, test_strlcat_behaviour)
 	cr_expect(strcmp(km_str, og_str) == 0, "comparison");
 	cr_expect(km_ret == og_ret, "return value");
 }
+
+Test(string_test, test_toupper) {
+	for (char c = 1; c < 127; c++)
+		cr_expect(km_toupper(c) == toupper(c));
+}
+
+Test(string_test, test_tolower) {
+	for (char c = 1; c < 127; c++)
+		cr_expect(km_tolower(c) == tolower(c));
+}
