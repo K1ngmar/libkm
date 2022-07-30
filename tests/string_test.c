@@ -125,3 +125,19 @@ Test(string_test, test_strrchr) {
 	for (size_t i = 0; i < 128; i++)
 		cr_expect(km_strrchr(km_str, i) == strrchr(km_str, i));
 }
+
+Test(string_test, test_strcmp) {
+	char s1[] = "testniffau";
+	char s2[] = "testniffau";
+	
+	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+
+	s2[5] = 'z';
+	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+
+	s1[3] = 'a';
+	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+
+	s1[0] = 'd';
+	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+}

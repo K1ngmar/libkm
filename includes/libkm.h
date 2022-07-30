@@ -45,6 +45,7 @@
 	int		km_tolower(int c);
 	char*	km_strchr(const char* haystack, int needle);
 	char*	km_strrchr(const char* haystack, int needle);
+	int		km_strcmp(const char *s1, const char *s2);
 
 	/*
 	** memcpy.c

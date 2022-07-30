@@ -65,25 +65,41 @@ char*	km_strchr(const char* s, int needle)
 
 	while (s) {
 		if (*s == c)
-			return ((char *)s);
+			break ;
 		if (*s == '\0')
 			return (NULL);
 		++s;
 	}
-	/* cannot be reached */
 	return (char*)s;
 }
 
 char*	km_strrchr(const char* s, int needle)
 {
-	char c = needle;
+	char*	last = NULL;
+	char	c	 = needle;
 
-	for (char* last = NULL;; ++s) {
+	while (s) {
 		if (*s == c)
 			last = (char*)s;
 		if (*s == '\0')
-			return (last);
+			break ;
+		++s;
 	}
-	/* cannot be reached */
-	return (NULL);
+	return (last);
 }
+
+int	km_strcmp(const char *s1, const char *s2)
+{
+	while (*s1) {
+		if (*s1 != *s2)
+			break ;
+		s1++;
+		s2++;
+	}
+	return *(const unsigned char*)s1 - *(const unsigned char*)s2;
+}
+
+// int	strncmp(const char *s1, const char *s2, size_t n)
+// {
+
+// }
