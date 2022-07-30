@@ -47,6 +47,7 @@
 	char*	km_strrchr(const char* haystack, int needle);
 	int		km_strcmp(const char *s1, const char *s2);
 	int		km_strncmp(const char *s1, const char *s2, size_t n);
+	int		km_atoi(const char *str);
 
 	/*
 	** memcpy.c
