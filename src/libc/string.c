@@ -59,9 +59,9 @@ int	km_tolower(int c) {
 	return (c + (32 * (c >= 'A' && c <= 'Z')));
 }
 
-char*	km_strchr(const char *s, int ci)
+char*	km_strchr(const char* s, int needle)
 {
-	char c = ci;
+	char c = needle;
 
 	while (s) {
 		if (*s == c)
@@ -70,6 +70,20 @@ char*	km_strchr(const char *s, int ci)
 			return (NULL);
 		++s;
 	}
-	/* should not be reached */
+	/* cannot be reached */
 	return (char*)s;
+}
+
+char*	km_strrchr(const char* s, int needle)
+{
+	char c = needle;
+
+	for (char* last = NULL;; ++s) {
+		if (*s == c)
+			last = (char*)s;
+		if (*s == '\0')
+			return (last);
+	}
+	/* cannot be reached */
+	return (NULL);
 }

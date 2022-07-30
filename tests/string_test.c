@@ -116,3 +116,12 @@ Test(string_test, test_strchr) {
 	for (size_t i = 0; i < 128; i++)
 		cr_expect(km_strchr(km_str, i) == strchr(km_str, i));
 }
+
+Test(string_test, test_strrchr) {
+	for (size_t i = 0; i < 69; i++)
+		km_str[i] = 'a' + i % 26;
+	km_str[69] = '\0';
+
+	for (size_t i = 0; i < 128; i++)
+		cr_expect(km_strrchr(km_str, i) == strrchr(km_str, i));
+}

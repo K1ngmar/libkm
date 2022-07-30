@@ -43,7 +43,8 @@
 	size_t	km_strlcat(char* restrict dst, const char* restrict src, size_t dstsize);
 	int		km_toupper(int c);
 	int		km_tolower(int c);
-	char*	km_strchr(const char *s, int ci);
+	char*	km_strchr(const char* haystack, int needle);
+	char*	km_strrchr(const char* haystack, int needle);
 
 	/*
 	** memcpy.c
