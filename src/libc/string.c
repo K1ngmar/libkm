@@ -58,3 +58,18 @@ int	km_toupper(int c) {
 int	km_tolower(int c) {
 	return (c + (32 * (c >= 'A' && c <= 'Z')));
 }
+
+char*	km_strchr(const char *s, int ci)
+{
+	char c = ci;
+
+	while (s) {
+		if (*s == c)
+			return ((char *)s);
+		if (*s == '\0')
+			return (NULL);
+		++s;
+	}
+	/* should not be reached */
+	return (char*)s;
+}

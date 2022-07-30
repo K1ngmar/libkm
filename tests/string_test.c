@@ -107,3 +107,12 @@ Test(string_test, test_tolower) {
 	for (char c = 1; c < 127; c++)
 		cr_expect(km_tolower(c) == tolower(c));
 }
+
+Test(string_test, test_strchr) {
+	for (size_t i = 0; i < 69; i++)
+		km_str[i] = 'a' + i % 26;
+	km_str[69] = '\0';
+
+	for (size_t i = 0; i < 128; i++)
+		cr_expect(km_strchr(km_str, i) == strchr(km_str, i));
+}
