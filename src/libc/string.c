@@ -113,3 +113,22 @@ int	km_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return *(const unsigned char*)s1 - *(const unsigned char*)s2;
 }
+
+#include <stdio.h>
+
+char*	km_strstr(const char *haystack, const char *needle)
+{
+	if (needle == NULL || *needle == '\0')
+		return ((char*)haystack);
+	
+	size_t j;
+	for (size_t i = 0; haystack[i] != '\0'; i++) {
+		j = 0;
+		while (haystack[i + j] == needle[j]) {
+			if (needle[j + 1] == '\0')
+				return ((char*)haystack + i);
+			j++;
+		}
+	}
+	return (NULL);
+}

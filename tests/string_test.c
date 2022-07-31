@@ -162,3 +162,12 @@ Test(string_test, test_strncmp) {
 	s1[0] = 'd';
 	cr_expect(km_strncmp(s1, s2, 12) == strncmp(s1, s2, 12));
 }
+
+Test(string_test, test_strstr) {
+	char haystack[] = "This is a very cool haystack inninnit";
+
+	cr_expect(km_strstr(haystack, "is") == strstr(haystack, "is"));
+	cr_expect(km_strstr(haystack, "This") == strstr(haystack, "This"));
+	cr_expect(km_strstr(haystack, "innit") == strstr(haystack, "innit"));
+	cr_expect(km_strstr(haystack, "not in there") == strstr(haystack, "not in there"));
+}
