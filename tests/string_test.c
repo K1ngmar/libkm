@@ -171,3 +171,14 @@ Test(string_test, test_strstr) {
 	cr_expect(km_strstr(haystack, "innit") == strstr(haystack, "innit"));
 	cr_expect(km_strstr(haystack, "not in there") == strstr(haystack, "not in there"));
 }
+
+Test(string_test, test_strnstr) {
+	char haystack[] = "This is a very cool haystack inninnit";
+
+	cr_expect(km_strnstr(haystack, "is", 3) == strnstr(haystack, "is", 3));
+	cr_expect(km_strnstr(haystack, "This", 4) == strnstr(haystack, "This", 4));
+	cr_expect(km_strnstr(haystack, "innit", 40) == strnstr(haystack, "innit", 40));
+	cr_expect(km_strnstr(haystack, "not in there", 200) == strnstr(haystack, "not in there", 200));
+	cr_expect(km_strnstr(haystack, "it", 0) == strnstr(haystack, "it", 0));
+	cr_expect(km_strnstr(haystack, "T", 1) == strnstr(haystack, "T", 1));
+}

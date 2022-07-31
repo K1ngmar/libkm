@@ -48,6 +48,7 @@
 	int		km_strcmp(const char *s1, const char *s2);
 	int		km_strncmp(const char *s1, const char *s2, size_t n);
 	char*	km_strstr(const char *haystack, const char *needle);
+	char*	km_strnstr(const char *haystack, const char *needle, size_t len);
 
 	/*
 	** ascii_to_integral.c
