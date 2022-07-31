@@ -64,10 +64,10 @@ char*	km_strchr(const char* s, int needle)
 	char c = needle;
 
 	while (s) {
-		if (*s == c)
-			break ;
 		if (*s == '\0')
 			return (NULL);
+		if (*s == c)
+			break ;
 		++s;
 	}
 	return (char*)s;
@@ -79,10 +79,10 @@ char*	km_strrchr(const char* s, int needle)
 	char	c	 = needle;
 
 	while (s) {
-		if (*s == c)
-			last = (char*)s;
 		if (*s == '\0')
 			break ;
+		if (*s == c)
+			last = (char*)s;
 		++s;
 	}
 	return (last);
@@ -165,3 +165,31 @@ char*	km_strcasestr(const char *haystack, const char *needle)
 	return (NULL);
 }
 
+char*	km_strtok(char* restrict str, const char* restrict sep)
+{
+	static char* cur = NULL;
+	
+	if (str != NULL)
+		cur = str;
+	if (cur == NULL)
+		return (NULL);
+
+	// skip leading delimiter
+	while (km_strchr(sep, *cur) != NULL)
+		cur++;
+
+	char* ret = cur;
+	// create token
+	while (*cur != '\0') {
+		if (km_strchr(sep, *cur) != NULL) {
+			*cur = '\0';
+			++cur;
+			return (ret);
+		}
+		++cur;
+	}
+	if (*ret == '\0')
+		ret = NULL;
+	cur = NULL;
+	return (ret);
+}

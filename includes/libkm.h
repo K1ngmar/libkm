@@ -50,6 +50,7 @@
 	char*	km_strstr(const char *haystack, const char *needle);
 	char*	km_strnstr(const char *haystack, const char *needle, size_t len);
 	char*	km_strcasestr(const char *haystack, const char *needle);
+	char*	km_strtok(char* restrict str, const char* restrict sep);
 
 	/*
 	** ascii_to_integral.c

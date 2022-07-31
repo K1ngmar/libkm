@@ -113,7 +113,7 @@ Test(string_test, test_strchr) {
 		km_str[i] = 'a' + i % 26;
 	km_str[69] = '\0';
 
-	for (size_t i = 0; i < 128; i++)
+	for (size_t i = 1; i < 128; i++)
 		cr_expect(km_strchr(km_str, i) == strchr(km_str, i));
 }
 
@@ -122,7 +122,7 @@ Test(string_test, test_strrchr) {
 		km_str[i] = 'a' + i % 26;
 	km_str[69] = '\0';
 
-	for (size_t i = 0; i < 128; i++)
+	for (size_t i = 1; i < 128; i++)
 		cr_expect(km_strrchr(km_str, i) == strrchr(km_str, i));
 }
 
@@ -191,4 +191,19 @@ Test(string_test, test_strcasestr) {
 	cr_expect(km_strcasestr(haystack, "InnIT") == strcasestr(haystack, "InnIT"));
 	cr_expect(km_strcasestr(haystack, "Not in there") == strcasestr(haystack, "Not in there"));
 	cr_expect(km_strcasestr(haystack, "IT") == strcasestr(haystack, "IT"));
+}
+
+Test(string_test, test_strtok) {
+	char km_tbt[] = "This; string; is | | going to be tokenised";
+	char og_tbt[] = "This; string; is | | going to be tokenised";
+
+	cr_expect_str_eq(km_strtok(km_tbt, " "), strtok(og_tbt, " "));
+	cr_expect_str_eq(km_strtok(NULL, ";"), strtok(NULL, ";"));
+	cr_expect_str_eq(km_strtok(NULL, " | "), strtok(NULL, " | "));
+	cr_expect_str_eq(km_strtok(NULL, "|"), strtok(NULL, "|"));
+	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
+	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
+	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
+	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
+	cr_expect((NULL, "tokenised") == strtok(NULL, "tokenised"));
 }
