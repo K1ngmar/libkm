@@ -162,15 +162,3 @@ Test(string_test, test_strncmp) {
 	s1[0] = 'd';
 	cr_expect(km_strncmp(s1, s2, 12) == strncmp(s1, s2, 12));
 }
-
-Test(string_test, test_atoi) {
-	cr_expect(km_atoi("12345") == 12345);
-	cr_expect(km_atoi("2147483647") == 2147483647);
-	cr_expect(km_atoi("-2147483648") == -2147483648);
-	cr_expect(km_atoi(" 12") == 12);
-	cr_expect(km_atoi(" +-12") == atoi(" +-12"));
-	cr_expect(km_atoi(" -+12") == atoi(" -+12"));
-	cr_expect(km_atoi("	-42") == -42);
-	cr_expect(km_atoi("a") == 0);
-	cr_expect(km_atoi("-69lol42") == -69);
-}

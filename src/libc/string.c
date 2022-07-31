@@ -113,21 +113,3 @@ int	km_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return *(const unsigned char*)s1 - *(const unsigned char*)s2;
 }
-
-int	km_atoi(const char *str)
-{
-	long long res = 0;
-	long long sgn = 1;
-
-	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
-		str++;
-	if (*str == '-')
-		sgn = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str >= '0' && *str <= '9') {
-		res = res * 10 + *str - '0';
-		str++;
-	}
-	return ((int)(res * sgn));
-}
