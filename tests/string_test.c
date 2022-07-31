@@ -182,3 +182,13 @@ Test(string_test, test_strnstr) {
 	cr_expect(km_strnstr(haystack, "it", 0) == strnstr(haystack, "it", 0));
 	cr_expect(km_strnstr(haystack, "T", 1) == strnstr(haystack, "T", 1));
 }
+
+Test(string_test, test_strcasestr) {
+	char haystack[] = "This is a very cool haystack inninnit";
+
+	cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
+	cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
+	cr_expect(km_strcasestr(haystack, "InnIT") == strcasestr(haystack, "InnIT"));
+	cr_expect(km_strcasestr(haystack, "Not in there") == strcasestr(haystack, "Not in there"));
+	cr_expect(km_strcasestr(haystack, "IT") == strcasestr(haystack, "IT"));
+}

@@ -147,3 +147,21 @@ char*	km_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (NULL);
 }
+
+char*	km_strcasestr(const char *haystack, const char *needle)
+{
+	if (needle == NULL || *needle == '\0')
+		return ((char*)haystack);
+	
+	size_t j;
+	for (size_t i = 0; haystack[i] != '\0'; i++) {
+		j = 0;
+		while (km_toupper(haystack[i + j]) == km_toupper(needle[j])) {
+			if (needle[j + 1] == '\0')
+				return ((char*)haystack + i);
+			j++;
+		}
+	}
+	return (NULL);
+}
+
