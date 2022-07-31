@@ -51,8 +51,10 @@
 	/*
 	** ascii_to_integral.c
 	*/
-	int		km_atoi(const char *str);
-	long	km_atol(const char *str);
+	int			km_atoi(const char *str);
+	long		km_atol(const char *str);
+	long long	km_strtoll(const char* restrict str, char** restrict endptr, int base);
+	long		km_strtol(const char* restrict str, char** restrict endptr, int base);
 
 	/*
 	** memcpy.c
