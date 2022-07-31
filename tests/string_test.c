@@ -205,5 +205,5 @@ Test(string_test, test_strtok) {
 	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
 	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
 	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
-	cr_expect((NULL, "tokenised") == strtok(NULL, "tokenised"));
+	cr_expect(km_strtok(NULL, "tokenised") == strtok(NULL, "tokenised"));
 }
