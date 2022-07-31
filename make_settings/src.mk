@@ -5,6 +5,7 @@ SRC :=	src/libc/character_checks.c \
 		src/libc/string.c \
 		src/libc/strlen.c \
 		src/libc/ascii_to_integral.c \
-		src/libc/memcpy.c
+		src/libc/memcpy.c \
+		src/libc/memset.c
 
 endif
