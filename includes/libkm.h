@@ -45,30 +45,35 @@
 	int		km_tolower(int c);
 	char*	km_strchr(const char* haystack, int needle);
 	char*	km_strrchr(const char* haystack, int needle);
-	int		km_strcmp(const char *s1, const char *s2);
-	int		km_strncmp(const char *s1, const char *s2, size_t n);
-	char*	km_strstr(const char *haystack, const char *needle);
-	char*	km_strnstr(const char *haystack, const char *needle, size_t len);
-	char*	km_strcasestr(const char *haystack, const char *needle);
+	int		km_strcmp(const char* s1, const char* s2);
+	int		km_strncmp(const char* s1, const char* s2, size_t n);
+	char*	km_strstr(const char* haystack, const char* needle);
+	char*	km_strnstr(const char* haystack, const char* needle, size_t len);
+	char*	km_strcasestr(const char* haystack, const char* needle);
 	char*	km_strtok(char* restrict str, const char* restrict sep);
 
 	/*
 	** ascii_to_integral.c
 	*/
-	int			km_atoi(const char *str);
-	long		km_atol(const char *str);
+	int			km_atoi(const char* str);
+	long		km_atol(const char* str);
 	long long	km_strtoll(const char* restrict str, char** restrict endptr, int base);
 	long		km_strtol(const char* restrict str, char** restrict endptr, int base);
 
 	/*
 	** memcpy.c
 	*/
-	void*	km_memcpy(void *restrict dst, const void *restrict src, size_t n);
+	void*	km_memcpy(void* restrict dst, const void* restrict src, size_t n);
 
 	/*
 	** memset.c
 	*/
-	void*	km_memset(void *b, int c, size_t len);
+	void*	km_memset(void* b, int c, size_t len);
+
+	/*
+	** mem.c
+	*/
+	void*	km_memmove(void* dstp, const void* srcp, size_t n);
 
 /////////
 // sys //
