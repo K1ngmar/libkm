@@ -76,6 +76,11 @@
 	void*	km_memchr(void const *s_in, int c_in, size_t n);
 
 	/*
+	** memcmp.c
+	*/
+	int		km_memcmp(const void* s1p, const void* s2p, size_t n);
+
+	/*
 	** mem.c
 	*/
 	void*	km_memmove(void* dstp, const void* srcp, size_t n);

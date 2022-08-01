@@ -87,3 +87,27 @@ Test(mem_test, test_memchr) {
 	cr_expect(km_memchr(str, '^', sizeof(str)) == memchr(str, '^', sizeof(str)));
 	cr_expect(km_memchr(str, -1, sizeof(str)) == memchr(str, -1, sizeof(str)));
 }
+
+Test(mem_test, test_memcmp) {
+	char s1[] = "You already know these strings are going to be compared matey; also this string has to be longer than CACHE_LINE_SIZE because that will trigger the optimisation built in :0";
+	char s2[] = "You already know these strings are going to be compared matey; also this string has to be longer than CACHE_LINE_SIZE because that will trigger the optimisation built in :0";
+
+	cr_expect(km_memcmp(s1, s2, sizeof(s1)) == memcmp(s1, s2, sizeof(s1)));
+	cr_expect(km_memcmp(s2, s1, sizeof(s1)) == memcmp(s2, s1, sizeof(s1)));
+
+	s2[sizeof(s2) - 1] = 'x';
+	cr_expect(km_memcmp(s1, s2, sizeof(s1)) == memcmp(s1, s2, sizeof(s1)));
+	cr_expect(km_memcmp(s2, s1, sizeof(s1)) == memcmp(s2, s1, sizeof(s1)));
+	
+	s2[170] = -42;
+	cr_expect(km_memcmp(s1, s2, sizeof(s1)) == memcmp(s1, s2, sizeof(s1)));
+	cr_expect(km_memcmp(s2, s1, sizeof(s1)) == memcmp(s2, s1, sizeof(s1)));
+	
+	s2[64] = '_';
+	cr_expect(km_memcmp(s1, s2, sizeof(s1)) == memcmp(s1, s2, sizeof(s1)));
+	cr_expect(km_memcmp(s2, s1, sizeof(s1)) == memcmp(s2, s1, sizeof(s1)));
+
+	s2[5] = '?';
+	cr_expect(km_memcmp(s1, s2, sizeof(s1)) == memcmp(s1, s2, sizeof(s1)));
+	cr_expect(km_memcmp(s2, s1, sizeof(s1)) == memcmp(s2, s1, sizeof(s1)));
+}
