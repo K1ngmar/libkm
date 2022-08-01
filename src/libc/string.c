@@ -203,3 +203,14 @@ char*	km_strdup(const char *s1)
 		return (NULL);
 	return (km_memcpy(ret, s1, len));
 }
+
+char*	km_strndup(const char *s1, size_t n)
+{
+	size_t	len = km_strnlen(s1, n);
+	char*	ret = malloc(sizeof(char) * (len + 1));
+
+	if (ret == NULL)
+		return (NULL);
+	ret[len] = '\0';
+	return (km_memcpy(ret, s1, len));
+}

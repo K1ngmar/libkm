@@ -225,3 +225,26 @@ Test(string_test, test_strdup) {
 	cr_expect_str_eq(km_dup, og_dup);
 	free(km_dup); free(og_dup);
 }
+
+Test(string_test, test_strndup) {
+	char* km_dup = km_strndup(VERY_LONG_STRING, 535);
+	char* og_dup = strndup(VERY_LONG_STRING, 535);
+
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+
+	km_dup = km_strndup("", 10);
+	og_dup = strndup("", 10);
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+
+	km_dup = km_strndup(VERY_LONG_STRING, sizeof(VERY_LONG_STRING));
+	og_dup = strndup(VERY_LONG_STRING, sizeof(VERY_LONG_STRING));
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+	
+	km_dup = km_strndup("small string", 40);
+	og_dup = strndup("small string", 40);
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+}
