@@ -13,7 +13,6 @@
 
 #include <ctype.h>
 #include <libkm.h>
-#include <stdio.h>
 
 void*	km_memmove(void* dstp, const void* srcp, size_t n)
 {
