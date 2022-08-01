@@ -207,3 +207,21 @@ Test(string_test, test_strtok) {
 	cr_expect_str_eq(km_strtok(NULL, "tokenised"), strtok(NULL, "tokenised"));
 	cr_expect(km_strtok(NULL, "tokenised") == strtok(NULL, "tokenised"));
 }
+
+Test(string_test, test_strdup) {
+	char* km_dup = km_strdup(VERY_LONG_STRING);
+	char* og_dup = strdup(VERY_LONG_STRING);
+
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+
+	km_dup = km_strdup("");
+	og_dup = strdup("");
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+	
+	km_dup = km_strdup("small string");
+	og_dup = strdup("small string");
+	cr_expect_str_eq(km_dup, og_dup);
+	free(km_dup); free(og_dup);
+}

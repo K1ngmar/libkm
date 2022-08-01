@@ -13,7 +13,7 @@
 
 #include <ctype.h>
 #include <libkm.h>
-#include <string.h>
+#include <stdlib.h>
 
 size_t	km_strlcpy(char* restrict dst, const char* restrict src, size_t dstsize)
 {
@@ -192,4 +192,14 @@ char*	km_strtok(char* restrict str, const char* restrict sep)
 		ret = NULL;
 	cur = NULL;
 	return (ret);
+}
+
+char*	km_strdup(const char *s1)
+{
+	size_t	len = km_strlen(s1);
+	char*	ret = malloc(sizeof(char) * (len + 1));
+
+	if (ret == NULL)
+		return (NULL);
+	return (km_memcpy(ret, s1, len));
 }
