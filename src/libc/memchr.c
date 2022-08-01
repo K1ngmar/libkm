@@ -102,9 +102,8 @@ void*	km_memchr(void const *s_in, int c_in, size_t n)
 
 	// copying leftover bytes
 	while (leftover > 0) {
-		if (s[n - leftover + 1] == c)
-			return ((void*)(s + n));
-		++n;
+		if (s[n - leftover] == c)
+			return ((void*)(s + n - leftover));
 		--leftover;
 	}
 	return (NULL);

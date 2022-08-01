@@ -71,7 +71,7 @@ Test(mem_test, test_bzero) {
 }
 
 Test(mem_test, test_memchr) {
-	const char str[] = "WE ARE ABOUT TO FIND SOME AWESOME CHARACTERS IN THIS VERY COOL STRING; WITH A DOPE FUNCTION :) (JUST MAKING THIS STRING A BIT LONGER IN ORDER TO _CHECK IF THE OPTIMISATION IS WORKING CORRECTLY, WHICH IS IMPORTANT TO KNOW U KNOW) :p";
+	const char str[] = "WE ARE ABOUT TO FIND SOME AWESOME CHARACTERS IN THIS VERY COOL STRING; WITH A DOPE FUNCTION :) (JUST MAKING THIS STRING A BIT LONGER IN ORDER TO _CHECK IF THE OPTIMISATION IS WORKING CORRECTLY, WHICH IS IMPORTANT TO KNOW U KNOW) :p/!@#$^";
 
 	cr_expect(km_memchr(str, ';', sizeof(str)) == memchr(str, ';', sizeof(str)));
 	cr_expect(km_memchr(str, ':', sizeof(str)) == memchr(str, ':', sizeof(str)));
@@ -79,7 +79,11 @@ Test(mem_test, test_memchr) {
 	cr_expect(km_memchr(str, 'W', sizeof(str)) == memchr(str, 'W', sizeof(str)));
 	cr_expect(km_memchr(str, ',', sizeof(str)) == memchr(str, ',', sizeof(str)));
 	cr_expect(km_memchr(str, '_', sizeof(str)) == memchr(str, '_', sizeof(str)));
+	cr_expect(km_memchr(str, 'p', sizeof(str)) == memchr(str, 'p', sizeof(str)));
+	cr_expect(km_memchr(str, '!', sizeof(str)) == memchr(str, '!', sizeof(str)));
+	cr_expect(km_memchr(str, '@', sizeof(str)) == memchr(str, '@', sizeof(str)));
+	cr_expect(km_memchr(str, '#', sizeof(str)) == memchr(str, '#', sizeof(str)));
+	cr_expect(km_memchr(str, '$', sizeof(str)) == memchr(str, '$', sizeof(str)));
+	cr_expect(km_memchr(str, '^', sizeof(str)) == memchr(str, '^', sizeof(str)));
 	cr_expect(km_memchr(str, -1, sizeof(str)) == memchr(str, -1, sizeof(str)));
-
-
 }
