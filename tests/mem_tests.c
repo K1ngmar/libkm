@@ -50,8 +50,8 @@ Test(mem_test, test_memmove) {
 	cr_expect(memcmp(km_memmove(km_dst, km_src, TEST_SIZE), memmove(og_dst, og_src, TEST_SIZE), TEST_SIZE) == 0);
 	cr_expect(memcmp(km_memmove(km_src, km_src + (TEST_SIZE / 3), TEST_SIZE / 2), memmove(og_src, og_src + (TEST_SIZE / 3), TEST_SIZE / 2), TEST_SIZE) == 0);
 	cr_expect(memcmp(km_memmove(km_dst + 42, km_dst, TEST_SIZE - 42), memmove(og_dst + 42, og_dst, TEST_SIZE - 42), TEST_SIZE - 42) == 0);
-	// cr_expect(memcmp(km_memmove(km_dst, km_dst, TEST_SIZE), memmove(og_dst, og_dst, TEST_SIZE), TEST_SIZE) == 0);
-	// cr_expect(memcmp(km_memmove(km_dst, km_src, 0), memmove(og_dst, og_src, 0), TEST_SIZE) == 0);
+	cr_expect(memcmp(km_memmove(km_dst, km_dst, TEST_SIZE), memmove(og_dst, og_dst, TEST_SIZE), TEST_SIZE) == 0);
+	cr_expect(memcmp(km_memmove(km_dst, km_src, 0), memmove(og_dst, og_src, 0), TEST_SIZE) == 0);
 }
 
 Test(mem_test, test_bzero) {
@@ -68,4 +68,18 @@ Test(mem_test, test_bzero) {
 	km_bzero(km_dst, TEST_SIZE / 2);
 	bzero(og_dst, TEST_SIZE / 2);
 	cr_expect(memcmp(km_dst, og_dst, TEST_SIZE) == 0);
+}
+
+Test(mem_test, test_memchr) {
+	const char str[] = "WE ARE ABOUT TO FIND SOME AWESOME CHARACTERS IN THIS VERY COOL STRING; WITH A DOPE FUNCTION :) (JUST MAKING THIS STRING A BIT LONGER IN ORDER TO _CHECK IF THE OPTIMISATION IS WORKING CORRECTLY, WHICH IS IMPORTANT TO KNOW U KNOW) :p";
+
+	cr_expect(km_memchr(str, ';', sizeof(str)) == memchr(str, ';', sizeof(str)));
+	cr_expect(km_memchr(str, ':', sizeof(str)) == memchr(str, ':', sizeof(str)));
+	cr_expect(km_memchr(str, 'C', sizeof(str)) == memchr(str, 'C', sizeof(str)));
+	cr_expect(km_memchr(str, 'W', sizeof(str)) == memchr(str, 'W', sizeof(str)));
+	cr_expect(km_memchr(str, ',', sizeof(str)) == memchr(str, ',', sizeof(str)));
+	cr_expect(km_memchr(str, '_', sizeof(str)) == memchr(str, '_', sizeof(str)));
+	cr_expect(km_memchr(str, -1, sizeof(str)) == memchr(str, -1, sizeof(str)));
+
+
 }

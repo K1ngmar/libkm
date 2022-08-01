@@ -71,6 +71,11 @@
 	void*	km_memset(void* restrict b, int c, size_t len);
 
 	/*
+	** memchr.c
+	*/
+	void*	km_memchr(void const *s_in, int c_in, size_t n);
+
+	/*
 	** mem.c
 	*/
 	void*	km_memmove(void* dstp, const void* srcp, size_t n);
