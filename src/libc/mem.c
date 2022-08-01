@@ -24,7 +24,7 @@ void*	km_memmove(void* dstp, const void* srcp, size_t n)
 		return (dstp);
 	// dst overlaps with src, do reverse copy
 	if (dst > src && dst - src < (int)n) {
-		for(size_t i = n - 1; i >= 0; --i)
+		for(long i = n - 1; i >= 0; --i)
 			dst[i] = src[i];
 	}
 	// src overlaps with dst, copy forward
