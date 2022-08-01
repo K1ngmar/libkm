@@ -13,14 +13,15 @@
 
 #include <ctype.h>
 #include <libkm.h>
+#include <stdio.h>
 
-void*	km_memmove(void *dstp, const void *srcp, size_t n)
+void*	km_memmove(void* dstp, const void* srcp, size_t n)
 {
 	      unsigned char* dst =       (unsigned char*) dstp;
 	const unsigned char* src = (const unsigned char*) srcp;
 
 	if (src == dst || n == 0)
-		return dstp;
+		return (dstp);
 	// dst overlaps with src, do reverse copy
 	if (dst > src && dst - src < (int)n) {
 		for(size_t i = n - 1; i >= 0; --i)
@@ -32,8 +33,12 @@ void*	km_memmove(void *dstp, const void *srcp, size_t n)
 			dst[i] = src[i];
 	}
 	else {
-		// no overlap, more efficient memcpy
+	// no overlap, more efficient memcpy
 		km_memcpy(dstp, srcp, n);
 	}
-	return dstp;
+	return (dstp);
+}
+
+void	km_bzero(void* s, size_t n) {
+	km_memset(s, 0, n);
 }
