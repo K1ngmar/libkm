@@ -68,7 +68,7 @@
 	/*
 	** memset.c
 	*/
-	void*	km_memset(void* b, int c, size_t len);
+	void*	km_memset(void* restrict b, int c, size_t len);
 
 	/*
 	** mem.c

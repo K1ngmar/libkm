@@ -54,7 +54,7 @@ static inline size_t align_memory(char* restrict dst, unsigned char c)
 	return (offset);
 }
 
-void*	km_memset(void *b, int c, size_t len)
+void*	km_memset(void* restrict b, int c, size_t len)
 {
 	size_t leftover = len;
 
