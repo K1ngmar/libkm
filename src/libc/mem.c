@@ -13,6 +13,7 @@
 
 #include <ctype.h>
 #include <libkm.h>
+#include <stdlib.h>
 
 void*	km_memmove(void* dstp, const void* srcp, size_t n)
 {
@@ -40,4 +41,13 @@ void*	km_memmove(void* dstp, const void* srcp, size_t n)
 
 void	km_bzero(void* s, size_t n) {
 	km_memset(s, 0, n);
+}
+
+void*	km_calloc(size_t count, size_t size)
+{
+	void*	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (NULL);
+	km_bzero(ptr, count * size);
+	return (ptr);
 }

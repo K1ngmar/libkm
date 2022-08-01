@@ -111,3 +111,14 @@ Test(mem_test, test_memcmp) {
 	cr_expect(km_memcmp(s1, s2, sizeof(s1)) == memcmp(s1, s2, sizeof(s1)));
 	cr_expect(km_memcmp(s2, s1, sizeof(s1)) == memcmp(s2, s1, sizeof(s1)));
 }
+
+Test(mem_test, test_calloc) {
+	void* km_ptr = km_calloc(TEST_SIZE, sizeof(int));
+	void* og_ptr =    calloc(TEST_SIZE, sizeof(int));
+
+	cr_expect(memcmp(km_ptr, og_ptr, TEST_SIZE * sizeof(int)) == 0);
+	free(km_ptr);
+	free(og_ptr);
+	km_ptr = km_calloc(-1, 1);
+	cr_expect(km_ptr == NULL);
+}

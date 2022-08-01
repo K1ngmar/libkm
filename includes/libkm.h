@@ -85,6 +85,7 @@
 	*/
 	void*	km_memmove(void* dstp, const void* srcp, size_t n);
 	void	km_bzero(void* s, size_t n);
+	void*	km_calloc(size_t count, size_t size);
 
 /////////
 // sys //
