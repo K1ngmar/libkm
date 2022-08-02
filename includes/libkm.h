@@ -88,6 +88,7 @@
 	void*	km_memmove(void* dstp, const void* srcp, size_t n);
 	void	km_bzero(void* s, size_t n);
 	void*	km_calloc(size_t count, size_t size);
+	void*	km_stupid_realloc(void* ptr, size_t old_size, size_t new_size);
 
 ////////////////
 // additional //
