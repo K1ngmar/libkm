@@ -101,6 +101,11 @@
 	char*	km_strjoin(const char* s1, const char* s2);
 	char*	km_strtrim(const char* str, const char* set);
 
+	/*
+	** split.c
+	*/
+	char**	km_split(const char* str, char c);
+
 /////////
 // sys //
 /////////

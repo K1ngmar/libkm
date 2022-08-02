@@ -58,7 +58,7 @@ void*	km_stupid_realloc(void* ptr, size_t old_size, size_t new_size)
 		return malloc(new_size);
 	void* new_ptr = malloc(new_size);
 	if (new_ptr == NULL)
-		return (NULL);
+		return (NULL); // maybe return ptr?
 	km_memcpy(new_ptr, ptr, old_size);
 	free(ptr);
 	return (new_ptr);

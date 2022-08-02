@@ -3,7 +3,7 @@
 #include <libkm.h>
 #include <criterion/criterion.h>
 
-Test(conversion_test, test_substr) {
+Test(additional_test, test_substr) {
 	char str[] = "I am going to get some substrings out of this string and it is going to be epic :0";
 	char* substr;
 
@@ -32,7 +32,7 @@ Test(conversion_test, test_substr) {
 	free(substr);
 }
 
-Test(conversion_test, test_strjoin) {
+Test(additional_test, test_strjoin) {
 	char* joined = km_strjoin("join these ", "strings :0");
 
 	cr_expect_str_eq(joined, "join these strings :0");
@@ -55,7 +55,7 @@ Test(conversion_test, test_strjoin) {
 	free(joined);
 }
 
-Test(conversion_test, test_strtrim) {
+Test(additional_test, test_strtrim) {
 	char* trimmed;
 
 	trimmed = km_strtrim("__get rid of these--", "__--");
@@ -85,4 +85,33 @@ Test(conversion_test, test_strtrim) {
 	trimmed = km_strtrim("___--_-_--__", "abcdefghijk");
 	cr_expect_str_eq(trimmed, "___--_-_--__");
 	free(trimmed);
+}
+
+static void free_split(char** split)
+{
+	for (size_t i = 0; split && split[i] != NULL; i++)
+		free(split[i]);
+	free(split);
+}
+
+Test(additional_test, test_split) {
+	char str[] = "I AM GOING TO SPLIT THIS STRING";
+	char** split = km_split(str, ' ');
+
+	cr_expect_str_eq(*(split), strtok(str,  " "));
+	for (size_t i = 1; split[i] != NULL; i++)
+		cr_expect_str_eq(*(split + i), strtok(NULL, " "));
+	free_split(split);
+
+	char st[] = "       this  has      multiple       splittable    characters   ";
+	split = km_split(st, ' ');
+	cr_expect_str_eq(*(split), strtok(st,  " "));
+	for (size_t i = 1; split[i] != NULL; i++)
+		cr_expect_str_eq(*(split + i), strtok(NULL, " "));
+	free_split(split);
+
+	char stur[] = "          ";
+	split = km_split(stur, ' ');
+	cr_expect(*(split) == strtok(stur,  " "));
+	free_split(split);
 }

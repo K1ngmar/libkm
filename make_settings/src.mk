@@ -10,6 +10,7 @@ SRC :=	src/libc/character_checks.c \
 		src/libc/memchr.c \
 		src/libc/memcmp.c \
 		src/libc/mem.c \
-		src/additional/string.c
+		src/additional/string.c \
+		src/additional/split.c
 
 endif
