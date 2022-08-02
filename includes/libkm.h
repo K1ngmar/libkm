@@ -98,6 +98,7 @@
 	*/
 	char*	km_substr(const char* s, unsigned int start, size_t len);
 	char*	km_strjoin(const char* s1, const char* s2);
+	char*	km_strtrim(const char* str, const char* set);
 
 /////////
 // sys //

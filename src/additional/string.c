@@ -40,3 +40,26 @@ char*	km_strjoin(const char* s1, const char* s2)
 	}
 	return (joined);
 }
+
+char*	km_strtrim(const char* str, const char* set)
+{
+	size_t len = km_strlen(str);
+	size_t front = 0;
+	size_t back = 0;
+
+	// get amt to trim from front
+	for (size_t i = 0; i < len && km_strchr(set, str[i]) != NULL; ++i)
+		++front;
+	// get amt to trim from back and there are characters left to trim
+	if (front != len) {
+		for (size_t i = len - 1; i > 0 && km_strchr(set, str[i]) != NULL; --i)
+			++back;
+	}
+
+	len -= front + back;
+	char* trimmed = malloc(sizeof(char) * (len + 1));
+	if (trimmed == NULL)
+		return (NULL);
+	trimmed[len] = '\0';
+	return (km_memcpy(trimmed, str + front, len));
+}
