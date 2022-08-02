@@ -114,4 +114,8 @@ Test(additional_test, test_split) {
 	split = km_split(stur, ' ');
 	cr_expect(*(split) == strtok(stur,  " "));
 	free_split(split);
+
+	split = km_split("          ", 'b');
+	cr_expect_str_eq(*(split), "          ");
+	free_split(split);
 }
