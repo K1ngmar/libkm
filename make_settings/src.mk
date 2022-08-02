@@ -9,6 +9,7 @@ SRC :=	src/libc/character_checks.c \
 		src/libc/memset.c \
 		src/libc/memchr.c \
 		src/libc/memcmp.c \
-		src/libc/mem.c
+		src/libc/mem.c \
+		src/additional/string.c
 
 endif
