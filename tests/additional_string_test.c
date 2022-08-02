@@ -31,3 +31,27 @@ Test(conversion_test, test_substr) {
 	cr_expect_str_eq(substr, "");
 	free(substr);
 }
+
+Test(conversion_test, test_strjoin) {
+
+	char* joined = km_strjoin("join these ", "strings :0");
+
+	cr_expect_str_eq(joined, "join these strings :0");
+	free(joined);
+
+	joined = km_strjoin("", "this will be it");
+	cr_expect_str_eq(joined, "this will be it");
+	free(joined);
+
+	joined = km_strjoin("Who knows what will happen", "");
+	cr_expect_str_eq(joined, "Who knows what will happen");
+	free(joined);
+
+	joined = km_strjoin("", "");
+	cr_expect_str_eq(joined, "");
+	free(joined);
+
+	joined = km_strjoin("ban", "ana");
+	cr_expect_str_eq(joined, "banana");
+	free(joined);
+}
