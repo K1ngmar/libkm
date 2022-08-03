@@ -101,6 +101,7 @@
 	char*	km_strjoin(const char* s1, const char* s2);
 	char*	km_strtrim(const char* str, const char* set);
 	char*	km_ltoa(long int nb);
+	char*	km_itoa(int nb);
 
 	/*
 	** split.c

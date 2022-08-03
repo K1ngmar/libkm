@@ -100,3 +100,7 @@ char*	km_ltoa(long int nb)
 	}
 	return (snb);
 }
+
+char*	km_itoa(int nb) {
+	return (km_ltoa(nb));
+}

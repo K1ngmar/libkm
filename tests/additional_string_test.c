@@ -147,3 +147,31 @@ Test(additional_test, test_ltoa) {
 	cr_expect_str_eq(nbr, "420");
 	free(nbr);
 }
+
+Test(additional_test, test_itoa) {
+	char* nbr;
+
+	nbr = km_ltoa(1);
+	cr_expect_str_eq(nbr, "1");
+	free(nbr);
+
+	nbr = km_ltoa(0);
+	cr_expect_str_eq(nbr, "0");
+	free(nbr);
+
+	nbr = km_ltoa(-__INT_MAX__  - 1);
+	cr_expect_str_eq(nbr, "-2147483648");
+	free(nbr);
+
+	nbr = km_ltoa(__INT_MAX__);
+	cr_expect_str_eq(nbr, "2147483647");
+	free(nbr);
+
+	nbr = km_ltoa(-69);
+	cr_expect_str_eq(nbr, "-69");
+	free(nbr);
+
+	nbr = km_ltoa(420);
+	cr_expect_str_eq(nbr, "420");
+	free(nbr);
+}
