@@ -104,3 +104,18 @@ char*	km_ltoa(long int nb)
 char*	km_itoa(int nb) {
 	return (km_ltoa(nb));
 }
+
+char*	km_strmapi(const char* str, char (*f)(unsigned int, char))
+{
+	size_t len = km_strlen(str);
+	char* res = malloc(sizeof(char) * (len + 1));
+
+	if (res == NULL)
+		return (NULL);
+
+	while (len > 0) {
+		len--;
+		res[len] = f(len, str[len]);
+	}
+	return (res);
+}

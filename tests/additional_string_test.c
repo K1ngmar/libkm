@@ -175,3 +175,16 @@ Test(additional_test, test_itoa) {
 	cr_expect_str_eq(nbr, "420");
 	free(nbr);
 }
+
+char mapi_test_func(unsigned int i, char c) {
+	(void)i;
+	return (km_toupper(c));
+}
+
+Test(additional_test, test_strmapi) {
+	const char str[] = "this string is going to be mapi'd";
+
+	char* mapi = km_strmapi(str, mapi_test_func);
+	cr_expect_str_eq(mapi, "THIS STRING IS GOING TO BE MAPI'D");
+	free(mapi);
+}

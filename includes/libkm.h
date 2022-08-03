@@ -102,6 +102,7 @@
 	char*	km_strtrim(const char* str, const char* set);
 	char*	km_ltoa(long int nb);
 	char*	km_itoa(int nb);
+	char*	km_strmapi(const char* str, char (*f)(unsigned int, char));
 
 	/*
 	** split.c
