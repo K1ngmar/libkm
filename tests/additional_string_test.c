@@ -119,3 +119,31 @@ Test(additional_test, test_split) {
 	cr_expect_str_eq(*(split), "          ");
 	free_split(split);
 }
+
+Test(additional_test, test_ltoa) {
+	char* nbr;
+
+	nbr = km_ltoa(1);
+	cr_expect_str_eq(nbr, "1");
+	free(nbr);
+
+	nbr = km_ltoa(0);
+	cr_expect_str_eq(nbr, "0");
+	free(nbr);
+
+	nbr = km_ltoa(-__LONG_MAX__  - 1);
+	cr_expect_str_eq(nbr, "-9223372036854775808");
+	free(nbr);
+
+	nbr = km_ltoa(__LONG_MAX__);
+	cr_expect_str_eq(nbr, "9223372036854775807");
+	free(nbr);
+
+	nbr = km_ltoa(-69);
+	cr_expect_str_eq(nbr, "-69");
+	free(nbr);
+
+	nbr = km_ltoa(420);
+	cr_expect_str_eq(nbr, "420");
+	free(nbr);
+}

@@ -63,3 +63,40 @@ char*	km_strtrim(const char* str, const char* set)
 	trimmed[len] = '\0';
 	return (km_memcpy(trimmed, str + front, len));
 }
+
+static int	char_amt(long int nb)
+{
+	if (nb == 0)
+		return (1);
+
+	size_t amt = 0;
+	if (nb < 0)
+		++amt;
+	while (nb != 0) {
+		nb /= 10;
+		++amt;
+	}
+	return (amt);  
+}
+
+char*	km_ltoa(long int nb)
+{
+	short int len = char_amt(nb);
+	char* snb = malloc(sizeof(char) * len + 1);
+
+	if (snb == NULL)
+		return (NULL);
+	snb[len] = '\0';
+
+	size_t nbr = nb;
+	if (nb < 0) {
+		snb[0] = '-';
+		nbr = -nb;
+	}
+	while (len > (0 + (nb < 0))) {
+		--len;
+		snb[len] = '0' + (nbr % 10);
+		nbr /= 10;
+	}
+	return (snb);
+}
