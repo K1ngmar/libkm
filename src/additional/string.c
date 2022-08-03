@@ -105,6 +105,9 @@ char*	km_itoa(int nb) {
 	return (km_ltoa(nb));
 }
 
+/*
+** creates a copy of str with f applied to each character
+*/
 char*	km_strmapi(const char* str, char (*f)(unsigned int, char))
 {
 	size_t len = km_strlen(str);
@@ -118,4 +121,13 @@ char*	km_strmapi(const char* str, char (*f)(unsigned int, char))
 		res[len] = f(len, str[len]);
 	}
 	return (res);
+}
+
+/*
+** applies f to each character in str
+*/
+void km_striteri(char* str, void (*f)(unsigned int, char*))
+{
+	for (size_t i = 0; str[i] != '\0'; ++i)
+		f(i, str);
 }

@@ -188,3 +188,14 @@ Test(additional_test, test_strmapi) {
 	cr_expect_str_eq(mapi, "THIS STRING IS GOING TO BE MAPI'D");
 	free(mapi);
 }
+
+void striteri_test_func(unsigned int i, char* s) {
+	s[i] = km_toupper(s[i]);
+}
+
+Test(additional_test, test_striteri) {
+	char str[] = "this string is going to be striteri'd";
+
+	km_striteri(str, striteri_test_func);
+	cr_expect_str_eq(str, "THIS STRING IS GOING TO BE STRITERI'D");
+}
