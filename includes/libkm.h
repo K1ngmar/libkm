@@ -110,6 +110,14 @@
 	*/
 	char**	km_split(const char* str, char c);
 
+	/*
+	** io.c
+	*/
+	void	km_putchar_fd(const char c, int fd);
+	void	km_putstr_fd(const char* s, int fd);
+	void	km_putendl_fd(const char* s, int fd);
+	void	km_putnbr_fd(int n, int fd);
+
 /////////
 // sys //
 /////////

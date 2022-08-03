@@ -11,6 +11,7 @@ SRC :=	src/libc/character_checks.c \
 		src/libc/memcmp.c \
 		src/libc/mem.c \
 		src/additional/string.c \
-		src/additional/split.c
+		src/additional/split.c \
+		src/additional/io.c
 
 endif
