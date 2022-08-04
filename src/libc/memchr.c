@@ -25,7 +25,6 @@
 #define LO_MAGIC 0x0101010101010101ULL
 // single byte: 0000 0001
 
-
 static inline size_t	search_unrolled(int64_t* restrict ptr, unsigned char c, size_t size)
 {
 	int64_t repeated_c = (c << 8) | c;
@@ -70,7 +69,7 @@ static inline size_t align_memory(const unsigned char* restrict s, unsigned char
 	size_t offset = 0;
 
 	/*
-	** Copy bytes until src is aligned on a cache line boundry
+	** Compare bytes until src is aligned on a cache line boundry
 	*/
 	while (((unsigned long)(s + offset) & (unsigned long)(ALIGN_SIZE - 1)) != 0) {
 		if (s[offset] == c)
