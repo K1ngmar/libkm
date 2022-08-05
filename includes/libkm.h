@@ -14,7 +14,7 @@
 #ifndef LIBKM_H
 # define LIBKM_H
 
-# include <ctype.h>
+# include <sys/types.h>
 
 //////////
 // libc //
@@ -117,6 +117,15 @@
 	void	km_putstr_fd(const char* s, int fd);
 	void	km_putendl_fd(const char* s, int fd);
 	void	km_putnbr_fd(int n, int fd);
+
+///////////
+// stdio //
+///////////
+
+	/*
+	** getdelim.c
+	*/
+	ssize_t	km_getdelim(char** restrict line, int delim, int fd);
 
 /////////
 // sys //

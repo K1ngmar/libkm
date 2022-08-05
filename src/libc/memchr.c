@@ -69,7 +69,7 @@ static inline size_t align_memory(const unsigned char* restrict s, unsigned char
 	size_t offset = 0;
 
 	/*
-	** Compare bytes until src is aligned on a cache line boundry
+	** Compare bytes until src is aligned on a 8byte (sizeof(int64_t)) boundry
 	*/
 	while (((unsigned long)(s + offset) & (unsigned long)(ALIGN_SIZE - 1)) != 0) {
 		if (s[offset] == c)
