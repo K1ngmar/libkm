@@ -104,3 +104,7 @@ ssize_t	km_getdelim(char** restrict line, int delim, int fd)
 	}
 	return (len);
 }
+
+ssize_t	km_getline(char** restrict line, int fd) {
+	return (km_getdelim(line, '\n', fd));
+}

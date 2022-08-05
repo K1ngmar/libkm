@@ -126,6 +126,7 @@
 	** getdelim.c
 	*/
 	ssize_t	km_getdelim(char** restrict line, int delim, int fd);
+	ssize_t	km_getline(char** restrict line, int fd);
 
 /////////
 // sys //
