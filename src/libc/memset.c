@@ -27,7 +27,7 @@ static inline void	fill_unrolled(int64_t* restrict dst, char cc, size_t size)
 	c = c << 16 | c;
 	c = c << 32 | c;
 
-	// copying 64 bytes at a time
+	// setting 64 bytes at a time
 	for (; size > 0; --size, dst += 8) {
 		dst[0] = c;
 		dst[1] = c;
@@ -45,7 +45,7 @@ static inline size_t align_memory(char* restrict dst, unsigned char c)
 	size_t offset = 0;
 
 	/*
-	** Copy bytes until dst is aligned on a cache line boundry
+	** set bytes until dst is aligned on a cache line boundry
 	*/
 	while (((unsigned long)dst & (unsigned long)(CACHE_LINE_SIZE - 1)) != 0) {
 		dst[offset] = c;
@@ -66,7 +66,7 @@ void*	km_memset(void* restrict b, int c, size_t len)
 		fill_unrolled((int64_t*)(((char*)b) + offset), c, unrolled);
 	}
 
-	// copying leftover bytes
+	// setting leftover bytes
 	while (leftover > 0) {
 		--len;
 		--leftover;
