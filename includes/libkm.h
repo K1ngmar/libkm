@@ -128,6 +128,12 @@
 	ssize_t	km_getdelim(char** restrict line, int delim, int fd);
 	ssize_t	km_getline(char** restrict line, int fd);
 
+	/*
+	** printf.c
+	*/
+	int	km_dprintf(int fd, const char* restrict format, ...);
+	int	km_printf(const char* restrict format, ...);
+
 /////////
 // sys //
 /////////
