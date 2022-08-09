@@ -55,4 +55,5 @@ dkms.conf
 .vscode
 
 # tests
+*.txt
 tests/bin/
