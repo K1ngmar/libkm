@@ -49,9 +49,6 @@ int	km_dprintf(int fd, const char* format, ...)
 			ret = km_add_to_buffer(&buffer, *format);
 			if (ret < 0)
 				break ;
-			// newline is found, flush buffer
-			if (*format == '\n')
-				ret = km_flush_buffer(&buffer);
 		}
 		++format;
 	}
