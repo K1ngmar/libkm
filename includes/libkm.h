@@ -129,7 +129,7 @@
 	ssize_t	km_getline(char** restrict line, int fd);
 
 	/*
-	** printf.c
+	** printf/printf.c
 	*/
 	int	km_dprintf(int fd, const char* restrict format, ...);
 	int	km_printf(const char* restrict format, ...);
