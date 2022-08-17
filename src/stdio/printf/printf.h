@@ -63,7 +63,7 @@
 	int km_add_to_buffer(t_printf_buffer* buffer, char c);
 
 ////////////////
-// Conversion //
+// Dispatcher //
 ////////////////
 
 	int conversion_dispatcher(va_list args, const char** format, t_printf_buffer* buffer);

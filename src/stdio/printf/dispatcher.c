@@ -15,6 +15,10 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
+///////////
+// Flags //
+///////////
+
 static t_printf_flags init_flags(const char** format, va_list args)
 {
 	t_printf_flags flags = {
@@ -100,6 +104,10 @@ static void	set_format_specifier(t_printf_flags* flags, const char** format)
 			flags->size = SHORT;
 	}
 }
+
+////////////////
+// Dispatcher //
+////////////////
 
 int conversion_dispatcher(va_list args, const char** format, t_printf_buffer* buffer)
 {
