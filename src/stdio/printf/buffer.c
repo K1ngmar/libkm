@@ -25,11 +25,16 @@ int km_flush_buffer(t_printf_buffer* buffer)
 
 int km_add_to_buffer(t_printf_buffer* buffer, char c)
 {
+	// adding character will exceed capacity, flush buffer
 	if (buffer->length + 1 == PRINTF_BUFFER_SIZE)
 		if (km_flush_buffer(buffer) < 0)
 			return (-1);
 	buffer->str[buffer->length] = c;
 	buffer->length++;
+	// newline is found, flush buffer
+	if (c == '\n')
+		if (km_flush_buffer(buffer) < 0)
+			return (-1);
 }
 
 void km_fill_width(char* str, const t_printf_flags* flags, int conversion_length)
