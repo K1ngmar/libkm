@@ -19,15 +19,6 @@
 
 #define km_printf(format, va_args...) km_dprintf(STDOUT_FILENO, format, va_args);
 
-/////////////////
-// Conversions //
-/////////////////
-
-static int conversion_signed_decimal(t_printf_buffer* buffer, t_printf_flags* flags, long long int nbr)
-{
-
-}
-
 ///////////////////
 // Main function //
 ///////////////////
@@ -55,11 +46,9 @@ int	km_dprintf(int fd, const char* format, ...)
 		}
 		// no conversion
 		else {
-			if (buffer.length < PRINTF_BUFFER_SIZE)
-				ret = km_flush_buffer(&buffer);
+			ret = km_add_to_buffer(&buffer, *format);
 			if (ret < 0)
 				break ;
-			buffer.str[buffer.length] = *format;
 			// newline is found, flush buffer
 			if (*format == '\n')
 				ret = km_flush_buffer(&buffer);
