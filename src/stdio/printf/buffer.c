@@ -12,6 +12,8 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <libkm.h>
+#include <stdbool.h>
 
 int km_flush_buffer(t_printf_buffer* buffer)
 {
@@ -28,4 +30,21 @@ int km_add_to_buffer(t_printf_buffer* buffer, char c)
 			return (-1);
 	buffer->str[buffer->length] = c;
 	buffer->length++;
+}
+
+void km_fill_width(char* str, const t_printf_flags* flags, int conversion_length)
+{
+	char c = (flags->zero_padded) ? '0' : ' ';
+	int len = 0;
+
+	if (flags->field_width > conversion_length)
+		len = flags->field_width - conversion_length;
+	
+	if (len == 0)
+		return ;
+
+	if (flags->left_adjust == false)
+		km_memset(str + conversion_length, c, len);
+	else
+		km_memset(str, c, len);
 }

@@ -61,11 +61,18 @@
 
 	int km_flush_buffer(t_printf_buffer* buffer);
 	int km_add_to_buffer(t_printf_buffer* buffer, char c);
+	void km_fill_width(char* str, const t_printf_flags* flags, int conversion_length);
 
 ////////////////
 // Dispatcher //
 ////////////////
 
 	int conversion_dispatcher(va_list args, const char** format, t_printf_buffer* buffer);
+
+/////////////////
+// Conversions //
+/////////////////
+
+	int conversion_decimal(va_list arg, const t_printf_buffer* buffer, t_printf_flags* flags);
 
 #endif
