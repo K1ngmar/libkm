@@ -37,14 +37,21 @@ int km_add_to_buffer(t_printf_buffer* buffer, char c)
 			return (-1);
 }
 
-void km_fill_width(t_printf_buffer* buffer, const t_printf_flags* flags, int width)
+void km_fill_width(t_printf_buffer* buffer, const t_printf_flags* flags, int conversion_width)
 {
 	char c = (flags->zero_padded) ? '0' : ' ';
+	int width = flags->field_width - conversion_width;
 	int len;
 
 	while (width > 0) {
 		len = min(width, PRINTF_BUFFER_SIZE - buffer->length);
 		km_memset(buffer->str + buffer->length, c, width);
+		buffer->length += len;
+
 		width -= len;
+		if (width > 0) {
+			if (km_flush_buffer(buffer) < 0)
+				return (-1);
+		}
 	}
 }
