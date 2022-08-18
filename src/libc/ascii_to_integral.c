@@ -67,7 +67,7 @@ static int determine_base(const char* restrict* str, int base)
 ** if base is 0, the base will be determined by the leading characters,
 ** 0b = binary, 0 = octal, 1-9 = decimal, 0x = hexadecimal
 */
-long long km_strtoll(const char* restrict str, char** restrict endptr, int base)
+long long km_strtoll(const char* restrict str, const char** restrict endptr, int base)
 {
 	long long	res		= 0;
 	long long	sgn		= 1;
@@ -114,7 +114,7 @@ long long km_strtoll(const char* restrict str, char** restrict endptr, int base)
 	return ((res * sgn));
 }
 
-long	km_strtol(const char* restrict str, char** restrict endptr, int base) {
+long	km_strtol(const char* restrict str, const char** restrict endptr, int base) {
 	return ((long)km_strtoll(str, endptr, base));
 }
 
