@@ -17,7 +17,7 @@
 #include <stdbool.h>
 #include "printf.h"
 
-#define km_printf(format, va_args...) km_dprintf(STDOUT_FILENO, format, va_args);
+#define km_printf(format, ...) km_dprintf(STDOUT_FILENO, format, __VA_ARGS__);
 
 ///////////////////
 // Main function //
