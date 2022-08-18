@@ -16,6 +16,12 @@
 
 # include <sys/types.h>
 
+/////////////
+// Macro's //
+/////////////
+
+# define RETURN_IF_FAILED(x) do { if (x < 0) return (-1); } while(0)
+
 //////////
 // libc //
 //////////
