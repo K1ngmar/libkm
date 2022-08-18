@@ -37,9 +37,6 @@ static size_t	line_len(const char *str, int delim)
 */
 static void	prep_buf(char* buf, size_t pos)
 {
-	int i = pos + 1;
-	int j = 0;
-
 	km_memcpy(buf, buf + pos + 1, BUFFER_SIZE - pos);
 	buf[BUFFER_SIZE - pos] = '\0';
 }
