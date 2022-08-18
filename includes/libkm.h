@@ -22,6 +22,9 @@
 
 # define RETURN_IF_FAILED(x) do { if (x < 0) return (-1); } while(0)
 
+# define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+
 //////////
 // libc //
 //////////
