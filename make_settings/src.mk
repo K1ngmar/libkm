@@ -1,18 +1,22 @@
 ifndef SRC_MK
 SRC_MK = 1
 
-SRC :=	src/libc/character_checks.c \
-		src/libc/string.c \
-		src/libc/strlen.c \
-		src/libc/ascii_to_integral.c \
-		src/libc/memcpy.c \
-		src/libc/memset.c \
-		src/libc/memchr.c \
-		src/libc/memcmp.c \
-		src/libc/mem.c \
-		src/additional/string.c \
-		src/additional/split.c \
-		src/additional/io.c \
-		src/stdio/getdelim.c
+SRC :=	libc/character_checks.c \
+		libc/string.c \
+		libc/strlen.c \
+		libc/ascii_to_integral.c \
+		libc/memcpy.c \
+		libc/memset.c \
+		libc/memchr.c \
+		libc/memcmp.c \
+		libc/mem.c \
+		additional/string.c \
+		additional/split.c \
+		additional/io.c \
+		stdio/getdelim.c \
+		stdio/printf/buffer.c \
+		stdio/printf/conversion_decimal.c \
+		stdio/printf/dispatcher.c \
+		stdio/printf/printf.c
 
 endif

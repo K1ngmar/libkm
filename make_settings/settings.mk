@@ -3,13 +3,11 @@ SETTINGS_MK = 1
 
 NAME	= libkm
 
-CC		= clang
-
 CFLAGS	= -Wall -Wextra -Werror -pedantic
 IFLAGS	= -I$(IDIR)
 
 SDIR	= src
-ODIR	= obj
+ODIR	= .obj
 IDIR	= includes
 
 TEST	= tests
@@ -30,6 +28,8 @@ ifdef FSANITIZE
 endif
 
 include ./make_settings/src.mk
-OBJ := $(patsubst $(SDIR)/%.cpp,$(ODIR)/%.o,$(SRC))
+OBJ := $(addprefix $(ODIR)/, $(SRC:.c=.o))
+
+# TEST_OBJ    := $(patsubst $(SDIR)/%.c,$(ODIR)/%.o,$(SRC))
 
 endif

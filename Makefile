@@ -12,7 +12,7 @@ $(NAME): $(OBJ)
 	@echo "$(COLOR_GREEN)Creating Library...$(COLOR_RESET)"
 	@ar rcs $(NAME).a $(OBJ)
 
-$(OBJ): $(ODIR)/%.o: $(SDIR)/%.cpp
+$(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 	@mkdir -p $(@D)
 	@echo "$(COLOR_LBLUE)Compiling...	$(COLOR_BLUE)$<$(COLOR_RESET)"
 	@$(CC) -c -o $@ $< $(CFLAGS) $(IFLAGS)
@@ -22,7 +22,7 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.cpp
 $(TEST)/bin/%: $(TEST)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
-test: fclean $(TEST)/bin $(TESTBIN)
+test: fclean $(NAME) $(TEST)/bin $(TESTBIN)
 	@for test in $(TESTBIN) ; do ./$$test ; done
 
 # Clean up
@@ -35,7 +35,7 @@ clean:
 
 fclean: clean
 	@printf "$(COLOR_RED)"
-	$(RM) $(NAME)
+	$(RM) $(NAME).a
 	$(RM) -r $(TEST)/bin/*
 	@printf "$(COLOR_RESET)"
 
