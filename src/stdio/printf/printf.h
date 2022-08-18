@@ -59,9 +59,10 @@
 // Buffer //
 ////////////
 
-	int km_flush_buffer(t_printf_buffer* buffer);
-	int km_add_to_buffer(t_printf_buffer* buffer, char c);
-	void km_fill_width(char* str, const t_printf_flags* flags, int conversion_length);
+	int	km_flush_buffer(t_printf_buffer* buffer);
+	int	km_add_to_buffer(t_printf_buffer* buffer, char c);
+	int km_fill_char(t_printf_buffer* buffer, char c, int length);
+	int	km_fill_width(t_printf_buffer* buffer, const t_printf_flags* flags, int conversion_width);
 
 ////////////////
 // Dispatcher //
