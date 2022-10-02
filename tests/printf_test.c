@@ -8,7 +8,6 @@
 char*	km = NULL;
 char*	og = NULL;
 
-
 void suitesetup(void) {
 	km = malloc(sizeof(char) * TEST_SIZE);
 	og = malloc(sizeof(char) * TEST_SIZE);
@@ -32,6 +31,17 @@ Test(printf_test, test_no_conversion) {
 	km_sprintf(&km, "hello world");
 	sprintf(og, "hello world");
 	cr_assert_str_eq(km, og);
+
+	// passed as allocated
+	km_sprintf(&km, "THIS IS A VERY LONG STRING ThAT WILL SURPASS THE LENGTH OF PRINTF_BUFFER_SIZE and should trigger a reallco that definitely will work the first time i test it right? Well this is not enough characters yet since it is by default set to 256 and we have not reached that yet :( but we will very soon and that will test if this will work or not :D");
+	sprintf(og, "THIS IS A VERY LONG STRING ThAT WILL SURPASS THE LENGTH OF PRINTF_BUFFER_SIZE and should trigger a reallco that definitely will work the first time i test it right? Well this is not enough characters yet since it is by default set to 256 and we have not reached that yet :( but we will very soon and that will test if this will work or not :D");
+	cr_assert_str_eq(km, og);
+	
+	// passed as NULL
+	char* km_str = NULL;
+	km_sprintf(&km_str, "THIS IS A VERY LONG STRING ThAT WILL SURPASS THE LENGTH OF PRINTF_BUFFER_SIZE and should trigger a reallco that definitely will work the first time i test it right? Well this is not enough characters yet since it is by default set to 256 and we have not reached that yet :( but we will very soon and that will test if this will work or not :D");
+	sprintf(og, "THIS IS A VERY LONG STRING ThAT WILL SURPASS THE LENGTH OF PRINTF_BUFFER_SIZE and should trigger a reallco that definitely will work the first time i test it right? Well this is not enough characters yet since it is by default set to 256 and we have not reached that yet :( but we will very soon and that will test if this will work or not :D");
+	cr_assert_str_eq(km_str, og);
 }
 
 Test(printf_test, test_decimal) {

@@ -42,8 +42,7 @@
 	typedef int (*flush_t)(struct printf_buffer_s*);
 
 	typedef struct printf_buffer_s {
-		char	buffer_str[PRINTF_BUFFER_SIZE + 1];
-		char*	str;
+		char	str[PRINTF_BUFFER_SIZE + 1];
 		char*	sprintf_str;
 		int		len;
 		int		max_len;

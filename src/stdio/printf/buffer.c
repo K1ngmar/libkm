@@ -34,14 +34,13 @@ int km_flush_buffer_str(printf_buffer_t* buffer)
 	char* str =	km_safe_strjoin(buffer->sprintf_str, buffer->str);
 
 	// free old string
-	free(buffer->str);
+	free(buffer->sprintf_str);
+	buffer->sprintf_str = str;
 	buffer->len = 0;
-	buffer->str = buffer->buffer_str;
-	
+
 	if (str == NULL) {
 		return (-1);
 	}
-	buffer->str = str;
 	return (0);
 }
 

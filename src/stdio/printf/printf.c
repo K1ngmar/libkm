@@ -26,7 +26,7 @@
 int	km_dprintf(int fd, const char* restrict format, ...)
 {
 	static printf_buffer_t buffer = {
-		.str = buffer.buffer_str,
+		.sprintf_str = NULL, // should not be used
 		.len = 0,
 		.max_len = PRINTF_BUFFER_SIZE,
 		.fd = -1, // should be set later
@@ -64,13 +64,13 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 
 /*
  * When passed a pointer to NULL it will allocate the right size
- * otherwise it will reallocate after the length has reached PRINTF_BUFFER_SIZE.
- * IMPORTANT: make sure if you do not pass it NULL, and you want it to reallocate,
- * that it has atleast a size of PRINTF_BUFFER_SIZE + 1 
+ * 
+ * IMPORTANT: do not pass this an allocated pointer because that will cause a leak 
 */
 int km_sprintf(char* restrict* str, const char* restrict format, ...)
 {
 	printf_buffer_t buffer = {
+		.sprintf_str = NULL,
 		.len = 0,
 		.max_len = PRINTF_BUFFER_SIZE,
 		.fd = -1, // invalid value, should not be used
@@ -78,13 +78,6 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 	};
 	va_list args;
 	int	ret = 0;
-
-	buffer.sprintf_str = *str;
-	if (*str == NULL) {
-		buffer.str = buffer.buffer_str;
-	} else {
-		buffer.str = *str;
-	}
 
 	va_start(args, format);
 	while (ret == 0 && *format != '\0') {
@@ -104,10 +97,10 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 	va_end(args);
 
 	// if buffer is not empty clear it.
-	if (buffer.len > 0 && buffer.str != buffer.sprintf_str)
+	if (buffer.len > 0 && ret == 0)
 		ret = buffer.flush(&buffer);
-	else
-		ret = km_add_to_buffer(&buffer, '\0');
+	else if (buffer.sprintf_str == NULL && ret == 0)
+		buffer.sprintf_str = km_strdup("");
 
 	*str = buffer.sprintf_str;
 
