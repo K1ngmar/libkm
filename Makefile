@@ -23,7 +23,7 @@ $(TEST)/bin/%: $(TEST)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
 test: fclean $(NAME) $(TEST)/bin $(TESTBIN)
-	@for test in $(TESTBIN) ; do ./$$test ; done
+	@for test in $(TESTBIN) ; do echo "\nTEST: $$test" && ./$$test ; done
 
 # Clean up
 .PHONY: clean fclean re
