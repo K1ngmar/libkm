@@ -41,6 +41,13 @@ char*	km_strjoin(const char* s1, const char* s2)
 	return (joined);
 }
 
+char*	km_safe_strjoin(const char* s1, const char* s2)
+{
+	if (s1 == NULL)
+		return km_strjoin("", s2);
+	return km_strjoin(s1, s2);
+}
+
 char*	km_strtrim(const char* str, const char* set)
 {
 	size_t len = km_strlen(str);
