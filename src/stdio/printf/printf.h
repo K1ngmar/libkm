@@ -36,11 +36,17 @@
 // STRUCT //
 ////////////
 
+	struct printf_buffer_t;
+
+	typedef int (*flush_t)(printf_buffer_t*);
+
 	typedef struct s_printf_buffer {
-		char	str[PRINTF_BUFFER_SIZE];
+		char	str[PRINTF_BUFFER_SIZE + 1];
+		char*	sprintf_string;
 		int		length;
 		int		fd;
-	} t_printf_buffer;
+		flush_t flush;
+	} printf_buffer_t;
 
 	typedef struct s_printf_flags {
 		int field_width;		 // number
@@ -59,21 +65,22 @@
 // Buffer //
 ////////////
 
-	int	km_flush_buffer(t_printf_buffer* buffer);
-	int	km_add_to_buffer(t_printf_buffer* buffer, char c);
-	int km_fill_char(t_printf_buffer* buffer, char c, int length);
-	int	km_fill_width(t_printf_buffer* buffer, const t_printf_flags* flags, int conversion_width);
+	int	km_flush_buffer_fd(printf_buffer_t* buffer);
+	int	km_flush_buffer_str(printf_buffer_t* buffer);
+	int	km_add_to_buffer(printf_buffer_t* buffer, char c);
+	int km_fill_char(printf_buffer_t* buffer, char c, int length);
+	int	km_fill_width(printf_buffer_t* buffer, const t_printf_flags* flags, int conversion_width);
 
 ////////////////
 // Dispatcher //
 ////////////////
 
-	int conversion_dispatcher(va_list args, const char** format, t_printf_buffer* buffer);
+	int conversion_dispatcher(va_list args, const char** format, printf_buffer_t* buffer);
 
 /////////////////
 // Conversions //
 /////////////////
 
-	int conversion_decimal(va_list arg, const t_printf_buffer* buffer, t_printf_flags* flags);
+	int conversion_decimal(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
 
 #endif
