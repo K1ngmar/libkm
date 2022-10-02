@@ -119,6 +119,7 @@ char*	km_strmapi(const char* str, char (*f)(unsigned int, char))
 {
 	size_t len = km_strlen(str);
 	char* res = malloc(sizeof(char) * (len + 1));
+	res[len] = '\0';
 
 	if (res == NULL)
 		return (NULL);
