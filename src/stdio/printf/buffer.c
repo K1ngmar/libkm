@@ -15,12 +15,13 @@
 #include <libkm.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int km_flush_buffer_fd(printf_buffer_t* buffer)
 {
-	if (write(buffer->fd, buffer->str, buffer->length) < 0)
+	if (write(buffer->fd, buffer->str, buffer->len) < 0)
 		return (-1); // maybe still set length to 0?
-	buffer->length = 0;
+	buffer->len = 0;
 	return (0);
 }
 
@@ -28,29 +29,31 @@ int km_flush_buffer_str(printf_buffer_t* buffer)
 {
 	// normally the buffer is not Null terminated,
 	// strjoin expects null terminated string
-	buffer->str[buffer->length] = '\0';
-	char* str =	km_safe_strjoin(buffer->sprintf_string, buffer->sprintf_string);
+	buffer->str[buffer->len] = '\0';
+
+	char* str =	km_safe_strjoin(buffer->sprintf_str, buffer->str);
 
 	// free old string
-	free(buffer->sprintf_string);
-	buffer->length = 0;
+	free(buffer->str);
+	buffer->len = 0;
+	buffer->str = buffer->buffer_str;
 	
 	if (str == NULL) {
 		return (-1);
 	}
-	buffer->sprintf_string = str;
+	buffer->str = str;
 	return (0);
 }
 
 int km_add_to_buffer(printf_buffer_t* buffer, char c)
 {
 	// adding character will exceed capacity, flush buffer
-	if (buffer->length + 1 == PRINTF_BUFFER_SIZE) {
+	if (buffer->len + 1 == buffer->max_len) {
 		if (buffer->flush(buffer) < 0)
 			return (-1);
 	}
-	buffer->str[buffer->length] = c;
-	buffer->length++;
+	buffer->str[buffer->len] = c;
+	buffer->len++;
 	// newline is found, flush buffer (only when writing to fd)
 	if (buffer->flush == km_flush_buffer_fd && c == '\n') {
 		if (buffer->flush(buffer) < 0)
@@ -64,9 +67,9 @@ int km_fill_char(printf_buffer_t* buffer, char c, int length)
 	int len;
 
 	while (length > 0) {
-		len = MIN(length, PRINTF_BUFFER_SIZE - buffer->length);
-		km_memset(buffer->str + buffer->length, c, length);
-		buffer->length += len;
+		len = MIN(length, buffer->max_len - buffer->len);
+		km_memset(buffer->str + buffer->len, c, length);
+		buffer->len += len;
 
 		length -= len;
 		if (length > 0) {

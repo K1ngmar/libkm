@@ -19,6 +19,7 @@
 # endif
 
 #include <stdarg.h>
+#include <inttypes.h>
 
 ///////////
 // Enums //
@@ -36,14 +37,16 @@
 // STRUCT //
 ////////////
 
-	struct printf_buffer_t;
+	struct printf_buffer_s;
 
-	typedef int (*flush_t)(printf_buffer_t*);
+	typedef int (*flush_t)(struct printf_buffer_s*);
 
-	typedef struct s_printf_buffer {
-		char	str[PRINTF_BUFFER_SIZE + 1];
-		char*	sprintf_string;
-		int		length;
+	typedef struct printf_buffer_s {
+		char	buffer_str[PRINTF_BUFFER_SIZE + 1];
+		char*	str;
+		char*	sprintf_str;
+		int		len;
+		int		max_len;
 		int		fd;
 		flush_t flush;
 	} printf_buffer_t;
@@ -75,7 +78,7 @@
 // Dispatcher //
 ////////////////
 
-	int conversion_dispatcher(va_list args, const char** format, printf_buffer_t* buffer);
+	int conversion_dispatcher(va_list args, const char* restrict * format, printf_buffer_t* buffer);
 
 /////////////////
 // Conversions //

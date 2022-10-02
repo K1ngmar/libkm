@@ -12,6 +12,7 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <libkm.h>
 #include <stdbool.h>
 #include <stdarg.h>
 
@@ -19,7 +20,7 @@
 // Flags //
 ///////////
 
-static t_printf_flags init_flags(const char** format, va_list args)
+static t_printf_flags init_flags(const char* restrict * format, va_list args)
 {
 	t_printf_flags flags = {
 		.field_width = false,
@@ -56,7 +57,7 @@ static t_printf_flags init_flags(const char** format, va_list args)
 	}
 	// field witdh
 	if (km_isdigit(**format)) {
-		flags.field_width = km_strtoll(*format, format, 10);
+		flags.field_width = km_strtoll(*format, (char**)format, 10);
 	}
 	else if (**format == '*') {
 		flags.field_width = va_arg(args, int);
@@ -65,17 +66,17 @@ static t_printf_flags init_flags(const char** format, va_list args)
 	// precision
 	if (**format == '.') {
 		++(*format);
-		if (*format == '*') {
+		if (**format == '*') {
 			flags.precision = va_arg(args, int);
 			++(*format);
 		} else {
-			flags.precision = km_strtoll(*format, format, 10);
+			flags.precision = km_strtoll(*format, (char**)format, 10);
 		}
 	}
 	return (flags);
 }
 
-static void	set_format_specifier(t_printf_flags* flags, const char** format)
+static void	set_format_specifier(t_printf_flags* flags, const char* restrict * format)
 {
 	if (**format == 'u') {
 		++(*format);
@@ -109,7 +110,7 @@ static void	set_format_specifier(t_printf_flags* flags, const char** format)
 // Dispatcher //
 ////////////////
 
-int conversion_dispatcher(va_list args, const char** format, t_printf_buffer* buffer)
+int conversion_dispatcher(va_list args, const char* restrict * format, printf_buffer_t* buffer)
 {
 	t_printf_flags flags = init_flags(format, args);
 	set_format_specifier(&flags, format);
@@ -117,9 +118,7 @@ int conversion_dispatcher(va_list args, const char** format, t_printf_buffer* bu
 	switch(**format) {
 		case 'd':
 		case 'i': {
-			if (flags.is_unsigned == true)
-				return conversion_unsigned_decimal(buffer, &flags, );
-			return conversion_signed_decimal(buffer, &flags, );
+			return conversion_decimal(args, buffer, &flags);
 		}
 	}
 	return (0);
