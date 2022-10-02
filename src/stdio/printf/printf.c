@@ -70,7 +70,7 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 */
 int km_sprintf(char* restrict* str, const char* restrict format, ...)
 {
-	static printf_buffer_t buffer = {
+	printf_buffer_t buffer = {
 		.len = 0,
 		.max_len = PRINTF_BUFFER_SIZE,
 		.fd = -1, // invalid value, should not be used
