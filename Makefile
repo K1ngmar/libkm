@@ -20,10 +20,11 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 # testing
 
 $(TEST)/bin/%: $(TEST)/%.c
-	$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
+	@echo "$(COLOR_LBLUE)Compiling tests... $(COLOR_BLUE)$<$(COLOR_RESET)"
+	@$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
 test: fclean $(NAME) $(TEST)/bin $(TESTBIN)
-	@for test in $(TESTBIN) ; do echo "\nTEST: $$test" && ./$$test ; done
+	@for test in $(TESTBIN) ; do echo "\n$(COLOR_YELLOW)TEST:$(COLOR_RESET) $$test" && ./$$test ; done
 
 # Clean up
 .PHONY: clean fclean re
