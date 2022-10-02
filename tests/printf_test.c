@@ -33,3 +33,30 @@ Test(printf_test, test_no_conversion) {
 	sprintf(og, "hello world");
 	cr_assert_str_eq(km, og);
 }
+
+Test(printf_test, test_decimal) {
+
+	km_sprintf(&km, "d = %d", 100);
+	sprintf(og, "d = %d", 100);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "0 = %d", 0);
+	sprintf(og, "0 = %d", 0);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "9 = %d", 9);
+	sprintf(og, "9 = %d", 9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "-9 = %d", -9);
+	sprintf(og, "-9 = %d", -9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "INT_MAX = %d", INT32_MAX);
+	sprintf(og, "INT_MAX = %d", INT32_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "INT_MIN = %d", INT32_MIN);
+	sprintf(og, "INT_MIN = %d", INT32_MIN);
+	cr_assert_str_eq(km, og);
+}
