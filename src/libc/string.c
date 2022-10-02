@@ -196,8 +196,8 @@ char*	km_strtok(char* restrict str, const char* restrict sep)
 
 char*	km_strdup(const char *s1)
 {
-	size_t	len = km_strlen(s1);
-	char*	ret = malloc(sizeof(char) * (len + 1));
+	size_t	len = km_strlen(s1) + 1;
+	char*	ret = malloc(sizeof(char) * len);
 
 	if (ret == NULL)
 		return (NULL);
