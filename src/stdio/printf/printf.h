@@ -20,6 +20,7 @@
 
 #include <stdarg.h>
 #include <inttypes.h>
+#include <stdbool.h>
 
 ///////////
 // Enums //
@@ -51,16 +52,16 @@
 	} printf_buffer_t;
 
 	typedef struct s_printf_flags {
-		int field_width;		 // number
-		int precision;			 // '.' followed by a number
-		int alternate_form	: 1; // '#'
-		int left_adjust		: 1; // '-'
-		int always_signed	: 1; // '+'
-		int blank			: 1; // ' '
-		int zero_padded		: 1; // '0'
-		int	is_unsigned		: 1; // no negativity
-		e_format_size size	: 3; // ie: ll
-		int uppercase		: 1; // print in uppercase
+		int 	field_width;		 // number
+		int 	precision;			 // '.' followed by a number
+		bool 	alternate_form	: 1; // '#'
+		bool	left_adjust		: 1; // '-'
+		bool	always_signed	: 1; // '+'
+		bool	blank			: 1; // ' '
+		bool	zero_padded		: 1; // '0'
+		bool	is_unsigned		: 1; // no negativity
+		e_format_size size		: 3; // ie: ll
+		bool	uppercase		: 1; // print in uppercase
 	} t_printf_flags;
 
 ////////////

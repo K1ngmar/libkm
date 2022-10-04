@@ -70,3 +70,30 @@ Test(printf_test, test_decimal) {
 	sprintf(og, "INT_MIN = %d", INT32_MIN);
 	cr_assert_str_eq(km, og);
 }
+
+Test(printf_test, test_decimal_sign) {
+
+	km_sprintf(&km, "%+d", 0);
+	sprintf(og, "%+d", 0);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%+d", 1);
+	sprintf(og, "%+d", 1);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%+d", INT32_MAX);
+	sprintf(og, "%+d", INT32_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%+d", INT32_MIN);
+	sprintf(og, "%+d", INT32_MIN);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%+d", -1);
+	sprintf(og, "%+d", -1);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%+d", -17);
+	sprintf(og, "%+d", -17);
+	cr_assert_str_eq(km, og);
+}
