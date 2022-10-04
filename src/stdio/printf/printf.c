@@ -17,11 +17,33 @@
 #include <stdbool.h>
 #include "printf.h"
 
-#define km_printf(format, ...) km_dprintf(STDOUT_FILENO, format, __VA_ARGS__);
-
 ///////////////////
 // Main function //
 ///////////////////
+
+static int __format_loop(printf_buffer_t* buffer, va_list args, const char* restrict format)
+{
+	int ret = 0;
+
+	while (ret == 0 && *format != '\0') {
+		// conversion is found
+		if (*format == '%') {
+			++format;
+			ret = conversion_dispatcher(args, &format, buffer);
+		}
+		// no conversion
+		else {
+			ret = km_add_to_buffer(buffer, *format);
+			if (ret < 0)
+				break ;
+		}
+		++format;
+	}
+	va_end(args);
+	return (ret);
+}
+
+#define km_printf(format, ...) km_dprintf(STDOUT_FILENO, format, __VA_ARGS__);
 
 int	km_dprintf(int fd, const char* restrict format, ...)
 {
@@ -32,7 +54,6 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 		.fd = -1, // should be set later
 		.flush = km_flush_buffer_fd
 	};
-	va_list args;
 	int	ret = 0;
 
 	// check if previous call was done on same fd
@@ -43,22 +64,9 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 		buffer.fd = fd;
 	}
 
+	va_list args;
 	va_start(args, format);
-	while (ret == 0 && *format != '\0') {
-		// conversion is found
-		if (*format == '%') {
-			++format;
-			ret = conversion_dispatcher(args, &format, &buffer);
-		}
-		// no conversion
-		else {
-			ret = km_add_to_buffer(&buffer, *format);
-			if (ret < 0)
-				break ;
-		}
-		++format;
-	}
-	va_end(args);
+	ret = __format_loop(&buffer, args, format);
 	return (ret);
 }
 
@@ -76,25 +84,12 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 		.fd = -1, // invalid value, should not be used
 		.flush = km_flush_buffer_str
 	};
-	va_list args;
+
 	int	ret = 0;
 
+	va_list args;
 	va_start(args, format);
-	while (ret == 0 && *format != '\0') {
-		// conversion is found
-		if (*format == '%') {
-			++format;
-			ret = conversion_dispatcher(args, &format, &buffer);
-		}
-		// no conversion
-		else {
-			ret = km_add_to_buffer(&buffer, *format);
-			if (ret < 0)
-				break ;
-		}
-		++format;
-	}
-	va_end(args);
+	ret = __format_loop(&buffer, args, format);
 
 	// if buffer is not empty clear it.
 	if (buffer.len > 0 && ret == 0)
