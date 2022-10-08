@@ -17,15 +17,17 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
-static int nbr_length(unsigned long long nbr, bool is_negative, const t_printf_flags* flags)
+static inline bool has_nbr_prefix(bool is_negative, const t_printf_flags* flags) {
+ return (is_negative == true || flags->always_signed == true || flags->blank == true);
+}
+
+static int nbr_length(unsigned long long nbr)
 {
 	int len = 0;
 
 	if (nbr == 0)
 		++len;
 	for (; nbr != 0; nbr /= 10)
-		++len;
-	if (flags->precision < len && (is_negative == true || flags->always_signed == true || flags->blank == true))
 		++len;
 	return (len);
 }
@@ -41,8 +43,8 @@ static int conversion_recusion(printf_buffer_t* buffer, unsigned long long nbr)
 
 static int do_decimal_conversion(printf_buffer_t* buffer, const t_printf_flags* flags, unsigned long long nbr, bool is_negative)
 {
-	int nbr_len = nbr_length(nbr, is_negative, flags);
-	int true_len = MAX(flags->precision, nbr_len);
+	const int nbr_len = nbr_length(nbr) + has_nbr_prefix(is_negative, flags);
+	const int true_len = MAX(flags->precision + has_nbr_prefix(is_negative, flags), nbr_len);
 
 	// fill width on left side
 	if (flags->left_adjust == false)
