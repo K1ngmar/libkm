@@ -35,6 +35,7 @@ char*	km_strjoin(const char* s1, const char* s2)
 
 	joined = malloc(sizeof(char) * (len + 1));
 	if (joined != NULL) {
+		joined[0] = '\0';
 		km_strlcat(joined, s1, len + 1);
 		km_strlcat(joined, s2, len + 1);
 	}

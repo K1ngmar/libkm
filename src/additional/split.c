@@ -88,7 +88,7 @@ static void*	free_split(char** split, size_t len)
 
 static char**	generate_split(split_simple_vector_t* vec)
 {
-	char** split = malloc(sizeof(char*) * vec->size + 1);
+	char** split = malloc(sizeof(char*) * (vec->size + 1));
 	if (split == NULL)
 		return (NULL);
 	split[vec->size] = NULL;
