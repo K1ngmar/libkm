@@ -95,7 +95,7 @@ static void free_split(char** split)
 }
 
 Test(additional_test, test_split) {
-	char str[] = "I AM GOING TO SPLIT THIS STRING";
+	char str[] = "I AM GOING TO SPLIT THIS STRING\0";
 	char** split = km_split(str, ' ');
 
 	cr_expect_str_eq(*(split), strtok(str,  " "));
@@ -103,14 +103,14 @@ Test(additional_test, test_split) {
 		cr_expect_str_eq(*(split + i), strtok(NULL, " "));
 	free_split(split);
 
-	char st[] = "       this  has      multiple       splittable    characters   ";
+	char st[] = "       this  has      multiple       splittable    characters   \0";
 	split = km_split(st, ' ');
 	cr_expect_str_eq(*(split), strtok(st,  " "));
 	for (size_t i = 1; split[i] != NULL; i++)
 		cr_expect_str_eq(*(split + i), strtok(NULL, " "));
 	free_split(split);
 
-	char stur[] = "          ";
+	char stur[] = "          \0";
 	split = km_split(stur, ' ');
 	cr_expect(*(split) == strtok(stur,  " "));
 	free_split(split);
