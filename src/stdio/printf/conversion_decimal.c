@@ -97,8 +97,34 @@ int conversion_decimal(va_list arg, printf_buffer_t* buffer, const t_printf_flag
 	}
 
 	// number is negative
-	if (flags->is_unsigned == false && nbr < 0)
+	if (nbr < 0)
 		return do_decimal_conversion(buffer, flags, -nbr, true);
+	// number is not negative
+	return do_decimal_conversion(buffer, flags, nbr, false);
+}
+
+int conversion_unsigned(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags)
+{
+	unsigned long long nbr;
+
+	switch(flags->size) {
+		case LONG: {
+			nbr = (unsigned long int)va_arg(arg, long int); break;
+		}
+		case LONG_LONG: {
+			nbr = (unsigned long long int)va_arg(arg, long long int); break;
+		}
+		case SHORT: {
+			nbr = (unsigned short)va_arg(arg, int); break;
+		}
+		case SHORT_SHORT: {
+			nbr = (uint8_t)va_arg(arg, int); break;
+		}
+		default: {
+			nbr = (unsigned int)va_arg(arg, int);
+		}
+	}
+
 	// number is not negative
 	return do_decimal_conversion(buffer, flags, nbr, false);
 }

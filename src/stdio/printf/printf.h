@@ -85,5 +85,6 @@
 /////////////////
 
 	int conversion_decimal(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
+	int conversion_unsigned(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
 
 #endif

@@ -112,10 +112,12 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	set_format_specifier(&flags, format);
 
 	switch(**format) {
-		case 'u': flags.is_unsigned = true; // falltrough
 		case 'd': // falltrough
 		case 'i': {
 			return conversion_decimal(args, buffer, &flags);
+		}
+		case 'u': {
+			return conversion_unsigned(args, buffer, &flags);
 		}
 		default:
 			return -1; // no conversion found

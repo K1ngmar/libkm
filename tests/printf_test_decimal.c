@@ -44,8 +44,8 @@ Test(printf_test, test_no_conversion) {
 	cr_assert_str_eq(km_str, og);
 }
 
-Test(printf_test, decimal) {
-
+Test(printf_test, decimal)
+{
 	km_sprintf(&km, "d = %d", 100);
 	sprintf(og, "d = %d", 100);
 	cr_assert_str_eq(km, og);
@@ -68,6 +68,103 @@ Test(printf_test, decimal) {
 
 	km_sprintf(&km, "INT_MIN = %d", INT32_MIN);
 	sprintf(og, "INT_MIN = %d", INT32_MIN);
+	cr_assert_str_eq(km, og);
+}
+
+Test(printf_test, decimal_long)
+{
+	km_sprintf(&km, "%ld", (long)100);
+	sprintf(og, "%ld", (long)100);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%ld", (long)0);
+	sprintf(og, "%ld", (long)0);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%ld", (long)9);
+	sprintf(og, "%ld", (long)9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%ld", (long)-9);
+	sprintf(og, "%ld", (long)-9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%ld", (long)INT32_MAX);
+	sprintf(og, "%ld", (long)INT32_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%ld", (long)INT32_MIN);
+	sprintf(og, "%ld", (long)INT32_MIN);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lld", INT64_MAX);
+	sprintf(og, "%lld", INT64_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lld", INT64_MIN);
+	sprintf(og, "%lld", INT64_MIN);
+	cr_assert_str_eq(km, og);
+}
+
+Test(printf_test, decimal_u)
+{
+	km_sprintf(&km, "%u", (unsigned int)100);
+	sprintf(og, "%u", (unsigned int)100);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%u", (unsigned int)0);
+	sprintf(og, "%u", (unsigned int)0);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%u", (unsigned int)9);
+	sprintf(og, "%u", (unsigned int)9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%u", (unsigned int)-9);
+	sprintf(og, "%u", (unsigned int)-9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%u", (unsigned int)UINT32_MAX);
+	sprintf(og, "%u", (unsigned int)UINT32_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%u", (unsigned int)UINT32_MAX + 1);
+	sprintf(og, "%u", (unsigned int)UINT32_MAX + 1);
+	cr_assert_str_eq(km, og);
+}
+
+Test(printf_test, decimal_ulong)
+{
+	km_sprintf(&km, "%lu", (unsigned long)100);
+	sprintf(og, "%lu", (unsigned long)100);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lu", (unsigned long)0);
+	sprintf(og, "%lu", (unsigned long)0);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lu", (unsigned long)9);
+	sprintf(og, "%lu", (unsigned long)9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lu", (unsigned long)-9);
+	sprintf(og, "%lu", (unsigned long)-9);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lu", (unsigned long)UINT32_MAX);
+	sprintf(og, "%lu", (unsigned long)UINT32_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%lu", (unsigned long)UINT32_MAX + 1);
+	sprintf(og, "%lu", (unsigned long)UINT32_MAX + 1);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%llu", UINT64_MAX);
+	sprintf(og, "%llu", UINT64_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_sprintf(&km, "%llu", UINT64_MAX + 1);
+	sprintf(og, "%llu", UINT64_MAX + 1);
 	cr_assert_str_eq(km, og);
 }
 
