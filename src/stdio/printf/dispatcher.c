@@ -78,10 +78,6 @@ static t_printf_flags init_flags(const char* restrict * format, va_list args)
 
 static void	set_format_specifier(t_printf_flags* flags, const char* restrict * format)
 {
-	if (**format == 'u') {
-		++(*format);
-		flags->is_unsigned = true;
-	}
 	if (km_tolower(**format) == 'l') {
 		if (km_isupper(**format))
 			flags->uppercase = true;
@@ -116,10 +112,13 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	set_format_specifier(&flags, format);
 
 	switch(**format) {
-		case 'd':
+		case 'u': flags.is_unsigned = true; // falltrough
+		case 'd': // falltrough
 		case 'i': {
 			return conversion_decimal(args, buffer, &flags);
 		}
+		default:
+			return -1; // no conversion found
 	}
 	return (0);
 }

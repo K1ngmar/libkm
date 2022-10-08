@@ -21,7 +21,7 @@
 // Main function //
 ///////////////////
 
-static int __format_loop(printf_buffer_t* buffer, va_list args, const char* restrict format)
+static int format_loop(printf_buffer_t* buffer, va_list args, const char* restrict format)
 {
 	int ret = 0;
 
@@ -66,7 +66,7 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 
 	va_list args;
 	va_start(args, format);
-	ret = __format_loop(&buffer, args, format);
+	ret = format_loop(&buffer, args, format);
 	return (ret);
 }
 
@@ -89,7 +89,7 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 
 	va_list args;
 	va_start(args, format);
-	ret = __format_loop(&buffer, args, format);
+	ret = format_loop(&buffer, args, format);
 
 	// if buffer is not empty clear it.
 	if (buffer.len > 0 && ret == 0)
