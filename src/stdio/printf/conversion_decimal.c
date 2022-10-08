@@ -21,11 +21,11 @@ static int nbr_length(unsigned long long nbr, bool is_negative, const t_printf_f
 {
 	int len = 0;
 
-	if (is_negative == true || flags->always_signed == true || flags->blank == true)
-		++len;
 	if (nbr == 0)
 		++len;
 	for (; nbr != 0; nbr /= 10)
+		++len;
+	if (flags->precision < len && (is_negative == true || flags->always_signed == true || flags->blank == true))
 		++len;
 	return (len);
 }
