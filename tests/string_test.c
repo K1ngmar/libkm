@@ -130,37 +130,37 @@ Test(string_test, test_strcmp) {
 	char s1[] = "testniffau";
 	char s2[] = "testniffau";
 	
-	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+	cr_expect(!!km_strcmp(s1, s2) == !!strcmp(s1, s2));
 
 	s2[5] = 'z';
-	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+	cr_expect(!!km_strcmp(s1, s2) == !!strcmp(s1, s2));
 
 	s1[3] = 'a';
-	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+	cr_expect(!!km_strcmp(s1, s2) == !!strcmp(s1, s2));
 
 	s1[0] = 'd';
-	cr_expect(km_strcmp(s1, s2) == strcmp(s1, s2));
+	cr_expect(!!km_strcmp(s1, s2) == !!strcmp(s1, s2));
 }
 
 Test(string_test, test_strncmp) {
 	char s1[] = "testniffau";
 	char s2[] = "testniffau";
 	
-	cr_expect(km_strncmp(s1, s2, 5) == strncmp(s1, s2, 5));
-	cr_expect(km_strncmp(s1, s2, 42) == strncmp(s1, s2, 42));
-	cr_expect(km_strncmp(s1, s2, 1) == strncmp(s1, s2, 1));
-	cr_expect(km_strncmp(s1, s2, 2) == strncmp(s1, s2, 2));
+	cr_expect(!!km_strncmp(s1, s2, 5) == !!strncmp(s1, s2, 5));
+	cr_expect(!!km_strncmp(s1, s2, 42) == !!strncmp(s1, s2, 42));
+	cr_expect(!!km_strncmp(s1, s2, 1) == !!strncmp(s1, s2, 1));
+	cr_expect(!!km_strncmp(s1, s2, 2) == !!strncmp(s1, s2, 2));
 
 	s2[5] = 'z';
-	cr_expect(km_strncmp(s1, s2, 0) == strncmp(s1, s2, 0));
-	cr_expect(km_strncmp(s1, s2, 20) == strncmp(s1, s2, 20));
+	cr_expect(!!km_strncmp(s1, s2, 0) == !!strncmp(s1, s2, 0));
+	cr_expect(!!km_strncmp(s1, s2, 20) == !!strncmp(s1, s2, 20));
 	
 
 	s1[3] = 'a';
-	cr_expect(km_strncmp(s1, s2, 3) == strncmp(s1, s2, 3));
+	cr_expect(!!km_strncmp(s1, s2, 3) == !!strncmp(s1, s2, 3));
 
 	s1[0] = 'd';
-	cr_expect(km_strncmp(s1, s2, 12) == strncmp(s1, s2, 12));
+	cr_expect(!!km_strncmp(s1, s2, 12) == !!strncmp(s1, s2, 12));
 }
 
 Test(string_test, test_strstr) {
