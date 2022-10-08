@@ -119,6 +119,4 @@ Test(mem_test, test_calloc) {
 	cr_expect(memcmp(km_ptr, og_ptr, TEST_SIZE * sizeof(int)) == 0);
 	free(km_ptr);
 	free(og_ptr);
-	km_ptr = km_calloc(-1, 1);
-	cr_expect(km_ptr == NULL);
 }
