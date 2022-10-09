@@ -44,9 +44,10 @@
 	typedef int (*flush_t)(struct printf_buffer_s*);
 
 	typedef struct printf_buffer_s {
-		char	str[PRINTF_BUFFER_SIZE + 1];
+		char	buffer_str[PRINTF_BUFFER_SIZE + 1];
 		char*	sprintf_str;
-		size_t	bytes_printed;
+		char*	str;
+		int		bytes_printed;
 		int		len;
 		int		max_len;
 		int		fd;
@@ -72,6 +73,7 @@
 
 	int	km_flush_buffer_fd(printf_buffer_t* buffer);
 	int	km_flush_buffer_str(printf_buffer_t* buffer);
+	int	km_flush_buffer_nstr(printf_buffer_t* buffer);
 	int	km_add_to_buffer(printf_buffer_t* buffer, char c);
 	int km_fill_char(printf_buffer_t* buffer, char c, int length);
 	int	km_fill_width(printf_buffer_t* buffer, const t_printf_flags* flags, int conversion_width);
