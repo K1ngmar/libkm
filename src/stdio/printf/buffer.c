@@ -21,6 +21,7 @@ int km_flush_buffer_fd(printf_buffer_t* buffer)
 {
 	if (write(buffer->fd, buffer->str, buffer->len) < 0)
 		return (-1); // maybe still set length to 0?
+	buffer->bytes_printed += buffer->len;
 	buffer->len = 0;
 	return (0);
 }
@@ -36,6 +37,7 @@ int km_flush_buffer_str(printf_buffer_t* buffer)
 	// free old string
 	free(buffer->sprintf_str);
 	buffer->sprintf_str = str;
+	buffer->bytes_printed += buffer->len;
 	buffer->len = 0;
 
 	if (str == NULL) {
