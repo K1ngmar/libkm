@@ -57,3 +57,8 @@ dkms.conf
 # tests
 *.txt
 tests/bin/
+magic.cpp
+test.cpp
+
+# other
+todo.md
