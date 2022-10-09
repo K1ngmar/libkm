@@ -96,10 +96,8 @@ int conversion_decimal(va_list arg, printf_buffer_t* buffer, const t_printf_flag
 		}
 	}
 
-	// number is negative
 	if (nbr < 0)
 		return do_decimal_conversion(buffer, flags, -nbr, true);
-	// number is not negative
 	return do_decimal_conversion(buffer, flags, nbr, false);
 }
 
@@ -125,6 +123,5 @@ int conversion_unsigned(va_list arg, printf_buffer_t* buffer, const t_printf_fla
 		}
 	}
 
-	// number is not negative
 	return do_decimal_conversion(buffer, flags, nbr, false);
 }

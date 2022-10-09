@@ -144,6 +144,7 @@
 	int	km_dprintf(int fd, const char* restrict format, ...);
 	int	km_printf(const char* restrict format, ...);
 	int	km_sprintf(char* restrict* str, const char* restrict format, ...);
+	int km_snprintf(char* restrict* str, const size_t size, const char* restrict format, ...);
 
 /////////
 // sys //

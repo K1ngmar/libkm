@@ -34,7 +34,6 @@ int km_flush_buffer_str(printf_buffer_t* buffer)
 
 	char* str =	km_safe_strjoin(buffer->sprintf_str, buffer->str);
 
-	// free old string
 	free(buffer->sprintf_str);
 	buffer->sprintf_str = str;
 	buffer->bytes_printed += buffer->len;
@@ -46,17 +45,30 @@ int km_flush_buffer_str(printf_buffer_t* buffer)
 	return (0);
 }
 
+int km_flush_buffer_nstr(printf_buffer_t* buffer)
+{
+	if (buffer->str == buffer->sprintf_str) {
+		buffer->sprintf_str[buffer->len] = '\0';
+	}
+	buffer->bytes_printed += buffer->len;
+	buffer->len = 0;
+	buffer->str = buffer->buffer_str;
+	buffer->max_len = PRINTF_BUFFER_SIZE;
+
+	return (0);
+}
+
 int km_add_to_buffer(printf_buffer_t* buffer, char c)
 {
 	// adding character will exceed capacity, flush buffer
-	if (buffer->len + 1 == buffer->max_len) {
+	if (buffer->len + 1 >= buffer->max_len) {
 		if (buffer->flush(buffer) < 0)
 			return (-1);
 	}
 	buffer->str[buffer->len] = c;
 	buffer->len++;
 	// newline is found, flush buffer (only when writing to fd)
-	if (buffer->flush == km_flush_buffer_fd && c == '\n') {
+	if (c == '\n' && buffer->flush == km_flush_buffer_fd) {
 		if (buffer->flush(buffer) < 0)
 			return (-1);
 	}
