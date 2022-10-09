@@ -21,6 +21,7 @@
 #include <stdarg.h>
 #include <inttypes.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 ///////////
 // Enums //
@@ -45,6 +46,7 @@
 	typedef struct printf_buffer_s {
 		char	str[PRINTF_BUFFER_SIZE + 1];
 		char*	sprintf_str;
+		size_t	bytes_printed;
 		int		len;
 		int		max_len;
 		int		fd;

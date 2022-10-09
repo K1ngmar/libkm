@@ -49,6 +49,7 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 {
 	static printf_buffer_t buffer = {
 		.sprintf_str = NULL, // should not be used
+		.bytes_printed = 0,
 		.len = 0,
 		.max_len = PRINTF_BUFFER_SIZE,
 		.fd = -1, // should be set later
@@ -62,12 +63,13 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 		if (buffer.len > 0)
 			ret = buffer.flush(&buffer);
 		buffer.fd = fd;
+		buffer.bytes_printed = 0;
 	}
 
 	va_list args;
 	va_start(args, format);
 	ret = format_loop(&buffer, args, format);
-	return (ret);
+	return (ret == 0 ? buffer.bytes_printed : ret);
 }
 
 /*
@@ -79,6 +81,7 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 {
 	printf_buffer_t buffer = {
 		.sprintf_str = NULL,
+		.bytes_printed = 0,
 		.len = 0,
 		.max_len = PRINTF_BUFFER_SIZE,
 		.fd = -1, // invalid value, should not be used
@@ -99,5 +102,5 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 
 	*str = buffer.sprintf_str;
 
-	return (ret);
+	return (ret == 0 ? buffer.bytes_printed : ret);
 }
