@@ -1,2 +1,2 @@
-# libkm
-Rewriting libft without norm
+# 📚libkm
+libc rewrite
