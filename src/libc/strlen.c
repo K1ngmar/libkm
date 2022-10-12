@@ -109,9 +109,12 @@
 /*
 ** Returns the smallest out of length of the string or max_size,
 ** depending on which one is smaller
-** note: can be optimised further when maxsize < strlen
 */
 size_t km_strnlen(const char* str, size_t max_size) {
-	size_t i = km_strlen(str);
-	return (i < max_size) ? i : max_size;
+	size_t i = 0;
+
+	while (i < max_size && str[i]) {
+		++i;
+	}
+	return (i);
 }

@@ -37,6 +37,14 @@ Test(string_test, test_km_strlen_behaviour) {
 	cr_expect(km_strlen(VERY_LONG_STRING) == sizeof(VERY_LONG_STRING) - 1);
 }
 
+Test(string_test, test_km_strnlen_behaviour) {
+	cr_expect(km_strnlen("hi", 5) == 2);
+	cr_expect(km_strnlen("", 3) == 0);
+	cr_expect(km_strnlen("PIZZA", 2) == 2);
+	cr_expect(km_strnlen("\n \n \n", 4) == 4);
+	cr_expect(km_strnlen(VERY_LONG_STRING, sizeof(VERY_LONG_STRING) + 5) == sizeof(VERY_LONG_STRING) - 1);
+}
+
 Test(string_test, test_strlcpy_no_crash) {
 	km_strlcpy(NULL, "hi", 0);
 	km_strlcpy(km_str, "test", 25);
