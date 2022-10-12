@@ -73,7 +73,7 @@ static inline size_t align_memory(const unsigned char* restrict s1, const unsign
 	size_t offset = 0;
 
 	/*
-	** Copy bytes until src is aligned on a cache line boundry
+	** Compare bytes until src is aligned on a cache line boundry
 	*/
 	while (((unsigned long)(s1 + offset) & (unsigned long)(CACHE_LINE_SIZE - 1)) != 0) {
 		if (s1[offset] != s2[offset])
@@ -103,7 +103,7 @@ int	km_memcmp(const void* s1p, const void* s2p, size_t n)
 			return (s1[offset] - s2[offset]);
 	}
 
-	// copying leftover bytes
+	// Comparing leftover bytes
 	size_t idx;
 	while (leftover > 0) {
 		idx = n - leftover;
