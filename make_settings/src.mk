@@ -16,6 +16,7 @@ SRC :=	libc/character_checks.c \
 		stdio/getdelim.c \
 		stdio/printf/buffer.c \
 		stdio/printf/conversion_decimal.c \
+		stdio/printf/conversion_string.c \
 		stdio/printf/dispatcher.c \
 		stdio/printf/printf.c
 
