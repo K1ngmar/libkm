@@ -43,8 +43,6 @@ static int format_loop(printf_buffer_t* buffer, va_list args, const char* restri
 	return (ret);
 }
 
-#define km_printf(format, ...) km_dprintf(STDOUT_FILENO, format, __VA_ARGS__);
-
 int	km_dprintf(int fd, const char* restrict format, ...)
 {
 	static printf_buffer_t buffer = {
