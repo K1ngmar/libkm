@@ -23,8 +23,8 @@
 static t_printf_flags init_flags(const char* restrict * format, va_list args)
 {
 	t_printf_flags flags = {
-		.field_width = false,
-		.precision = false,
+		.field_width = 0,
+		.precision = -1,
 		.alternate_form = false,
 		.left_adjust = false,
 		.always_signed = false,
@@ -118,6 +118,9 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 		}
 		case 'u': {
 			return conversion_unsigned(args, buffer, &flags);
+		}
+		case 's': {
+			return conversion_string(args, buffer, &flags);
 		}
 		default:
 			return -1; // no conversion found

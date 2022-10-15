@@ -260,6 +260,10 @@ Test(printf_test, decimal_precision)
 	km_sprintf(&km, "%.20d", 0);
 	sprintf(og, "%.20d", 0);
 	cr_assert_str_eq(km, og);
+	
+	km_sprintf(&km, "%.d", 12);
+	sprintf(og, "%.d", 12);
+	cr_assert_str_eq(km, og);
 
 	// km_sprintf(&km, "%.0d", 0);
 	// sprintf(og, "%.0d", 0);
