@@ -106,6 +106,9 @@ static void	set_format_specifier(t_printf_flags* flags, const char* restrict * f
 // Dispatcher //
 ////////////////
 
+#define KM_BASE_DECIMAL 10
+#define KM_BASE_HEXADECIMAL 16
+
 int conversion_dispatcher(va_list args, const char* restrict * format, printf_buffer_t* buffer)
 {
 	t_printf_flags flags = init_flags(format, args);
@@ -114,10 +117,14 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	switch(**format) {
 		case 'd': // falltrough
 		case 'i': {
-			return conversion_decimal(args, buffer, &flags);
+			return conversion_signed(args, buffer, &flags, KM_BASE_DECIMAL);
 		}
 		case 'u': {
-			return conversion_unsigned(args, buffer, &flags);
+			return conversion_unsigned(args, buffer, &flags, KM_BASE_DECIMAL);
+		}
+		case 'X': flags.uppercase = true;
+		case 'x': {
+			return conversion_unsigned(args, buffer, &flags, KM_BASE_HEXADECIMAL);
 		}
 		case 's': {
 			return conversion_string(args, buffer, &flags);
@@ -127,3 +134,6 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	}
 	return (0);
 }
+
+#undef KM_BASE_DECIMAL
+#undef KM_BASE_HEXADECIMAL
