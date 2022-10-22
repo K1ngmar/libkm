@@ -115,10 +115,12 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	set_format_specifier(&flags, format);
 
 	switch(**format) {
+		case 'D': flags.size = LONG;
 		case 'd': // falltrough
 		case 'i': {
 			return conversion_signed(args, buffer, &flags, KM_BASE_DECIMAL);
 		}
+		case 'U': flags.size = LONG;
 		case 'u': {
 			return conversion_unsigned(args, buffer, &flags, KM_BASE_DECIMAL);
 		}
