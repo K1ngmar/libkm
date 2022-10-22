@@ -106,6 +106,7 @@ static void	set_format_specifier(t_printf_flags* flags, const char* restrict * f
 // Dispatcher //
 ////////////////
 
+#define KM_BASE_OCTAL 8
 #define KM_BASE_DECIMAL 10
 #define KM_BASE_HEXADECIMAL 16
 
@@ -119,6 +120,10 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 		case 'd': // falltrough
 		case 'i': {
 			return conversion_signed(args, buffer, &flags, KM_BASE_DECIMAL);
+		}
+		case 'O': flags.size = LONG;
+		case 'o': {
+			return conversion_unsigned(args, buffer, &flags, KM_BASE_OCTAL);
 		}
 		case 'U': flags.size = LONG;
 		case 'u': {
@@ -137,5 +142,6 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	return (0);
 }
 
+#undef KM_BASE_OCTAL
 #undef KM_BASE_DECIMAL
 #undef KM_BASE_HEXADECIMAL
