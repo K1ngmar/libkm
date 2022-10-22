@@ -13,6 +13,7 @@ $(NAME): $(OBJ)
 	@ar rcs $(NAME).a $(OBJ)
 
 $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
+	@mkdir -p $(TEST)/bin
 	@mkdir -p $(@D)
 	@echo "$(COLOR_LBLUE)Compiling...	$(COLOR_BLUE)$<$(COLOR_RESET)"
 	@$(CC) -c -o $@ $< $(CFLAGS) $(IFLAGS)
