@@ -88,8 +88,8 @@
 // Conversions //
 /////////////////
 
-	int conversion_decimal(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
-	int conversion_unsigned(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
+	int conversion_signed(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags, size_t base);
+	int conversion_unsigned(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags, size_t base);
 	int conversion_string(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
 
 #endif
