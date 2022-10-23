@@ -106,10 +106,6 @@ static void	set_format_specifier(t_printf_flags* flags, const char* restrict * f
 // Dispatcher //
 ////////////////
 
-#define KM_BASE_OCTAL 8
-#define KM_BASE_DECIMAL 10
-#define KM_BASE_HEXADECIMAL 16
-
 int conversion_dispatcher(va_list args, const char* restrict * format, printf_buffer_t* buffer)
 {
 	t_printf_flags flags = init_flags(format, args);
@@ -119,19 +115,22 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 		case 'D': flags.size = LONG;
 		case 'd': // falltrough
 		case 'i': {
-			return conversion_signed(args, buffer, &flags, KM_BASE_DECIMAL);
+			return conversion_signed(args, buffer, &flags, KM_BASE_DECIMAL, prefix_length_decimal, set_prefix_decimal);
 		}
 		case 'O': flags.size = LONG;
 		case 'o': {
-			return conversion_unsigned(args, buffer, &flags, KM_BASE_OCTAL);
+			return conversion_unsigned(args, buffer, &flags, KM_BASE_OCTAL, prefix_length_octal, set_prefix_octal);
 		}
 		case 'U': flags.size = LONG;
 		case 'u': {
-			return conversion_unsigned(args, buffer, &flags, KM_BASE_DECIMAL);
+			return conversion_unsigned(args, buffer, &flags, KM_BASE_DECIMAL, prefix_length_decimal, set_prefix_decimal);
 		}
 		case 'X': flags.uppercase = true;
 		case 'x': {
-			return conversion_unsigned(args, buffer, &flags, KM_BASE_HEXADECIMAL);
+			return conversion_unsigned(args, buffer, &flags, KM_BASE_HEXADECIMAL, prefix_length_hex, set_prefix_hex);
+		}
+		case 'p': {
+			return conversion_pointer(args, buffer, &flags);
 		}
 		case 's': {
 			return conversion_string(args, buffer, &flags);
@@ -141,7 +140,3 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 	}
 	return (0);
 }
-
-#undef KM_BASE_OCTAL
-#undef KM_BASE_DECIMAL
-#undef KM_BASE_HEXADECIMAL

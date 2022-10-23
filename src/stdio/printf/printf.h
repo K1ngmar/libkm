@@ -23,6 +23,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#define KM_BASE_OCTAL 8
+#define KM_BASE_DECIMAL 10
+#define KM_BASE_HEXADECIMAL 16
+
 ///////////
 // Enums //
 ///////////
@@ -84,12 +88,31 @@
 
 	int conversion_dispatcher(va_list args, const char* restrict * format, printf_buffer_t* buffer);
 
+/////////////////////
+// integral prefix //
+/////////////////////
+
+	typedef int(*set_prefix_fp)(printf_buffer_t*, const t_printf_flags*, uint64_t, bool, int(*)(int));
+
+	int set_prefix_decimal(printf_buffer_t* buffer, const t_printf_flags* flags, uint64_t nbr, bool is_negative, int(*)(int));
+	int set_prefix_hex(printf_buffer_t* buffer, const t_printf_flags* flags, uint64_t nbr, bool, int(*case_modifier)(int));
+	int set_prefix_address(printf_buffer_t* buffer, const t_printf_flags*, uint64_t, bool, int(*)(int));
+	int set_prefix_octal(printf_buffer_t*, const t_printf_flags*, uint64_t, bool, int(*)(int));
+
+	typedef int(*prefix_length_fp)(bool, uint64_t, const t_printf_flags*);
+
+	int prefix_length_decimal(bool is_negative, uint64_t nbr, const t_printf_flags* flags);
+	int prefix_length_hex(bool, uint64_t nbr, const t_printf_flags* flags);
+	int prefix_length_address(bool, uint64_t, const t_printf_flags*);
+	int prefix_length_octal(bool, uint64_t, const t_printf_flags*);
+
 /////////////////
 // Conversions //
 /////////////////
 
-	int conversion_signed(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base);
-	int conversion_unsigned(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base);
+	int conversion_signed(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base, prefix_length_fp prefix_length, set_prefix_fp set_prefix);
+	int conversion_unsigned(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base, prefix_length_fp prefix_length, set_prefix_fp set_prefix);
+	int conversion_pointer(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags);
 	int conversion_string(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
 
 #endif

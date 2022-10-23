@@ -584,3 +584,131 @@ Test(printf_test, hex_precision_and_width_left_adjust)
 	sprintf(og, "%-2.6x", 17);
 	cr_assert_str_eq(km, og);
 }
+
+Test(printf_test, address)
+{
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)100),
+		sprintf(og, "%p", (void*)100)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)0),
+		sprintf(og, "%p", (void*)0)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)9),
+		sprintf(og, "%p", (void*)9)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)-9),
+		sprintf(og, "%p", (void*)-9)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)INT32_MAX),
+		sprintf(og, "%p", (void*)INT32_MAX)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)INT32_MIN),
+		sprintf(og, "%p", (void*)INT32_MIN)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)INT64_MAX),
+		sprintf(og, "%p", (void*)INT64_MAX)
+	);
+	cr_assert_str_eq(km, og);
+
+	void* addr = km;
+	cr_assert_eq(
+		km_sprintf(&km, "%p", addr),
+		sprintf(og, "%p", addr)
+	);
+	cr_assert_str_eq(km, og);
+	
+	cr_assert_eq(
+		km_sprintf(&km, "%p", (void*)&og),
+		sprintf(og, "%p", (void*)&og)
+	);
+	cr_assert_str_eq(km, og);
+}
+
+Test(printf_test, address_precision_width)
+{
+	cr_assert_eq(
+		km_sprintf(&km, "%3p", (void*)100),
+		sprintf(og, "%3p", (void*)100)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%2p", (void*)0),
+		sprintf(og, "%2p", (void*)0)
+	);
+	cr_assert_str_eq(km, og);
+	
+	cr_assert_eq(
+		km_sprintf(&km, "%5p", (void*)0),
+		sprintf(og, "%5p", (void*)0)
+	);
+	cr_assert_str_eq(km, og);
+	
+	cr_assert_eq(
+		km_sprintf(&km, "%8p", (void*)0),
+		sprintf(og, "%8p", (void*)0)
+	);
+	cr_assert_str_eq(km, og);
+	
+	cr_assert_eq(
+		km_sprintf(&km, "%29p", (void*)9),
+		sprintf(og, "%29p", (void*)9)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%2p", (void*)-9),
+		sprintf(og, "%2p", (void*)-9)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%30p", (void*)INT32_MAX),
+		sprintf(og, "%30p", (void*)INT32_MAX)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%30p", (void*)INT32_MIN),
+		sprintf(og, "%30p", (void*)INT32_MIN)
+	);
+	cr_assert_str_eq(km, og);
+
+	cr_assert_eq(
+		km_sprintf(&km, "%20p", (void*)INT64_MAX),
+		sprintf(og, "%20p", (void*)INT64_MAX)
+	);
+	cr_assert_str_eq(km, og);
+
+	void* addr = km;
+	cr_assert_eq(
+		km_sprintf(&km, "%5p", addr),
+		sprintf(og, "%5p", addr)
+	);
+	cr_assert_str_eq(km, og);
+	
+	cr_assert_eq(
+		km_sprintf(&km, "%10p", (void*)&og),
+		sprintf(og, "%10p", (void*)&og)
+	);
+	cr_assert_str_eq(km, og);
+}
