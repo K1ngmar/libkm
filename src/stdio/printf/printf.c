@@ -55,19 +55,15 @@ int	km_dprintf(int fd, const char* restrict format, ...)
 		.flush = km_flush_buffer_fd
 	};
 	int	ret = 0;
-
-	// check if previous call was done on same fd
-	if (fd != buffer.fd) {
-		// if buffer is not empty clear it.
-		if (buffer.len > 0)
-			ret = buffer.flush(&buffer);
-		buffer.fd = fd;
-		buffer.bytes_printed = 0;
-	}
+	buffer.fd = fd;
+	buffer.bytes_printed = 0;
 
 	va_list args;
 	va_start(args, format);
 	ret = format_loop(&buffer, args, format);
+
+	if (buffer.len > 0)
+		ret = buffer.flush(&buffer);
 	return (ret == 0 ? buffer.bytes_printed : ret);
 }
 
@@ -119,6 +115,7 @@ int km_snprintf(char* restrict* str, const size_t size, const char* restrict for
 	printf_buffer_t buffer = {
 		.sprintf_str = *str,
 		.str = buffer.sprintf_str,
+		.bytes_printed = 0,
 		.len = 0,
 		.max_len = size,
 		.fd = -1, // invalid value, should not be used

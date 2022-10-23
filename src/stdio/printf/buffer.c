@@ -67,11 +67,6 @@ int km_add_to_buffer(printf_buffer_t* buffer, char c)
 	}
 	buffer->str[buffer->len] = c;
 	buffer->len++;
-	// newline is found, flush buffer (only when writing to fd)
-	if (c == '\n' && buffer->flush == km_flush_buffer_fd) {
-		if (buffer->flush(buffer) < 0)
-			return (-1);
-	}
 	return (0);
 }
 
