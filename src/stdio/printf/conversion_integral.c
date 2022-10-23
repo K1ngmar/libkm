@@ -17,18 +17,9 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
-#define BASE_STRING "0123456789abcdef"
+#define KM_BASE_STRING "0123456789abcdef"
 
-static inline int nbr_prefix_length(bool is_negative, unsigned long long nbr, const t_printf_flags* flags, size_t base)
-{
-	if (is_negative == true || flags->always_signed == true || flags->blank == true)
-		return (1);
-	if (base == 16 && flags->alternate_form == true && nbr != 0)
-		return (2); // 0X
-	return (0);
-}
-
-static int nbr_length(unsigned long long nbr, size_t base)
+static int nbr_length(uint64_t nbr, size_t base)
 {
 	int len = 0;
 
@@ -39,16 +30,16 @@ static int nbr_length(unsigned long long nbr, size_t base)
 	return (len);
 }
 
-static int conversion_recusion(printf_buffer_t* buffer, unsigned long long nbr, size_t base, int(*conversion)(int))
+static int conversion_recusion(printf_buffer_t* buffer, uint64_t nbr, size_t base, int(*conversion)(int))
 {
 	if (nbr > 0) {
 		RETURN_IF_FAILED(conversion_recusion(buffer, nbr / base, base, conversion));
-		RETURN_IF_FAILED(km_add_to_buffer(buffer, conversion(BASE_STRING[nbr % base])));
+		RETURN_IF_FAILED(km_add_to_buffer(buffer, conversion(KM_BASE_STRING[nbr % base])));
 	}
 	return (0);
 }
 
-static void set_precision(t_printf_flags* flags, unsigned long long nbr, const int nbr_len, size_t base)
+static void set_precision(t_printf_flags* flags, uint64_t nbr, const int nbr_len, size_t base)
 {
 	// octal in alternate form needs to start with a 0
 	if (base == 8 && flags->alternate_form == true && nbr != 0) {
@@ -57,35 +48,21 @@ static void set_precision(t_printf_flags* flags, unsigned long long nbr, const i
 	}
 }
 
-static int set_prefix(printf_buffer_t* buffer, const t_printf_flags* flags, unsigned long long nbr, bool is_negative, size_t base, int(*case_modifier)(int))
+static int do_integral_conversion(
+	printf_buffer_t* buffer,
+	t_printf_flags* flags,
+	uint64_t nbr,
+	bool is_negative,
+	size_t base,
+	prefix_length_fp prefix_length,
+	set_prefix_fp set_prefix)
 {
-	// base 10 prefixes
-	if (base == 10) {
-		if (is_negative == true)
-			RETURN_IF_FAILED(km_add_to_buffer(buffer, '-'));
-		else if (flags->always_signed == true)
-			RETURN_IF_FAILED(km_add_to_buffer(buffer, '+'));
-		else if (flags->blank == true)
-			RETURN_IF_FAILED(km_add_to_buffer(buffer, ' '));
-	}
-	// base 16 prefixes
-	else if (base == 16) {
-		if (flags->alternate_form == true && nbr != 0) {
-			RETURN_IF_FAILED(km_add_to_buffer(buffer, '0'));
-			RETURN_IF_FAILED(km_add_to_buffer(buffer, case_modifier('X')));
-		}
-	}
-	return (0);
-}
-
-static int do_integral_conversion(printf_buffer_t* buffer, t_printf_flags* flags, unsigned long long nbr, bool is_negative, size_t base)
-{
-	const int nbr_len = nbr_length(nbr, base) + nbr_prefix_length(is_negative, nbr, flags, base);
+	const int nbr_len = nbr_length(nbr, base) + prefix_length(is_negative, nbr, flags);
 
 	// increase precision if necessary
 	set_precision(flags, nbr, nbr_len, base);
 	
-	const int true_len = MAX(flags->precision + nbr_prefix_length(is_negative, nbr, flags, base), nbr_len);
+	const int true_len = MAX(flags->precision + prefix_length(is_negative, nbr, flags), nbr_len);
 	int(*case_modifier)(int) = (flags->uppercase == true) ? km_toupper : km_tolower;
 
 	// fill width on left side
@@ -93,7 +70,7 @@ static int do_integral_conversion(printf_buffer_t* buffer, t_printf_flags* flags
 		RETURN_IF_FAILED(km_fill_width(buffer, flags, true_len));
 
 	// set prefix
-	RETURN_IF_FAILED(set_prefix(buffer, flags, nbr, is_negative, base, case_modifier));
+	RETURN_IF_FAILED(set_prefix(buffer, flags, nbr, is_negative, case_modifier));
 	
 	// add precision
 	if (true_len != nbr_len)
@@ -111,7 +88,7 @@ static int do_integral_conversion(printf_buffer_t* buffer, t_printf_flags* flags
 	return (0);
 }
 
-int conversion_signed(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base)
+int conversion_signed(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base, prefix_length_fp prefix_length, set_prefix_fp set_prefix)
 {
 	long long nbr;
 
@@ -132,22 +109,21 @@ int conversion_signed(va_list arg, printf_buffer_t* buffer, t_printf_flags* flag
 			nbr = (int)va_arg(arg, int);
 		}
 	}
-
 	if (nbr < 0)
-		return do_integral_conversion(buffer, flags, -nbr, true, base);
-	return do_integral_conversion(buffer, flags, nbr, false, base);
+		return do_integral_conversion(buffer, flags, -nbr, true, base, prefix_length, set_prefix);
+	return do_integral_conversion(buffer, flags, nbr, false, base, prefix_length, set_prefix);
 }
 
-int conversion_unsigned(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base)
+int conversion_unsigned(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base, prefix_length_fp prefix_length, set_prefix_fp set_prefix)
 {
-	unsigned long long nbr;
+	uint64_t nbr;
 
 	switch(flags->size) {
 		case LONG: {
 			nbr = (unsigned long int)va_arg(arg, long int); break;
 		}
 		case LONG_LONG: {
-			nbr = (unsigned long long int)va_arg(arg, long long int); break;
+			nbr = (unsigned long long)va_arg(arg, long long int); break;
 		}
 		case SHORT: {
 			nbr = (unsigned short)va_arg(arg, int); break;
@@ -159,8 +135,13 @@ int conversion_unsigned(va_list arg, printf_buffer_t* buffer, t_printf_flags* fl
 			nbr = (unsigned int)va_arg(arg, int);
 		}
 	}
-
-	return do_integral_conversion(buffer, flags, nbr, false, base);
+	return do_integral_conversion(buffer, flags, nbr, false, base, prefix_length, set_prefix);
 }
 
-#undef BASE_STRING
+int conversion_pointer(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags)
+{
+	uintptr_t address = (uintptr_t)va_arg(arg, uintptr_t);
+	return do_integral_conversion(buffer, flags, address, false, KM_BASE_HEXADECIMAL, prefix_length_address, set_prefix_address);
+}
+
+#undef KM_BASE_STRING
