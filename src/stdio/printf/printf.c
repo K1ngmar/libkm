@@ -110,10 +110,10 @@ int km_sprintf(char* restrict* str, const char* restrict format, ...)
 	return (ret);
 }
 
-int km_snprintf(char* restrict* str, const size_t size, const char* restrict format, ...)
+int km_snprintf(char* restrict str, const size_t size, const char* restrict format, ...)
 {
 	printf_buffer_t buffer = {
-		.sprintf_str = *str,
+		.sprintf_str = str,
 		.str = buffer.sprintf_str,
 		.bytes_printed = 0,
 		.len = 0,
