@@ -16,8 +16,8 @@
 #include <unistd.h>
 #include <libkm.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 256
+#ifndef GETDELIM_BUFFER_SIZE
+# define GETDELIM_BUFFER_SIZE 256
 #endif
 
 /*
@@ -37,8 +37,8 @@ static size_t	line_len(const char *str, int delim)
 */
 static void	prep_buf(char* buf, size_t pos)
 {
-	km_memcpy(buf, buf + pos + 1, BUFFER_SIZE - pos);
-	buf[BUFFER_SIZE - pos] = '\0';
+	km_memcpy(buf, buf + pos + 1, GETDELIM_BUFFER_SIZE - pos);
+	buf[GETDELIM_BUFFER_SIZE - pos] = '\0';
 }
 
 /*
@@ -58,12 +58,12 @@ static char* line_join(char* line, char *buf, size_t pos, size_t len)
 */
 ssize_t	km_getdelim(char** restrict line, int delim, int fd)
 {
-	static char buf[BUFFER_SIZE + 1];
+	static char buf[GETDELIM_BUFFER_SIZE + 1];
 	size_t len = 0;
 	size_t pos;
 	ssize_t ret;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE <= 0)
+	if (fd < 0 || line == NULL || GETDELIM_BUFFER_SIZE <= 0)
 		return (-1);
 
 	*line = NULL;
@@ -72,7 +72,7 @@ ssize_t	km_getdelim(char** restrict line, int delim, int fd)
 		// only read if buffer is empty
 		if (buf[0] == '\0')
 		{
-			ret = read(fd, buf, BUFFER_SIZE);
+			ret = read(fd, buf, GETDELIM_BUFFER_SIZE);
 			if (ret < 0) {
 				free(*line);
 				return (-1);
