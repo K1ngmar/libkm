@@ -115,6 +115,7 @@ int km_snprintf(char* restrict* str, const size_t size, const char* restrict for
 	printf_buffer_t buffer = {
 		.sprintf_str = *str,
 		.str = buffer.sprintf_str,
+		.bytes_printed = 0,
 		.len = 0,
 		.max_len = size,
 		.fd = -1, // invalid value, should not be used
