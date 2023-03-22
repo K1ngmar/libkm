@@ -48,10 +48,10 @@ re: fclean
 .PHONY: debug fsanitize
 
 debug:
-	@$(MAKE) test DEBUG=1
+	@$(MAKE) re DEBUG=1
 
 leaks:
-	@$(MAKE) test LEAKS=1
+	@$(MAKE) re LEAKS=1
 
 fsanitize:
-	@$(MAKE) test FSANITIZE=1
+	@$(MAKE) re FSANITIZE=1
