@@ -9,7 +9,7 @@ all:
 
 # Compilation
 $(NAME): $(OBJ)
-	@echo "$(COLOR_GREEN)Creating Library...$(COLOR_RESET)"
+	@echo "$(COLOR_GREEN)Creating $(NAME) Library...$(COLOR_RESET)"
 	@ar rcs $(NAME).a $(OBJ)
 
 $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
@@ -31,11 +31,13 @@ test: fclean $(NAME) $(TEST)/bin $(TESTBIN)
 .PHONY: clean fclean re
 
 clean:
+	@echo "$(COLOR_YELLOW)clean $(NAME)... $(COLOR_RESET)"
 	@printf "$(COLOR_RED)"
 	$(RM) -r $(ODIR)
 	@printf "$(COLOR_RESET)"
 
 fclean: clean
+	@echo "$(COLOR_YELLOW)force clean $(NAME)... $(COLOR_RESET)"
 	@printf "$(COLOR_RED)"
 	$(RM) $(NAME).a
 	$(RM) -r $(TEST)/bin/*
@@ -48,10 +50,13 @@ re: fclean
 .PHONY: debug fsanitize
 
 debug:
+	@echo "$(COLOR_YELLOW)Building $(NAME) debug...	$(COLOR_RESET)"
 	@$(MAKE) re DEBUG=1
 
 leaks:
+	@echo "$(COLOR_YELLOW)Building $(NAME) leaks...	$(COLOR_RESET)"
 	@$(MAKE) re LEAKS=1
 
 fsanitize:
+	@echo "$(COLOR_YELLOW)Building $(NAME) fsanitize...	$(COLOR_RESET)"
 	@$(MAKE) re FSANITIZE=1
