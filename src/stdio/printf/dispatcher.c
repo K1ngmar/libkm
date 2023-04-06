@@ -135,6 +135,9 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 		case 's': {
 			return conversion_string(args, buffer, &flags);
 		}
+		case 'c': {
+			return conversion_char(args, buffer, &flags);
+		}
 		default:
 			return -1; // no conversion found
 	}

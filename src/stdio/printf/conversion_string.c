@@ -34,12 +34,14 @@ int conversion_string(va_list arg, printf_buffer_t* buffer, const t_printf_flags
 	}
 
 	// fill width on left side
-	if (flags->left_adjust == false)
+	if (flags->left_adjust == false) {
 		RETURN_IF_FAILED(km_fill_width(buffer, flags, true_len));
+	}
 
 	// add precision padding
-	if (true_len > conversion_len)
+	if (true_len > conversion_len) {
 		RETURN_IF_FAILED(km_fill_char(buffer, ' ', true_len < conversion_len));
+	}
 
 	// add string to the buffer
 	for (int i = 0; i < conversion_len; ++i) {
@@ -47,8 +49,43 @@ int conversion_string(va_list arg, printf_buffer_t* buffer, const t_printf_flags
 	}
 
 	// fill width with padding on right side
-	if (flags->left_adjust == true)
+	if (flags->left_adjust == true) {
 		RETURN_IF_FAILED(km_fill_width(buffer, flags, true_len));
+	}
+
+	return (0);
+}
+
+int conversion_char(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags)
+{
+	char c = (char)va_arg(arg, int);
+	int conversion_len = 1;
+	int true_len = 0;
+
+	if (flags->precision >= 0) {
+		true_len = (flags->precision > conversion_len) ? conversion_len : flags->precision;
+	}
+	else {
+		true_len = conversion_len;
+	}
+
+	// fill width on left side
+	if (flags->left_adjust == false) {
+		RETURN_IF_FAILED(km_fill_width(buffer, flags, true_len));
+	}
+
+	// add precision padding
+	if (true_len > conversion_len) {
+		RETURN_IF_FAILED(km_fill_char(buffer, ' ', true_len < conversion_len));
+	}
+
+	// add char
+	RETURN_IF_FAILED(km_add_to_buffer(buffer, c));
+
+	// fill width with padding on right side
+	if (flags->left_adjust == true) {
+		RETURN_IF_FAILED(km_fill_width(buffer, flags, true_len));
+	}
 
 	return (0);
 }
