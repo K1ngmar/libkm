@@ -143,7 +143,7 @@
 	** printf/printf.c
 	*/
 	int	km_dprintf(int fd, const char* restrict format, ...);
-# define km_printf(format, ...) km_dprintf(STDOUT_FILENO, format, ##__VA_ARGS__);
+# define km_printf(format, ...) km_dprintf(STDOUT_FILENO, format, ##__VA_ARGS__)
 	int	km_sprintf(char* restrict* str, const char* restrict format, ...);
 	int km_snprintf(char* restrict str, const size_t size, const char* restrict format, ...);
 

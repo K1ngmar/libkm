@@ -114,5 +114,6 @@
 	int conversion_unsigned(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags, size_t base, prefix_length_fp prefix_length, set_prefix_fp set_prefix);
 	int conversion_pointer(va_list arg, printf_buffer_t* buffer, t_printf_flags* flags);
 	int conversion_string(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
+	int conversion_char(va_list arg, printf_buffer_t* buffer, const t_printf_flags* flags);
 
 #endif
