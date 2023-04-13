@@ -4,13 +4,12 @@ include $(SETTINGS_DIR)/src.mk
 include $(SETTINGS_DIR)/settings.mk
 include $(SETTINGS_DIR)/colors.mk
 
-all:
-	@$(MAKE) $(NAME)
+all: $(NAME)
 
 # Compilation
 $(NAME): $(OBJ)
 	@echo "$(COLOR_GREEN)Creating $(NAME) Library...$(COLOR_RESET)"
-	@ar rcs $(NAME).a $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 	@mkdir -p $(TEST)/bin
@@ -39,7 +38,7 @@ clean:
 fclean: clean
 	@echo "$(COLOR_YELLOW)force clean $(NAME)... $(COLOR_RESET)"
 	@printf "$(COLOR_RED)"
-	$(RM) $(NAME).a
+	$(RM) $(NAME)
 	$(RM) -r $(TEST)/bin/*
 	@printf "$(COLOR_RESET)"
 

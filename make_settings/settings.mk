@@ -1,7 +1,7 @@
 ifndef SETTINGS_MK
 SETTINGS_MK = 1
 
-NAME	= libkm
+NAME	= libkm.a
 
 CFLAGS	= -Wall -Wextra -Werror -pedantic
 IFLAGS	= -I$(IDIR)
