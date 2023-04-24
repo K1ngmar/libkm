@@ -100,35 +100,6 @@
 	void*	km_calloc(size_t count, size_t size);
 	void*	km_stupid_realloc(void* ptr, size_t old_size, size_t new_size);
 
-////////////////
-// additional //
-////////////////
-
-	/*
-	** string.c
-	*/
-	char*	km_substr(const char* s, unsigned int start, size_t len);
-	char*	km_strjoin(const char* s1, const char* s2);
-	char*	km_safe_strjoin(const char* s1, const char* s2);
-	char*	km_strtrim(const char* str, const char* set);
-	char*	km_ltoa(long int nb);
-	char*	km_itoa(int nb);
-	char*	km_strmapi(const char* str, char (*f)(unsigned int, char));
-	void	km_striteri(char* str, void (*f)(unsigned int, char*));
-
-	/*
-	** split.c
-	*/
-	char**	km_split(const char* str, char c);
-
-	/*
-	** io.c
-	*/
-	void	km_putchar_fd(const char c, int fd);
-	void	km_putstr_fd(const char* s, int fd);
-	void	km_putendl_fd(const char* s, int fd);
-	void	km_putnbr_fd(int n, int fd);
-
 ///////////
 // stdio //
 ///////////
