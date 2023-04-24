@@ -40,26 +40,26 @@ int		km_atoi(const char *str)
 
 static int determine_base(const char* restrict* str, int base)
 {
-	int tmp_base = 10;
+	int setBase = 10;
 
 	if (**str == '0') {
 		(*str)++;
 		switch (**str) {
 			case 'b':
 			case 'B':
-				tmp_base = 2;
+				setBase = 2;
 				(*str)++;
 				break;
 			case 'x': ;
 			case 'X':
-				tmp_base = 16;
+				setBase = 16;
 				(*str)++;
 				break;
 			default:
-				tmp_base = 1;
+				setBase = 8;
 		}
 	}
-	return (base == 0) ? tmp_base : base;
+	return setBase;
 }
 
 /*
