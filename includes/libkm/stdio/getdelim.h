@@ -11,19 +11,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBKM_H
-# define LIBKM_H
+#ifndef LIBKM_GETDELIM_H
+# define LIBKM_GETDELIM_H
 
-# include <sys/types.h>
-# include <unistd.h>
+#include <sys/types.h>
 
-/////////////
-// Macro's //
-/////////////
+/*!
+ * @brief reads a line from stream, delimited by the character delimiter. 
+ 		  The getline() function is equivalent to getdelim() with the newline character as the delimiter.
+		  The delimiter character is included as part of the line, unless the end of the file is reached.
+ * @param line here the read line will be stored, make sure it is not allocated since that wil cause a leak
+ * @param delim the character to 
+ * @param fd filedescriptorto read from
+ * @return amount of bytes in line, -1 on error
+*/
+ssize_t	km_getdelim(char** restrict line, int delim, int fd);
 
-# define RETURN_IF_FAILED(x) do { if (x < 0) return (-1); } while(0)
-
-# define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+/*!
+ * @brief getdelim but with a delimiter of '\n'
+ * @param line here the read line will be stored, make sure it is not allocated because that will cause a leak
+ * @param fd the filedescriptor to read from
+ * @return amount of bytes in line, -1 on error
+*/
+ssize_t	km_getline(char** restrict line, int fd);
 
 #endif

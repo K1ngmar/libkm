@@ -11,19 +11,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBKM_H
-# define LIBKM_H
+#ifndef LIBKM_ADDITIONAL_CACHELINE_H
+# define LIBKM_ADDITIONAL_CACHELINE_H
 
-# include <sys/types.h>
-# include <unistd.h>
+#include <ctype.h>
 
-/////////////
-// Macro's //
-/////////////
-
-# define RETURN_IF_FAILED(x) do { if (x < 0) return (-1); } while(0)
-
-# define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+/*!
+ * @brief Get the cacheline size
+ * @return size of the cacheline in bytes
+*/
+size_t	get_cache_line_size(void);
 
 #endif
