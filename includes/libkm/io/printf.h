@@ -15,6 +15,7 @@
 # define LIBKM_PRINTF_H
 
 #include <ctype.h>
+#include <unistd.h>
 
 /*!
  * @brief you know how dprintf works :p
