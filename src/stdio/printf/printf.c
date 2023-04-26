@@ -11,11 +11,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "printf.h"
+#include "libkm/libkm.h"
+#include "libkm/string.h"
+
 #include <stdarg.h>
 #include <unistd.h>
-#include <libkm.h>
 #include <stdbool.h>
-#include "printf.h"
 
 ///////////////////
 // Main function //

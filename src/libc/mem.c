@@ -11,8 +11,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libkm/memory.h"
+
 #include <ctype.h>
-#include <libkm.h>
 #include <stdlib.h>
 
 void*	km_memmove(void* dstp, const void* srcp, size_t n)

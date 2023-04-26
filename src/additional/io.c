@@ -11,9 +11,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libkm/string.h"
+#include "libkm/additional/string.h"
+
 #include <unistd.h>
 #include <stdlib.h>
-#include <libkm.h>
 
 void	km_putchar_fd(const char c, int fd) {
 	write(fd, &c, 1);

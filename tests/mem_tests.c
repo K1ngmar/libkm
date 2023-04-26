@@ -1,6 +1,6 @@
 
+#include "libkm/memory.h"
 #include <criterion/criterion.h>
-#include <libkm.h>
 #include <string.h>
 
 #define TEST_SIZE 1024

@@ -11,8 +11,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libkm/string.h"
+#include "libkm/memory.h"
+
 #include <ctype.h>
-#include <libkm.h>
 #include <stdlib.h>
 
 char*	km_substr(const char* s, unsigned int start, size_t len)

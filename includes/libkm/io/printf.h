@@ -14,6 +14,8 @@
 #ifndef LIBKM_PRINTF_H
 # define LIBKM_PRINTF_H
 
+#include <ctype.h>
+
 /*!
  * @brief you know how dprintf works :p
  * @param fd -

@@ -11,10 +11,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libkm/string.h"
+#include "libkm/memory.h"
+
 #include <sys/types.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <libkm.h>
 
 #ifndef GETDELIM_BUFFER_SIZE
 # define GETDELIM_BUFFER_SIZE 256
