@@ -38,7 +38,7 @@ int		km_atoi(const char *str)
 	return ((int)km_atol(str));
 }
 
-static int determine_base(const char* restrict* str, int base)
+static int determine_base(const char* restrict* str)
 {
 	int setBase = 10;
 
@@ -50,7 +50,7 @@ static int determine_base(const char* restrict* str, int base)
 				setBase = 2;
 				(*str)++;
 				break;
-			case 'x': ;
+			case 'x':
 			case 'X':
 				setBase = 16;
 				(*str)++;
@@ -60,6 +60,20 @@ static int determine_base(const char* restrict* str, int base)
 		}
 	}
 	return setBase;
+}
+
+static void skip_base_prefix(const char* restrict* str, int base)
+{
+	if (**str == '0')
+	{
+		(*str)++;
+		if (base == 2 && (**str == 'b' || **str == 'B')) {
+			(*str)++;
+		}
+		else if (base == 16 && (**str == 'x' || **str == 'X')) {
+			(*str)++;
+		}
+	}
 }
 
 /*
@@ -80,8 +94,11 @@ long long km_strtoll(const char* restrict str, char** restrict endptr, int base)
 	if (*str == '+' || *str == '-')
 		str++;
 	
-	if (base == 0 || base == 2 || base == 16)
-		base = determine_base(&str, base);
+	if (base == 0)
+		base = determine_base(&str);
+	else if (base == 2 || base == 16)
+		skip_base_prefix(&str, base);
+
 
 	char	c		= *str;
 	int		offset	= (base > 10) ? base - 10 : 0;
