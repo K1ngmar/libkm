@@ -12,7 +12,9 @@
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <libkm.h>
+#include "libkm/string.h"
+#include "libkm/libkm.h"
+
 #include <stdbool.h>
 #include <inttypes.h>
 #include <stdlib.h>

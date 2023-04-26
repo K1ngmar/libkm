@@ -11,30 +11,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libkm/string.h"
-#include "libkm/additional/string.h"
+#ifndef LIBKM_H
+# define LIBKM_H
 
-#include <unistd.h>
-#include <stdlib.h>
+# include <sys/types.h>
+# include <unistd.h>
 
-void	km_putchar_fd(const char c, int fd) {
-	write(fd, &c, 1);
-}
+/////////////
+// Macro's //
+/////////////
 
-void	km_putstr_fd(const char* s, int fd) {
-	size_t len = km_strlen(s);
-	write(fd, s, len);
-}
+# define RETURN_IF_FAILED(x) do { if (x < 0) return (-1); } while(0)
 
-void	km_putendl_fd(const char* s, int fd) {
-	km_putstr_fd(s, fd);
-	write(fd, "\n", 1);
-}
+# define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
-void	km_putnbr_fd(int n, int fd) {
-	char* snb = km_itoa(n);
-	if (snb == NULL)
-		return ;
-	km_putstr_fd(snb, fd);
-	free(snb);
-}
+#endif

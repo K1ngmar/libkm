@@ -11,30 +11,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libkm/string.h"
-#include "libkm/additional/string.h"
+#ifndef LIBKM_ADDITIONAL_CACHELINE_H
+# define LIBKM_ADDITIONAL_CACHELINE_H
 
-#include <unistd.h>
-#include <stdlib.h>
+#include <ctype.h>
 
-void	km_putchar_fd(const char c, int fd) {
-	write(fd, &c, 1);
-}
+/*!
+ * @brief Get the cacheline size
+ * @return size of the cacheline in bytes
+*/
+size_t	get_cache_line_size(void);
 
-void	km_putstr_fd(const char* s, int fd) {
-	size_t len = km_strlen(s);
-	write(fd, s, len);
-}
-
-void	km_putendl_fd(const char* s, int fd) {
-	km_putstr_fd(s, fd);
-	write(fd, "\n", 1);
-}
-
-void	km_putnbr_fd(int n, int fd) {
-	char* snb = km_itoa(n);
-	if (snb == NULL)
-		return ;
-	km_putstr_fd(snb, fd);
-	free(snb);
-}
+#endif

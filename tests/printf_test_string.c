@@ -1,6 +1,7 @@
 
+#include "libkm/io/printf.h"
+
 #include <criterion/criterion.h>
-#include <libkm.h>
 #include <stdio.h>
 
 #define TEST_SIZE 1024

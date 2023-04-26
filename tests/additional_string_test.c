@@ -1,6 +1,8 @@
 
+#include "libkm/string.h"
+#include "libkm/additional/string.h"
+
 #include <stdlib.h>
-#include <libkm.h>
 #include <criterion/criterion.h>
 
 Test(additional_test, test_substr) {

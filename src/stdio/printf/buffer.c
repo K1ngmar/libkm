@@ -12,7 +12,11 @@
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <libkm.h>
+#include "libkm/string.h"
+#include "libkm/additional/string.h"
+#include "libkm/memory.h"
+#include "libkm/libkm.h"
+
 #include <stdbool.h>
 #include <unistd.h>
 #include <stdlib.h>

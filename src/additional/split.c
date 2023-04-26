@@ -11,10 +11,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libkm/memory.h"
+#include "libkm/string.h"
+
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <libkm.h>
 
 /*
 ** thanks to @tishj for the inspiration to use stringview

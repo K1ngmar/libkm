@@ -11,8 +11,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libkm/memory.h"
+#include "libkm/string.h"
+
 #include <ctype.h>
-#include <libkm.h>
 #include <stdlib.h>
 
 size_t	km_strlcpy(char* restrict dst, const char* restrict src, size_t dstsize)

@@ -1,6 +1,7 @@
 
+#include "libkm/string.h"
+
 #include <stdlib.h>
-#include <libkm.h>
 #include <criterion/criterion.h>
 
 char int_max[] = "2147483647";

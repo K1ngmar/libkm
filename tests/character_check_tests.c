@@ -1,7 +1,8 @@
 
+#include "libkm/string.h"
+
 #include <criterion/criterion.h>
 #include <ctype.h>
-#include <libkm.h>
 
 #define TestFunc(funcname) \
 	Test(character_checks, test_##funcname) { \
