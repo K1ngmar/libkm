@@ -278,7 +278,6 @@ bool km_vector_##typename##_resize(km_vector_##typename* vector, size_t count);
 		for (; i < vector->size && i < newCapacity; i++) { \
 			tmp[i] = vector->arr[i]; \
 		} \
-		km_vector_##typename##_clear(vector); \
 		free(vector->arr); \
 		vector->arr = tmp; \
 		vector->size = i; \
