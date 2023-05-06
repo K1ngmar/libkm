@@ -101,17 +101,35 @@ Test(printf_test, decimal_long)
 	);
 	cr_assert_str_eq(km, og);
 
-	cr_assert_eq(
-		km_sprintf(&km, "%lld", INT64_MAX),
-		sprintf(og, "%lld", INT64_MAX)
-	);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	cr_assert_eq(
-		km_sprintf(&km, "%lld", INT64_MIN),
-		sprintf(og, "%lld", INT64_MIN)
-	);
-	cr_assert_str_eq(km, og);
+		cr_assert_eq(
+			km_sprintf(&km, "%ld", INT64_MAX),
+			sprintf(og, "%ld", INT64_MAX)
+		);
+		cr_assert_str_eq(km, og);
+
+		cr_assert_eq(
+			km_sprintf(&km, "%ld", INT64_MIN),
+			sprintf(og, "%ld", INT64_MIN)
+		);
+		cr_assert_str_eq(km, og);
+	
+	#else
+
+		cr_assert_eq(
+			km_sprintf(&km, "%lld", INT64_MAX),
+			sprintf(og, "%lld", INT64_MAX)
+		);
+		cr_assert_str_eq(km, og);
+
+		cr_assert_eq(
+			km_sprintf(&km, "%lld", INT64_MIN),
+			sprintf(og, "%lld", INT64_MIN)
+		);
+		cr_assert_str_eq(km, og);
+
+	#endif 
 }
 
 Test(printf_test, decimal_u)
@@ -191,17 +209,35 @@ Test(printf_test, decimal_ulong)
 	);
 	cr_assert_str_eq(km, og);
 
-	cr_assert_eq(
-		km_sprintf(&km, "%llu", UINT64_MAX),
-		sprintf(og, "%llu", UINT64_MAX)
-	);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	cr_assert_eq(
-		km_sprintf(&km, "%llu", UINT64_MAX + 1),
-		sprintf(og, "%llu", UINT64_MAX + 1)
-	);
-	cr_assert_str_eq(km, og);
+		cr_assert_eq(
+			km_sprintf(&km, "%lu", UINT64_MAX),
+			sprintf(og, "%lu", UINT64_MAX)
+		);
+		cr_assert_str_eq(km, og);
+
+		cr_assert_eq(
+			km_sprintf(&km, "%lu", UINT64_MAX + 1),
+			sprintf(og, "%lu", UINT64_MAX + 1)
+		);
+		cr_assert_str_eq(km, og);
+
+	#else
+
+		cr_assert_eq(
+			km_sprintf(&km, "%llu", UINT64_MAX),
+			sprintf(og, "%llu", UINT64_MAX)
+		);
+		cr_assert_str_eq(km, og);
+
+		cr_assert_eq(
+			km_sprintf(&km, "%llu", UINT64_MAX + 1),
+			sprintf(og, "%llu", UINT64_MAX + 1)
+		);
+		cr_assert_str_eq(km, og);
+
+	#endif
 }
 
 Test(printf_test, decimal_sign) {
