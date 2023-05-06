@@ -19,4 +19,6 @@ jobs:
     - name: Install Criterion
       run: sudo apt-get install libghc-criterion-dev
     - name: Build Unit Tests
+      run: make test_build
+    - name: Run Unit Tests
       run: make test
