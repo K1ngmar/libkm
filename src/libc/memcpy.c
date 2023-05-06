@@ -13,6 +13,7 @@
 
 #include <inttypes.h>
 #include <ctype.h>
+#include <stddef.h>
 
 /*
 ** Generally it is 64 bytes
