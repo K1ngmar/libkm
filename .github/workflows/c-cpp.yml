@@ -17,7 +17,7 @@ jobs:
     - name: Update version
       run: sudo apt-get update
     - name: Install Criterion
-      run: sudo apt-get install -y criterion-dev
+      run: sudo apt-get install libcriterion-dev
     - name: Build Unit Tests
       run: make test_build
     - name: Run Unit Tests
