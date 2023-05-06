@@ -19,7 +19,6 @@ OS := $(shell uname -s)
 
 ADDITIONAL_LIBRARIES = 
 ifeq ($(OS), Linux)
-	echo "addding bs library"
 	ADDITIONAL_LIBRARIES += -lbsd
 endif
 
