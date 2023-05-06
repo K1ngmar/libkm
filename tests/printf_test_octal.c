@@ -4,6 +4,7 @@
 #include <criterion/criterion.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #define TEST_SIZE 1024
 
