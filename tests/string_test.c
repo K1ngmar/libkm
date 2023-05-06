@@ -2,6 +2,7 @@
 
 #include <criterion/criterion.h>
 #include <string.h>
+#include <strings.h>
 
 #ifdef __linux__
 	#include <bsd/string.h>
