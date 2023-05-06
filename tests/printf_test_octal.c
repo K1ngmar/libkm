@@ -543,7 +543,7 @@ Test(printf_test, octal_precision_and_width_hashtag_uppercase)
 	cr_assert_str_eq(km, og);
 	
 	km_sprintf(&km, "%#2.6o", 17);
-	sprintf(og, "%#2.6O", 17);
+	sprintf(og, "%#2.6o", 17);
 	cr_assert_str_eq(km, og);
 }
 
