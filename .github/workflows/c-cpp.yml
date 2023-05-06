@@ -18,6 +18,8 @@ jobs:
       run: sudo apt-get update
     - name: Install Criterion
       run: sudo apt-get install libcriterion-dev
+    - name: Install Additional libraries
+      run: sudo apt-get install libbsd-dev
     - name: Build Unit Tests
       run: make test_build
     - name: Run Unit Tests
