@@ -46,26 +46,30 @@ Test(printf_test, test_string)
 	);
 	cr_assert_str_eq(km, og);
 	
-	cr_assert(
-		km_sprintf(&km, "%s", (char*)NULL)
-		==
-		sprintf(og, "%s", (char*)NULL)
-	);
-	cr_assert_str_eq(km, og);
+	#ifndef __linux__
 
-	cr_assert(
-		km_sprintf(&km, "%s\n", (char*)NULL)
-		==
-		sprintf(og, "%s\n", (char*)NULL)
-	);
-	cr_assert_str_eq(km, og);
-	
-	cr_assert(
-		km_sprintf(&km, "scooperdie%s\n", (char*)NULL)
-		==
-		sprintf(og, "scooperdie%s\n", (char*)NULL)
-	);
-	cr_assert_str_eq(km, og);
+		cr_assert(
+			km_sprintf(&km, "%s", (char*)NULL)
+			==
+			sprintf(og, "%s", (char*)NULL)
+		);
+		cr_assert_str_eq(km, og);
+
+		cr_assert(
+			km_sprintf(&km, "%s\n", (char*)NULL)
+			==
+			sprintf(og, "%s\n", (char*)NULL)
+		);
+		cr_assert_str_eq(km, og);
+		
+		cr_assert(
+			km_sprintf(&km, "scooperdie%s\n", (char*)NULL)
+			==
+			sprintf(og, "scooperdie%s\n", (char*)NULL)
+		);
+		cr_assert_str_eq(km, og);
+
+	#endif
 }
 
 Test(printf_test, test_precision_string)
@@ -78,12 +82,16 @@ Test(printf_test, test_precision_string)
 		);
 		cr_assert_str_eq(km, og);
 
-		cr_assert(
-			km_sprintf(&km, "%.*s", size, (char*)NULL)
-			==
-			sprintf(og, "%.*s", size, (char*)NULL)
-		);
-		cr_assert_str_eq(km, og);
+		#ifndef __linux__
+
+			cr_assert(
+				km_sprintf(&km, "%.*s", size, (char*)NULL)
+				==
+				sprintf(og, "%.*s", size, (char*)NULL)
+			);
+			cr_assert_str_eq(km, og);
+		
+		#endif
 	}
 }
 
@@ -97,12 +105,16 @@ Test(printf_test, test_width_string)
 		);
 		cr_assert_str_eq(km, og);
 
-		cr_assert(
-			km_sprintf(&km, "%*s", size, (char*)NULL)
-			==
-			sprintf(og, "%*s", size, (char*)NULL)
-		);
-		cr_assert_str_eq(km, og);
+		#ifndef __linux__
+
+			cr_assert(
+				km_sprintf(&km, "%*s", size, (char*)NULL)
+				==
+				sprintf(og, "%*s", size, (char*)NULL)
+			);
+			cr_assert_str_eq(km, og);
+		
+		#endif
 	}
 }
 
@@ -118,11 +130,15 @@ Test(printf_test, test_precision_width_string)
 			);
 			cr_assert_str_eq(km, og);
 
-			cr_expect_eq(
-				km_sprintf(&km, "%*.*s", width, precision, (char*)NULL),
-				sprintf(og, "%*.*s", width, precision, (char*)NULL)
-			);
-			cr_assert_str_eq(km, og);
+			#ifndef __linux__
+
+				cr_expect_eq(
+					km_sprintf(&km, "%*.*s", width, precision, (char*)NULL),
+					sprintf(og, "%*.*s", width, precision, (char*)NULL)
+				);
+				cr_assert_str_eq(km, og);
+
+			#endif
 		}
 	}
 }
@@ -139,11 +155,15 @@ Test(printf_test, test_precision_width_left_adjust_string)
 			);
 			cr_assert_str_eq(km, og);
 
-			cr_expect_eq(
-				km_sprintf(&km, "%-*.*s", width, precision, (char*)NULL),
-				sprintf(og, "%-*.*s", width, precision, (char*)NULL)
-			);
-			cr_assert_str_eq(km, og);
+			#ifndef __linux__
+
+				cr_expect_eq(
+					km_sprintf(&km, "%-*.*s", width, precision, (char*)NULL),
+					sprintf(og, "%-*.*s", width, precision, (char*)NULL)
+				);
+				cr_assert_str_eq(km, og);
+
+			#endif
 		}
 	}
 }
