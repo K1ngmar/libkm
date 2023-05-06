@@ -5,10 +5,13 @@
 #include <criterion/criterion.h>
 #include <stdint.h>
 
+#define __LONG_MIN__ (__LONG_MAX__ + 1)
+
 char int_max[] = "2147483647";
 char int_min[] = "-2147483648";
 char long_max[] = "9223372036854775807";
 char long_min[] = "-9223372036854775808";
+
 
 char faulty[] = "234532a34";
 
@@ -40,7 +43,7 @@ Test(conversion_test, test_atoi) {
 Test(conversion_test, test_atol) {
 	cr_expect(km_atol("12345") == 12345);
 	cr_expect(km_atol(long_max) == __LONG_MAX__);
-	cr_expect(km_atol(long_min) == __LONG_MAX__ + 1);
+	cr_expect(km_atol(long_min) == __LONG_MIN__);
 	cr_expect(km_atol(" 12") == 12);
 	cr_expect(km_atol(" +-12") == atoi(" +-12"));
 	cr_expect(km_atol(" -+12") == atoi(" -+12"));
