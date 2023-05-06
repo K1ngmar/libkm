@@ -115,19 +115,23 @@ int conversion_dispatcher(va_list args, const char* restrict * format, printf_bu
 
 	switch(**format) {
 		case 'D': flags.size = LONG;
-		case 'd': // falltrough
+				  /* fall through */
+		case 'd': /* fall through */
 		case 'i': {
 			return conversion_signed(args, buffer, &flags, KM_BASE_DECIMAL, prefix_length_decimal, set_prefix_decimal);
 		}
 		case 'O': flags.size = LONG;
+				  /* fall through */
 		case 'o': {
 			return conversion_unsigned(args, buffer, &flags, KM_BASE_OCTAL, prefix_length_octal, set_prefix_octal);
 		}
 		case 'U': flags.size = LONG;
+				  /* fall through */
 		case 'u': {
 			return conversion_unsigned(args, buffer, &flags, KM_BASE_DECIMAL, prefix_length_decimal, set_prefix_decimal);
 		}
 		case 'X': flags.uppercase = true;
+				  /* fall through */
 		case 'x': {
 			return conversion_unsigned(args, buffer, &flags, KM_BASE_HEXADECIMAL, prefix_length_hex, set_prefix_hex);
 		}
