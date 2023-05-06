@@ -13,6 +13,7 @@
 
 #include <ctype.h>
 #include <inttypes.h>
+#include <stddef.h>
 
 /*
 ** Because fsanitize is annoying and wont let me do bytehacks
