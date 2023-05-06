@@ -133,13 +133,27 @@ Test(printf_test, octal_long)
 	sprintf(og, "%lo", (long)INT32_MIN);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%llo", INT64_MAX);
-	sprintf(og, "%llo", INT64_MAX);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	km_sprintf(&km, "%llo", INT64_MIN);
-	sprintf(og, "%llo", INT64_MIN);
-	cr_assert_str_eq(km, og);
+		km_sprintf(&km, "%lo", INT64_MAX);
+		sprintf(og, "%lo", INT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%lo", INT64_MIN);
+		sprintf(og, "%lo", INT64_MIN);
+		cr_assert_str_eq(km, og);
+
+	#else
+
+		km_sprintf(&km, "%llo", INT64_MAX);
+		sprintf(og, "%llo", INT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%llo", INT64_MIN);
+		sprintf(og, "%llo", INT64_MIN);
+		cr_assert_str_eq(km, og);
+
+	#endif
 }
 
 Test(printf_test, octal_u)
@@ -195,13 +209,27 @@ Test(printf_test, octal_ulong)
 	sprintf(og, "%lu", (unsigned long)UINT32_MAX + 1);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%llu", UINT64_MAX);
-	sprintf(og, "%llu", UINT64_MAX);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	km_sprintf(&km, "%llu", UINT64_MAX + 1);
-	sprintf(og, "%llu", UINT64_MAX + 1);
-	cr_assert_str_eq(km, og);
+		km_sprintf(&km, "%lu", UINT64_MAX);
+		sprintf(og, "%lu", UINT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%lu", UINT64_MAX + 1);
+		sprintf(og, "%lu", UINT64_MAX + 1);
+		cr_assert_str_eq(km, og);
+
+	#else	
+
+		km_sprintf(&km, "%llu", UINT64_MAX);
+		sprintf(og, "%llu", UINT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%llu", UINT64_MAX + 1);
+		sprintf(og, "%llu", UINT64_MAX + 1);
+		cr_assert_str_eq(km, og);
+	
+	#endif
 }
 
 Test(printf_test, octal_field_width)

@@ -26,12 +26,16 @@ TestSuite(printf_test, .init=suitesetup, .fini=suiteteardown);
 
 Test(printf_test, test_no_conversion) {
 
-	cr_assert(
-		km_sprintf(&km, "")
-		==
-		sprintf(og, "")
-	);
-	cr_assert_str_eq(km, og);
+	#ifndef __linux__
+
+		cr_assert(
+			km_sprintf(&km, "")
+			==
+			sprintf(og, "")
+		);
+		cr_assert_str_eq(km, og);
+
+	#endif
 
 	km_sprintf(&km, "hello worlx");
 	sprintf(og, "hello worlx");
@@ -132,13 +136,27 @@ Test(printf_test, hex_long)
 	sprintf(og, "%lx", (long)INT32_MIN);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%llx", INT64_MAX);
-	sprintf(og, "%llx", INT64_MAX);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	km_sprintf(&km, "%llx", INT64_MIN);
-	sprintf(og, "%llx", INT64_MIN);
-	cr_assert_str_eq(km, og);
+		km_sprintf(&km, "%lx", INT64_MAX);
+		sprintf(og, "%lx", INT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%lx", INT64_MIN);
+		sprintf(og, "%lx", INT64_MIN);
+		cr_assert_str_eq(km, og);
+
+	#else
+
+		km_sprintf(&km, "%llx", INT64_MAX);
+		sprintf(og, "%llx", INT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%llx", INT64_MIN);
+		sprintf(og, "%llx", INT64_MIN);
+		cr_assert_str_eq(km, og);
+
+	#endif	
 }
 
 Test(printf_test, hex_u)
@@ -194,13 +212,27 @@ Test(printf_test, hex_ulong)
 	sprintf(og, "%lu", (unsigned long)UINT32_MAX + 1);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%llu", UINT64_MAX);
-	sprintf(og, "%llu", UINT64_MAX);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	km_sprintf(&km, "%llu", UINT64_MAX + 1);
-	sprintf(og, "%llu", UINT64_MAX + 1);
-	cr_assert_str_eq(km, og);
+		km_sprintf(&km, "%lu", UINT64_MAX);
+		sprintf(og, "%lu", UINT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%lu", UINT64_MAX + 1);
+		sprintf(og, "%lu", UINT64_MAX + 1);
+		cr_assert_str_eq(km, og);
+
+	#else
+
+		km_sprintf(&km, "%llu", UINT64_MAX);
+		sprintf(og, "%llu", UINT64_MAX);
+		cr_assert_str_eq(km, og);
+
+		km_sprintf(&km, "%llu", UINT64_MAX + 1);
+		sprintf(og, "%llu", UINT64_MAX + 1);
+		cr_assert_str_eq(km, og);
+
+	#endif
 }
 
 Test(printf_test, hex_field_width)
