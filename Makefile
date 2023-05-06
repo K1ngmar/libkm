@@ -21,7 +21,7 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 
 $(TEST)/bin/%: $(TEST)/%.c
 	@echo "$(COLOR_LBLUE)Compiling tests... $(COLOR_BLUE)$<$(COLOR_RESET)"
-	@$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
+	@$(CC) $(CFLAGS) $(ADDITIONAL_LIBRARIES) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
 test_build: $(NAME) $(TEST)/bin $(TESTBIN)
 
