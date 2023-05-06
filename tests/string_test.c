@@ -198,9 +198,9 @@ Test(string_test, test_strnstr) {
 }
 
 Test(string_test, test_strcasestr) {
-	char haystack[] = "This is a very cool haystack inninnit";
 
 	#ifndef __linux__
+		char haystack[] = "This is a very cool haystack inninnit";
 
 		cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
 		cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
