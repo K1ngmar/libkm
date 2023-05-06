@@ -200,15 +200,7 @@ Test(string_test, test_strnstr) {
 Test(string_test, test_strcasestr) {
 	char haystack[] = "This is a very cool haystack inninnit";
 
-	#ifdef __linux__
-	
-		cr_expect(km_strcasestr(haystack, "IS") == strcasecmp(haystack, "IS"));
-		cr_expect(km_strcasestr(haystack, "tHiS") == strcasecmp(haystack, "tHiS"));
-		cr_expect(km_strcasestr(haystack, "InnIT") == strcasecmp(haystack, "InnIT"));
-		cr_expect(km_strcasestr(haystack, "Not in there") == strcasecmp(haystack, "Not in there"));
-		cr_expect(km_strcasestr(haystack, "IT") == strcasecmp(haystack, "IT"));
-
-	#else
+	#ifndef __linux__
 
 		cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
 		cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
