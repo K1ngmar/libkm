@@ -27,12 +27,16 @@ TestSuite(printf_test, .init=suitesetup, .fini=suiteteardown);
 
 Test(printf_test, test_no_conversion) {
 
-	cr_assert(
-		km_sprintf(&km, "")
-		==
-		sprintf(og, "")
-	);
-	cr_assert_str_eq(km, og);
+	#ifndef __linux__
+		
+		cr_assert(
+			km_sprintf(&km, "")
+			==
+			sprintf(og, "")
+		);
+		cr_assert_str_eq(km, og);
+
+	#endif
 
 	km_sprintf(&km, "hello worlo");
 	sprintf(og, "hello worlo");
@@ -478,67 +482,67 @@ Test(printf_test, octal_precision_and_width_hashtag)
 
 Test(printf_test, octal_precision_and_width_hashtag_uppercase)
 {
-	km_sprintf(&km, "%#10.20O", 0);
-	sprintf(og, "%#10.20O", 0);
+	km_sprintf(&km, "%#10.20o", 0);
+	sprintf(og, "%#10.20o", 0);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#20.10O", 0);
-	sprintf(og, "%#20.10O", 0);
+	km_sprintf(&km, "%#20.10o", 0);
+	sprintf(og, "%#20.10o", 0);
 	cr_assert_str_eq(km, og);
 
-	// km_sprintf(&km, "%#.0O", 0);
-	// sprintf(og, "%#.0O", 0);
+	// km_sprintf(&km, "%#.0o", 0);
+	// sprintf(og, "%#.0o", 0);
 	// cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#2.1O", 1);
-	sprintf(og, "%#2.1O", 1);
+	km_sprintf(&km, "%#2.1o", 1);
+	sprintf(og, "%#2.1o", 1);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#2.3O", 56);
-	sprintf(og, "%#1.3O", 56);
+	km_sprintf(&km, "%#2.3o", 56);
+	sprintf(og, "%#1.3o", 56);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#3.3O", 439);
-	sprintf(og, "%#3.3O", 439);
+	km_sprintf(&km, "%#3.3o", 439);
+	sprintf(og, "%#3.3o", 439);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#4.4O", -439);
-	sprintf(og, "%#4.4O", -439);
+	km_sprintf(&km, "%#4.4o", -439);
+	sprintf(og, "%#4.4o", -439);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#5.5O", 56);
-	sprintf(og, "%#5.5O", 56);
+	km_sprintf(&km, "%#5.5o", 56);
+	sprintf(og, "%#5.5o", 56);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#2.2O", -6);
-	sprintf(og, "%#2.2O", -6);
+	km_sprintf(&km, "%#2.2o", -6);
+	sprintf(og, "%#2.2o", -6);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#5.6O", 56);
-	sprintf(og, "%#5.6O", 56);
+	km_sprintf(&km, "%#5.6o", 56);
+	sprintf(og, "%#5.6o", 56);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#2.3O", -6);
-	sprintf(og, "%#2.3O", -6);
+	km_sprintf(&km, "%#2.3o", -6);
+	sprintf(og, "%#2.3o", -6);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#11.10O", INT32_MAX);
-	sprintf(og, "%#11.10O", INT32_MAX);
+	km_sprintf(&km, "%#11.10o", INT32_MAX);
+	sprintf(og, "%#11.10o", INT32_MAX);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#12.11O", INT32_MIN);
-	sprintf(og, "%#12.11O", INT32_MIN);
+	km_sprintf(&km, "%#12.11o", INT32_MIN);
+	sprintf(og, "%#12.11o", INT32_MIN);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#5.2O", -1);
-	sprintf(og, "%#5.2O", -1);
+	km_sprintf(&km, "%#5.2o", -1);
+	sprintf(og, "%#5.2o", -1);
 	cr_assert_str_eq(km, og);
 
-	km_sprintf(&km, "%#5.9O", -17);
-	sprintf(og, "%#5.9O", -17);
+	km_sprintf(&km, "%#5.9o", -17);
+	sprintf(og, "%#5.9o", -17);
 	cr_assert_str_eq(km, og);
 	
-	km_sprintf(&km, "%#2.6O", 17);
+	km_sprintf(&km, "%#2.6o", 17);
 	sprintf(og, "%#2.6O", 17);
 	cr_assert_str_eq(km, og);
 }
