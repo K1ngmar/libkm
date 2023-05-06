@@ -18,7 +18,8 @@
 /*
 ** Because fsanitize is annoying and wont let me do bytehacks
 */
-#if !__has_feature(address_sanitizer)
+// #if !__has_feature(address_sanitizer)
+#ifndef FSANITIZE
 
 	// 8 bytes, with the most significant bit set in each of them
 	#define HI_MAGIC 0x8080808080808080ULL
