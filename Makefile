@@ -23,7 +23,9 @@ $(TEST)/bin/%: $(TEST)/%.c
 	@echo "$(COLOR_LBLUE)Compiling tests... $(COLOR_BLUE)$<$(COLOR_RESET)"
 	@$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
 
-test: fclean $(NAME) $(TEST)/bin $(TESTBIN)
+test_build: $(NAME) $(TEST)/bin $(TESTBIN)
+
+test: test_build
 	@for test in $(TESTBIN) ; do echo "\n$(COLOR_YELLOW)TEST:$(COLOR_RESET) $$test" && ./$$test ; done
 
 # Clean up
