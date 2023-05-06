@@ -16,9 +16,7 @@ jobs:
     
     - name: Update version
       run: sudo apt-get update
-    - name: Install Homebrew
-      run: sudo apt-get install build-essential procps curl file git
     - name: Install Criterion
-      run: brew install snaipe/soft/criterion
+      run: sudo apt-get install libghc-criterion-dev
     - name: Build Unit Tests
       run: make test
