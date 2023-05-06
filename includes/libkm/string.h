@@ -15,6 +15,7 @@
 # define LIBKM_LIBC_STRING_H
 
 # include <ctype.h>
+# include <stddef.h>
 
 /////////////////////////
 // ascii_to_integral.c //

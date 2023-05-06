@@ -15,6 +15,7 @@
 # define AWESOME_LIBKM_MEMORY_FUNCTIONS_H
 
 # include <ctype.h>
+# include <stddef.h>
 
 ///////////
 // mem.c //
