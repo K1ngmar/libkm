@@ -2,6 +2,7 @@
 
 #include <criterion/criterion.h>
 #include <stdio.h>
+#include <stdint.h>
 
 #define TEST_SIZE 1024
 

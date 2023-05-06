@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <criterion/criterion.h>
+#include <stdint.h>
 
 char int_max[] = "2147483647";
 char int_min[] = "-2147483648";
