@@ -14,6 +14,7 @@
 #include <ctype.h>
 #include <inttypes.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 #define CACHE_LINE_SIZE 64
 
