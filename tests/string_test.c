@@ -200,11 +200,23 @@ Test(string_test, test_strnstr) {
 Test(string_test, test_strcasestr) {
 	char haystack[] = "This is a very cool haystack inninnit";
 
-	cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
-	cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
-	cr_expect(km_strcasestr(haystack, "InnIT") == strcasestr(haystack, "InnIT"));
-	cr_expect(km_strcasestr(haystack, "Not in there") == strcasestr(haystack, "Not in there"));
-	cr_expect(km_strcasestr(haystack, "IT") == strcasestr(haystack, "IT"));
+	#ifdef __linux__
+	
+		cr_expect(km_strcasestr(haystack, "IS") == strcasecmp(haystack, "IS"));
+		cr_expect(km_strcasestr(haystack, "tHiS") == strcasecmp(haystack, "tHiS"));
+		cr_expect(km_strcasestr(haystack, "InnIT") == strcasecmp(haystack, "InnIT"));
+		cr_expect(km_strcasestr(haystack, "Not in there") == strcasecmp(haystack, "Not in there"));
+		cr_expect(km_strcasestr(haystack, "IT") == strcasecmp(haystack, "IT"));
+
+	#else
+
+		cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
+		cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
+		cr_expect(km_strcasestr(haystack, "InnIT") == strcasestr(haystack, "InnIT"));
+		cr_expect(km_strcasestr(haystack, "Not in there") == strcasestr(haystack, "Not in there"));
+		cr_expect(km_strcasestr(haystack, "IT") == strcasestr(haystack, "IT"));
+
+	#endif
 }
 
 Test(string_test, test_strtok) {
