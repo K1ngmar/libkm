@@ -26,7 +26,7 @@ $(TEST)/bin/%: $(TEST)/%.c
 test_build: $(NAME) $(TEST)/bin $(TESTBIN)
 
 test: test_build
-	@for test in $(TESTBIN) ; do echo "\n$(COLOR_YELLOW)TEST:$(COLOR_RESET) $$test" && ./$$test ; done
+	@sh tests/run_tests.sh
 
 # Clean up
 .PHONY: clean fclean re

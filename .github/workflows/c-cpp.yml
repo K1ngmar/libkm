@@ -7,7 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+
+  linux:
 
     runs-on: ubuntu-latest
 
@@ -22,5 +23,6 @@ jobs:
       run: sudo apt-get install libbsd-dev
     - name: Build Unit Tests
       run: make test_build
-    - name: Run Unit Tests
-      run: make test
+    - name: run_test
+      run: sh tests/run_tests.sh
+
