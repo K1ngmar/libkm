@@ -25,7 +25,7 @@ jobs:
       run: make test_build
     - name: run_test
       run: sh tests/run_tests.sh
-  
+
   macos:
 
     macos-on: macos-latest
