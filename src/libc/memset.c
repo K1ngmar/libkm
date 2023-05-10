@@ -48,7 +48,7 @@ static inline size_t align_memory(char* restrict dst, unsigned char c)
 	/*
 	** set bytes until dst is aligned on a cache line boundry
 	*/
-	while (((unsigned long)dst & (unsigned long)(CACHE_LINE_SIZE - 1)) != 0) {
+	while (((unsigned long)(dst + offset) & (unsigned long)(CACHE_LINE_SIZE - 1)) != 0) {
 		dst[offset] = c;
 		++offset;
 	}
@@ -62,7 +62,7 @@ void*	km_memset(void* restrict b, int c, size_t len)
 	if (len >= CACHE_LINE_SIZE) {
 		size_t	offset		= align_memory(b, c);
 		size_t	unrolled	= (len - offset) / CACHE_LINE_SIZE;
-				leftover	= (len - offset) % CACHE_LINE_SIZE;
+				leftover	-= unrolled;
 
 		fill_unrolled((int64_t*)(((char*)b) + offset), c, unrolled);
 	}
