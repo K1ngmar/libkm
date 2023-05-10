@@ -35,6 +35,7 @@ Test(sn_printf_test, test_no_conversion) {
 		);
 		cr_assert_str_eq(km, og);
 
+
 	#endif
 
 	km_snprintf(km, TEST_SIZE, "hello world");
@@ -110,9 +111,11 @@ Test(sn_printf_test, decimal_long)
 		snprintf(og, TEST_SIZE, "%ld", INT64_MAX);
 		cr_assert_str_eq(km, og);
 
+
 		km_snprintf(km, TEST_SIZE, "%ld", INT64_MIN);
 		snprintf(og, TEST_SIZE, "%ld", INT64_MIN);
 		cr_assert_str_eq(km, og);
+
 
 	#else
 
@@ -120,9 +123,11 @@ Test(sn_printf_test, decimal_long)
 		snprintf(og, TEST_SIZE, "%lld", INT64_MAX);
 		cr_assert_str_eq(km, og);
 
+
 		km_snprintf(km, TEST_SIZE, "%lld", INT64_MIN);
 		snprintf(og, TEST_SIZE, "%lld", INT64_MIN);
 		cr_assert_str_eq(km, og);
+
 
 	#endif
 }

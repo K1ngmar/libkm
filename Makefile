@@ -61,3 +61,6 @@ leaks:
 fsanitize:
 	@echo "$(COLOR_YELLOW)Building $(NAME) fsanitize...	$(COLOR_RESET)"
 	@$(MAKE) re FSANITIZE=1
+
+test_fsanitize:
+	@$(MAKE) test FSANITIZE=1
