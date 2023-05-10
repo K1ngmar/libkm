@@ -3,6 +3,7 @@
 
 #include <criterion/criterion.h>
 #include <ctype.h>
+#include <stdio.h>
 
 #define TestFunc(funcname) \
 	Test(character_checks, test_##funcname) { \
