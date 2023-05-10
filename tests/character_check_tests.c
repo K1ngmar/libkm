@@ -7,7 +7,7 @@
 #define TestFunc(funcname) \
 	Test(character_checks, test_##funcname) { \
 		for (int c = -255; c < 255; c++){ \
-			printf("c=%c\n"); \
+			printf("c=%d\n", c); \
 			cr_expect(funcname(c) == km_##funcname(c));} \
 	}
 

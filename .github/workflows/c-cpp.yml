@@ -11,6 +11,7 @@ jobs:
   linux:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
     - uses: actions/checkout@v3
@@ -29,16 +30,15 @@ jobs:
   macos:
 
     runs-on: macos-latest
+    timeout-minutes: 5
 
     steps:
     - uses: actions/checkout@v3
     
     - name: Update version
-      run: sudo apt-get update
+      run: brew update
     - name: Install Criterion
-      run: sudo apt-get install libcriterion-dev
-    - name: Install Additional libraries
-      run: sudo apt-get install libbsd-dev
+      run: brew install criterion
     - name: Build
       run: make test_build
     - name: run_test
