@@ -14,6 +14,14 @@ TEST	= tests
 TESTS	= $(wildcard $(TEST)/*.c)
 TESTBIN = $(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(TESTS))
 
+
+OS := $(shell uname -s)
+
+ADDITIONAL_LIBRARIES = 
+ifeq ($(OS), Linux)
+	ADDITIONAL_LIBRARIES += -lbsd
+endif
+
 ifdef DEBUG
 	CFLAGS += -g -D DEBUG
 endif

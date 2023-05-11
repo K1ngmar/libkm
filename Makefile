@@ -21,10 +21,12 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 
 $(TEST)/bin/%: $(TEST)/%.c
 	@echo "$(COLOR_LBLUE)Compiling tests... $(COLOR_BLUE)$<$(COLOR_RESET)"
-	@$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion
+	@$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion $(ADDITIONAL_LIBRARIES)
 
-test: fclean $(NAME) $(TEST)/bin $(TESTBIN)
-	@for test in $(TESTBIN) ; do echo "\n$(COLOR_YELLOW)TEST:$(COLOR_RESET) $$test" && ./$$test ; done
+test_build: $(NAME) $(TEST)/bin $(TESTBIN)
+
+test: test_build
+	@sh tests/run_tests.sh
 
 # Clean up
 .PHONY: clean fclean re
@@ -59,3 +61,6 @@ leaks:
 fsanitize:
 	@echo "$(COLOR_YELLOW)Building $(NAME) fsanitize...	$(COLOR_RESET)"
 	@$(MAKE) re FSANITIZE=1
+
+test_fsanitize:
+	@$(MAKE) test FSANITIZE=1

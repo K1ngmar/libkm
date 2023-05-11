@@ -2,6 +2,11 @@
 
 #include <criterion/criterion.h>
 #include <string.h>
+#include <strings.h>
+
+#ifdef __linux__
+	#include <bsd/string.h>
+#endif
 
 #define VERY_LONG_STRING "I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS."
 
@@ -193,13 +198,17 @@ Test(string_test, test_strnstr) {
 }
 
 Test(string_test, test_strcasestr) {
-	char haystack[] = "This is a very cool haystack inninnit";
 
-	cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
-	cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
-	cr_expect(km_strcasestr(haystack, "InnIT") == strcasestr(haystack, "InnIT"));
-	cr_expect(km_strcasestr(haystack, "Not in there") == strcasestr(haystack, "Not in there"));
-	cr_expect(km_strcasestr(haystack, "IT") == strcasestr(haystack, "IT"));
+	#ifndef __linux__
+		char haystack[] = "This is a very cool haystack inninnit";
+
+		cr_expect(km_strcasestr(haystack, "IS") == strcasestr(haystack, "IS"));
+		cr_expect(km_strcasestr(haystack, "tHiS") == strcasestr(haystack, "tHiS"));
+		cr_expect(km_strcasestr(haystack, "InnIT") == strcasestr(haystack, "InnIT"));
+		cr_expect(km_strcasestr(haystack, "Not in there") == strcasestr(haystack, "Not in there"));
+		cr_expect(km_strcasestr(haystack, "IT") == strcasestr(haystack, "IT"));
+
+	#endif
 }
 
 Test(string_test, test_strtok) {

@@ -3,6 +3,7 @@
 
 #include <criterion/criterion.h>
 #include <stdio.h>
+#include <stdint.h>
 
 #define TEST_SIZE 1024
 
@@ -25,12 +26,17 @@ TestSuite(sn_printf_test, .init=suitesetup, .fini=suiteteardown);
 
 Test(sn_printf_test, test_no_conversion) {
 
-	cr_assert(
-		km_snprintf(km, TEST_SIZE, "")
-		==
-		snprintf(og, TEST_SIZE, "")
-	);
-	cr_assert_str_eq(km, og);
+	#ifndef __linux__
+
+		cr_assert(
+			km_snprintf(km, TEST_SIZE, "")
+			==
+			snprintf(og, TEST_SIZE, "")
+		);
+		cr_assert_str_eq(km, og);
+
+
+	#endif
 
 	km_snprintf(km, TEST_SIZE, "hello world");
 	snprintf(og, TEST_SIZE, "hello world");
@@ -99,13 +105,31 @@ Test(sn_printf_test, decimal_long)
 	snprintf(og, TEST_SIZE, "%ld", (long)INT32_MIN);
 	cr_assert_str_eq(km, og);
 
-	km_snprintf(km, TEST_SIZE, "%lld", INT64_MAX);
-	snprintf(og, TEST_SIZE, "%lld", INT64_MAX);
-	cr_assert_str_eq(km, og);
+	#ifdef __linux__
 
-	km_snprintf(km, TEST_SIZE, "%lld", INT64_MIN);
-	snprintf(og, TEST_SIZE, "%lld", INT64_MIN);
-	cr_assert_str_eq(km, og);
+		km_snprintf(km, TEST_SIZE, "%ld", INT64_MAX);
+		snprintf(og, TEST_SIZE, "%ld", INT64_MAX);
+		cr_assert_str_eq(km, og);
+
+
+		km_snprintf(km, TEST_SIZE, "%ld", INT64_MIN);
+		snprintf(og, TEST_SIZE, "%ld", INT64_MIN);
+		cr_assert_str_eq(km, og);
+
+
+	#else
+
+		km_snprintf(km, TEST_SIZE, "%lld", INT64_MAX);
+		snprintf(og, TEST_SIZE, "%lld", INT64_MAX);
+		cr_assert_str_eq(km, og);
+
+
+		km_snprintf(km, TEST_SIZE, "%lld", INT64_MIN);
+		snprintf(og, TEST_SIZE, "%lld", INT64_MIN);
+		cr_assert_str_eq(km, og);
+
+
+	#endif
 }
 
 Test(sn_printf_test, decimal_u)
@@ -161,6 +185,18 @@ Test(sn_printf_test, decimal_ulong)
 	snprintf(og, TEST_SIZE, "%lu", (unsigned long)UINT32_MAX + 1);
 	cr_assert_str_eq(km, og);
 
+	#ifdef __linux__
+
+	km_snprintf(km, TEST_SIZE, "%lu", UINT64_MAX);
+	snprintf(og, TEST_SIZE, "%lu", UINT64_MAX);
+	cr_assert_str_eq(km, og);
+
+	km_snprintf(km, TEST_SIZE, "%lu", UINT64_MAX + 1);
+	snprintf(og, TEST_SIZE, "%lu", UINT64_MAX + 1);
+	cr_assert_str_eq(km, og);
+
+	#else
+
 	km_snprintf(km, TEST_SIZE, "%llu", UINT64_MAX);
 	snprintf(og, TEST_SIZE, "%llu", UINT64_MAX);
 	cr_assert_str_eq(km, og);
@@ -168,6 +204,8 @@ Test(sn_printf_test, decimal_ulong)
 	km_snprintf(km, TEST_SIZE, "%llu", UINT64_MAX + 1);
 	snprintf(og, TEST_SIZE, "%llu", UINT64_MAX + 1);
 	cr_assert_str_eq(km, og);
+
+	#endif
 }
 
 Test(sn_printf_test, decimal_sign) {

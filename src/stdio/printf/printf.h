@@ -22,6 +22,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <stddef.h>
 
 #define KM_BASE_OCTAL 8
 #define KM_BASE_DECIMAL 10

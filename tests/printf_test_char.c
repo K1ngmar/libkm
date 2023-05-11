@@ -3,6 +3,7 @@
 
 #include <criterion/criterion.h>
 #include <string.h>
+#include <stdio.h>
 
 #define VERY_LONG_STRING "I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS. I AM PRETTY SURE A LONG STRING WONT MAKE A DIFFERENCE BUT JUST FOR THE SAKE OF IT WE WILL TEST IT ANYWAYS."
 
@@ -12,13 +13,12 @@ char*	km = NULL;
 char*	og = NULL;
 
 void suitesetup(void) {
-	km = malloc(sizeof(char) * TEST_SIZE);
+	km = NULL;
 	og = malloc(sizeof(char) * TEST_SIZE);
 }
 
 
 void suiteteardown(void) {
-	free(km);
 	free(og);
 	km = NULL;
 	og = NULL;
@@ -34,6 +34,7 @@ Test(printf_test, char_test)
 		sprintf(og, "%c", 'a')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 
 	cr_assert(
 		km_sprintf(&km, "%c\n", 'b')
@@ -41,6 +42,7 @@ Test(printf_test, char_test)
 		sprintf(og, "%c\n", 'b')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 
 	cr_assert(
 		km_sprintf(&km, "scooperdie%c\n", 'd')
@@ -48,6 +50,7 @@ Test(printf_test, char_test)
 		sprintf(og, "scooperdie%c\n", 'd')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
 	cr_assert(
 		km_sprintf(&km, "scooperdie%cswoop\n", 'e')
@@ -55,6 +58,7 @@ Test(printf_test, char_test)
 		sprintf(og, "scooperdie%cswoop\n", 'e')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
 	cr_assert(
 		km_sprintf(&km, "%cswoop\n", 'g')
@@ -62,6 +66,7 @@ Test(printf_test, char_test)
 		sprintf(og, "%cswoop\n", 'g')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
 	cr_assert(
 		km_sprintf(&km, "%c%c&%c%c", 'g', 'l', 'h', 'f')
@@ -69,6 +74,7 @@ Test(printf_test, char_test)
 		sprintf(og, "%c%c&%c%c", 'g', 'l', 'h', 'f')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 }
 
 Test(printf_test, test_width)
@@ -79,6 +85,7 @@ Test(printf_test, test_width)
 		sprintf(og, "%5c", 'a')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 
 	cr_assert(
 		km_sprintf(&km, "%3c\n", 'b')
@@ -86,6 +93,7 @@ Test(printf_test, test_width)
 		sprintf(og, "%3c\n", 'b')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 
 	cr_assert(
 		km_sprintf(&km, "scooperdie%4c\n", 'd')
@@ -93,6 +101,7 @@ Test(printf_test, test_width)
 		sprintf(og, "scooperdie%4c\n", 'd')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
 	cr_assert(
 		km_sprintf(&km, "scooperdie%4cswoop\n", 'e')
@@ -100,6 +109,7 @@ Test(printf_test, test_width)
 		sprintf(og, "scooperdie%4cswoop\n", 'e')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
 	cr_assert(
 		km_sprintf(&km, "%20cswoop\n", 'g')
@@ -107,6 +117,7 @@ Test(printf_test, test_width)
 		sprintf(og, "%20cswoop\n", 'g')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
 	cr_assert(
 		km_sprintf(&km, "%2c%3c&%4c%5c", 'g', 'l', 'h', 'f')
@@ -114,4 +125,5 @@ Test(printf_test, test_width)
 		sprintf(og, "%2c%3c&%4c%5c", 'g', 'l', 'h', 'f')
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 }

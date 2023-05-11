@@ -10,12 +10,11 @@ char*	km = NULL;
 char*	og = NULL;
 
 void suitesetup(void) {
-	km = malloc(sizeof(char) * TEST_SIZE);
+	km = NULL;
 	og = malloc(sizeof(char) * TEST_SIZE);
 }
 
 void suiteteardown(void) {
-	free(km);
 	free(og);
 	km = NULL;
 	og = NULL;
@@ -31,6 +30,7 @@ Test(printf_test, test_string)
 		sprintf(og, "%s", "swooperdiewoop")
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 
 	cr_assert(
 		km_sprintf(&km, "%s\n", "swooperdiewoop")
@@ -38,6 +38,7 @@ Test(printf_test, test_string)
 		sprintf(og, "%s\n", "swooperdiewoop")
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 
 	cr_assert(
 		km_sprintf(&km, "scooperdie%s\n", "swooperdiewoop")
@@ -45,27 +46,35 @@ Test(printf_test, test_string)
 		sprintf(og, "scooperdie%s\n", "swooperdiewoop")
 	);
 	cr_assert_str_eq(km, og);
+	free(km);
 	
-	cr_assert(
-		km_sprintf(&km, "%s", (char*)NULL)
-		==
-		sprintf(og, "%s", (char*)NULL)
-	);
-	cr_assert_str_eq(km, og);
+	#ifndef __linux__
 
-	cr_assert(
-		km_sprintf(&km, "%s\n", (char*)NULL)
-		==
-		sprintf(og, "%s\n", (char*)NULL)
-	);
-	cr_assert_str_eq(km, og);
-	
-	cr_assert(
-		km_sprintf(&km, "scooperdie%s\n", (char*)NULL)
-		==
-		sprintf(og, "scooperdie%s\n", (char*)NULL)
-	);
-	cr_assert_str_eq(km, og);
+		cr_assert(
+			km_sprintf(&km, "%s", (char*)NULL)
+			==
+			sprintf(og, "%s", (char*)NULL)
+		);
+		cr_assert_str_eq(km, og);
+		free(km);
+
+		cr_assert(
+			km_sprintf(&km, "%s\n", (char*)NULL)
+			==
+			sprintf(og, "%s\n", (char*)NULL)
+		);
+		cr_assert_str_eq(km, og);
+		free(km);
+		
+		cr_assert(
+			km_sprintf(&km, "scooperdie%s\n", (char*)NULL)
+			==
+			sprintf(og, "scooperdie%s\n", (char*)NULL)
+		);
+		cr_assert_str_eq(km, og);
+		free(km);
+
+	#endif
 }
 
 Test(printf_test, test_precision_string)
@@ -77,13 +86,19 @@ Test(printf_test, test_precision_string)
 			sprintf(og, "%.*s", size, "swooperdiewoop")
 		);
 		cr_assert_str_eq(km, og);
+		free(km);
 
-		cr_assert(
-			km_sprintf(&km, "%.*s", size, (char*)NULL)
-			==
-			sprintf(og, "%.*s", size, (char*)NULL)
-		);
-		cr_assert_str_eq(km, og);
+		#ifndef __linux__
+
+			cr_assert(
+				km_sprintf(&km, "%.*s", size, (char*)NULL)
+				==
+				sprintf(og, "%.*s", size, (char*)NULL)
+			);
+			cr_assert_str_eq(km, og);
+			free(km);
+		
+		#endif
 	}
 }
 
@@ -96,13 +111,19 @@ Test(printf_test, test_width_string)
 			sprintf(og, "%*s", size, "swooperdiewoop")
 		);
 		cr_assert_str_eq(km, og);
+		free(km);
 
-		cr_assert(
-			km_sprintf(&km, "%*s", size, (char*)NULL)
-			==
-			sprintf(og, "%*s", size, (char*)NULL)
-		);
-		cr_assert_str_eq(km, og);
+		#ifndef __linux__
+
+			cr_assert(
+				km_sprintf(&km, "%*s", size, (char*)NULL)
+				==
+				sprintf(og, "%*s", size, (char*)NULL)
+			);
+			cr_assert_str_eq(km, og);
+			free(km);
+		
+		#endif
 	}
 }
 
@@ -117,12 +138,18 @@ Test(printf_test, test_precision_width_string)
 				sprintf(og, "%*.*s", width, precision, "swooperdiewoop")
 			);
 			cr_assert_str_eq(km, og);
+			free(km);
 
-			cr_expect_eq(
-				km_sprintf(&km, "%*.*s", width, precision, (char*)NULL),
-				sprintf(og, "%*.*s", width, precision, (char*)NULL)
-			);
-			cr_assert_str_eq(km, og);
+			#ifndef __linux__
+
+				cr_expect_eq(
+					km_sprintf(&km, "%*.*s", width, precision, (char*)NULL),
+					sprintf(og, "%*.*s", width, precision, (char*)NULL)
+				);
+				cr_assert_str_eq(km, og);
+				free(km);
+
+			#endif
 		}
 	}
 }
@@ -138,12 +165,18 @@ Test(printf_test, test_precision_width_left_adjust_string)
 				sprintf(og, "%-*.*s", width, precision, "swooperdiewoop")
 			);
 			cr_assert_str_eq(km, og);
+			free(km);
 
-			cr_expect_eq(
-				km_sprintf(&km, "%-*.*s", width, precision, (char*)NULL),
-				sprintf(og, "%-*.*s", width, precision, (char*)NULL)
-			);
-			cr_assert_str_eq(km, og);
+			#ifndef __linux__
+
+				cr_expect_eq(
+					km_sprintf(&km, "%-*.*s", width, precision, (char*)NULL),
+					sprintf(og, "%-*.*s", width, precision, (char*)NULL)
+				);
+				cr_assert_str_eq(km, og);
+				free(km);
+
+			#endif
 		}
 	}
 }

@@ -14,6 +14,7 @@
 #include <ctype.h>
 #include <inttypes.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 #define ALIGN_SIZE sizeof(int64_t)
 
