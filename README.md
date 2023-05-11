@@ -1,7 +1,32 @@
 # 📚libkm
 Inspired by the 42 project Libft where we had to rewrite a bunch of libc functions with a couple additional ones, this project improves upon my libft and aims to be safer, cleaner, more complete and performant!
 
+## 📥 Install
+```bash
+# clone the repository
+$ git clone https://github.com/K1ngmar/libkm.git
+
+# build the repo
+$ make -C libkm
+
+# link the headers with
+$ cc -o $SOURCE -I$LIBKM_LOCATION/includes
+
+# link it with your project
+$ cc -o $OBJECTS -L$LIBKM_LOCATION/libkm.a -lkm
+```
+
+## 🐳 Test on ubuntu with docker
+```bash
+# build the image
+$ docker build -t ubuntu_test tests
+
+# run the image
+$ docker run -it -v $PWD:/libkm ubuntu_test
+```
+
 ## 📦 CONTENTS
+All the functionality contained in the library!
 - [Containers](#-containers)
 - [IO](#-io)
 - [String](#-string)
