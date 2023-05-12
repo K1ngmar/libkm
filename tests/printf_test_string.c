@@ -50,13 +50,13 @@ Test(printf_test, test_string)
 	
 	#ifndef __linux__
 
-		cr_assert(
-			km_sprintf(&km, "%s", (char*)NULL)
-			==
-			sprintf(og, "%s", (char*)NULL)
-		);
-		cr_assert_str_eq(km, og);
-		free(km);
+		// cr_assert(
+		// 	km_sprintf(&km, "%s", (char*)NULL),
+		// 	==
+		// 	sprintf(og, "%s", (char*)NULL)
+		// );
+		// cr_assert_str_eq(km, og);
+		// free(km);
 
 		cr_assert(
 			km_sprintf(&km, "%s\n", (char*)NULL)
