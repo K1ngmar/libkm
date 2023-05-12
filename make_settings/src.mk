@@ -12,7 +12,6 @@ SRC :=	libc/character_checks.c \
 		libc/mem.c \
 		additional/string.c \
 		additional/split.c \
-		additional/io.c \
 		stdio/getdelim.c \
 		stdio/printf/buffer.c \
 		stdio/printf/conversion_integral.c \

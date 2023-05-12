@@ -161,20 +161,20 @@ Test(string_test, test_strncmp) {
 	char s2[] = "testniffau";
 	
 	cr_expect(!!km_strncmp(s1, s2, 5) == !!strncmp(s1, s2, 5));
-	cr_expect(!!km_strncmp(s1, s2, 42) == !!strncmp(s1, s2, 42));
+	cr_expect(!!km_strncmp(s1, s2, 42) == !!strncmp(s1, s2, 10));
 	cr_expect(!!km_strncmp(s1, s2, 1) == !!strncmp(s1, s2, 1));
 	cr_expect(!!km_strncmp(s1, s2, 2) == !!strncmp(s1, s2, 2));
 
 	s2[5] = 'z';
 	cr_expect(!!km_strncmp(s1, s2, 0) == !!strncmp(s1, s2, 0));
-	cr_expect(!!km_strncmp(s1, s2, 20) == !!strncmp(s1, s2, 20));
+	cr_expect(!!km_strncmp(s1, s2, 20) == !!strncmp(s1, s2, 10));
 	
 
 	s1[3] = 'a';
 	cr_expect(!!km_strncmp(s1, s2, 3) == !!strncmp(s1, s2, 3));
 
 	s1[0] = 'd';
-	cr_expect(!!km_strncmp(s1, s2, 12) == !!strncmp(s1, s2, 12));
+	cr_expect(!!km_strncmp(s1, s2, 12) == !!strncmp(s1, s2, 10));
 }
 
 Test(string_test, test_strstr) {
@@ -252,7 +252,7 @@ Test(string_test, test_strndup) {
 	free(km_dup); free(og_dup);
 
 	km_dup = km_strndup("", 10);
-	og_dup = strndup("", 10);
+	og_dup = strndup("", 1);
 	cr_expect_str_eq(km_dup, og_dup);
 	free(km_dup); free(og_dup);
 
@@ -262,7 +262,7 @@ Test(string_test, test_strndup) {
 	free(km_dup); free(og_dup);
 	
 	km_dup = km_strndup("small string", 40);
-	og_dup = strndup("small string", 40);
+	og_dup = strndup("small string", 12);
 	cr_expect_str_eq(km_dup, og_dup);
 	free(km_dup); free(og_dup);
 }
