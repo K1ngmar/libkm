@@ -14,6 +14,7 @@ TEST	= tests
 TESTS	= $(wildcard $(TEST)/*.c)
 TESTBIN = $(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(TESTS))
 
+DEPENDENCIES := $(patsubst %.c,.obj/%.d,$(SRC))
 
 OS := $(shell uname -s)
 

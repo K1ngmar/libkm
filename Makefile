@@ -11,11 +11,13 @@ $(NAME): $(OBJ)
 	@echo "$(COLOR_GREEN)Creating $(NAME) Library...$(COLOR_RESET)"
 	@ar rcs $(NAME) $(OBJ)
 
+-include $(DEPENDENCIES)
+
 $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 	@mkdir -p $(TEST)/bin
 	@mkdir -p $(@D)
 	@echo "$(COLOR_LBLUE)Compiling...	$(COLOR_BLUE)$<$(COLOR_RESET)"
-	@$(CC) -c -o $@ $< $(CFLAGS) $(IFLAGS)
+	@$(CC) -c -o $@ $< $(CFLAGS) -MMD -MP $(IFLAGS)
 
 # testing
 
