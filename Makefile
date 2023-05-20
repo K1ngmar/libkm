@@ -22,6 +22,7 @@ $(OBJ): $(ODIR)/%.o: $(SDIR)/%.c
 # testing
 
 $(TEST)/bin/%: $(TEST)/%.c
+	@mkdir -p $(TEST)/bin
 	@echo "$(COLOR_LBLUE)Compiling tests... $(COLOR_BLUE)$<$(COLOR_RESET)"
 	@$(CC) $(CFLAGS) $(IFLAGS) $< $(OBJ) -o $@ -lcriterion $(ADDITIONAL_LIBRARIES)
 
