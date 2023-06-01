@@ -21,11 +21,8 @@ double km_floor(double nb)
 double km_ceil(double nb)
 {
     int64_t floored = km_floor(nb);
-    if (floored == nb) {
+    if (floored == nb || floored < 0) {
         return floored;
-    }
-    if (nb < 0) {
-        return floored - 1;
     }
     return floored + 1;
 }
