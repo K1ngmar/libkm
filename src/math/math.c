@@ -13,12 +13,12 @@
 
 #include <inttypes.h>
 
-int64_t km_floor(double nb)
+double km_floor(double nb)
 {
     return (int64_t)nb;
 }
 
-int64_t km_ceil(double nb)
+double km_ceil(double nb)
 {
     int64_t floored = km_floor(nb);
     if (floored == nb) {

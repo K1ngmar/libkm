@@ -18,11 +18,11 @@
  * @param nb
  * @return
 */
-int64_t km_floor(double nb);
+double km_floor(double nb);
 
 /*!
  * @brief rounds up
  * @param nb
  * @return
 */
-int64_t km_ceil(double nb);
+double km_ceil(double nb);
