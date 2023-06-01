@@ -18,6 +18,7 @@ SRC :=	libc/character_checks.c \
 		stdio/printf/conversion_string.c \
 		stdio/printf/dispatcher.c \
 		stdio/printf/integral_prefix.c \
-		stdio/printf/printf.c
+		stdio/printf/printf.c \
+		math/math.c
 
 endif
