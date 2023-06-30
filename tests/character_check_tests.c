@@ -18,3 +18,4 @@ TestFunc(isascii)
 TestFunc(isprint)
 
 // iets nieuws
+// nog iets nieuws
