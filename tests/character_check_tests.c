@@ -16,3 +16,5 @@ TestFunc(isalpha)
 TestFunc(isdigit)
 TestFunc(isascii)
 TestFunc(isprint)
+
+// iets nieuws
