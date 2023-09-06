@@ -3,7 +3,7 @@ SETTINGS_MK = 1
 
 NAME	= libkm.a
 
-CFLAGS	= -Wall -Wextra -Werror -pedantic -O3
+CFLAGS	= -Wall -Wextra -Werror -pedantic -O3 -fpie
 IFLAGS	= -I$(IDIR)
 
 SDIR	= src
