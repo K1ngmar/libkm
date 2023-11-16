@@ -44,15 +44,6 @@ void	km_bzero(void* s, size_t n) {
 	km_memset(s, 0, n);
 }
 
-void*	km_calloc(size_t count, size_t size)
-{
-	void* ptr = malloc(count * size);
-	if (ptr == NULL)
-		return (NULL);
-	km_bzero(ptr, count * size);
-	return (ptr);
-}
-
 void*	km_stupid_realloc(void* ptr, size_t old_size, size_t new_size)
 {
 	if (ptr == NULL)

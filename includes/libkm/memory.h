@@ -39,14 +39,6 @@
 	void	km_bzero(void* s, size_t n);
 
 	/*!
-	 * @brief allocates count * size bytes and sets the allocated memmory to zero
-	 * @param count amount of 
-	 * @param size size of the datatype
-	 * @return the allocted array, NULL on failure
-	*/
-	void*	km_calloc(size_t count, size_t size);
-
-	/*!
 	 * @brief creates an array of new_size and copys old_size bytes to the array
 	 * @param prt -
 	 * @param old_size needed for copy
